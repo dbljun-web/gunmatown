@@ -329,8 +329,7 @@
 
       </div>
 
-      <div id="massageList" class="massage-list">
-      </div>        </a>
+      <div id="massageList" class="massage-list"></div>
     </main>
 
     <!-- 서울출장마사지 브랜드 소개 섹션 (카드 리스트 하단, 푸터 상단) -->
@@ -645,16 +644,20 @@
 
     </div>
 
-        <script src="js/shop-card-data.js" defer></script>
-    <script src="js/auth-api.js" defer></script>
-    <script src="js/admin-mode.js" defer></script>
-    <script src="js/shop-overrides.js" defer></script>
-    <script src="js/common-components.js" defer></script>
-    <script src="js/script.js" defer></script>
+        <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', async () => {
-        if (typeof applyShopOverridesToCardData === 'function') {
-          await applyShopOverridesToCardData();
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
+          }
+        } catch (e) {
+          console.warn(e);
         }
         if (typeof initAuthUi === 'function') initAuthUi();
       });

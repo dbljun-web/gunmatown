@@ -1,6 +1,10 @@
 async function applyShopOverridesToCardData() {
   if (!Array.isArray(window.shopCardData)) return window.shopCardData || [];
   if (typeof fetchShopOverrides !== "function") return window.shopCardData;
+  // file:// 로컬 열기에서는 CORS로 API 호출 불가 → 원본 데이터만 사용
+  if (typeof location !== "undefined" && location.protocol === "file:") {
+    return window.shopCardData;
+  }
 
   try {
     const payload = await Promise.race([

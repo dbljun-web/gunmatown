@@ -1,6 +1,14 @@
-const AUTH_API_BASE =
-  (typeof localStorage !== "undefined" && localStorage.getItem("twon-api-base")) ||
-  "https://twon-api.pages.dev";
+const AUTH_API_BASE = (() => {
+  try {
+    return (
+      (typeof localStorage !== "undefined" &&
+        localStorage.getItem("twon-api-base")) ||
+      "https://twon-api.pages.dev"
+    );
+  } catch {
+    return "https://twon-api.pages.dev";
+  }
+})();
 const AUTH_TOKEN_KEY = "twon-auth-token";
 const AUTH_USER_KEY = "twon-auth-user";
 
@@ -13,13 +21,21 @@ function getAuthToken() {
 }
 
 function setAuthSession(token, user) {
-  localStorage.setItem(AUTH_TOKEN_KEY, token);
-  localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+  try {
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+  } catch {
+    /* file:// 등에서 저장 불가 */
+  }
 }
 
 function clearAuthSession() {
-  localStorage.removeItem(AUTH_TOKEN_KEY);
-  localStorage.removeItem(AUTH_USER_KEY);
+  try {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+  } catch {
+    /* ignore */
+  }
 }
 
 function getCachedAuthUser() {

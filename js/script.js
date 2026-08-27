@@ -5303,8 +5303,12 @@ async function initializeShopData() {
     const loadedShops = await loadShopCardsFromDataFile();
     massageShops = sortShops(loadedShops || []);
     window.massageShops = massageShops;
-    // 오버라이드는 표시를 막지 않도록 실패/지연 허용
-    if (typeof applyShopOverridesToCardData === 'function') {
+    // 오버라이드는 표시를 막지 않도록 실패/지연 허용 (file:// 제외)
+    if (
+      typeof location !== 'undefined' &&
+      location.protocol !== 'file:' &&
+      typeof applyShopOverridesToCardData === 'function'
+    ) {
       try {
         await applyShopOverridesToCardData();
         massageShops = sortShops(window.shopCardData || massageShops);
