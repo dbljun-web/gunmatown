@@ -5303,10 +5303,15 @@ async function initializeShopData() {
     const loadedShops = await loadShopCardsFromDataFile();
     massageShops = sortShops(loadedShops || []);
     window.massageShops = massageShops;
+    // 오버라이드는 표시를 막지 않도록 실패/지연 허용
     if (typeof applyShopOverridesToCardData === 'function') {
-      await applyShopOverridesToCardData();
-      massageShops = sortShops(window.shopCardData || massageShops);
-      window.massageShops = massageShops;
+      try {
+        await applyShopOverridesToCardData();
+        massageShops = sortShops(window.shopCardData || massageShops);
+        window.massageShops = massageShops;
+      } catch (e) {
+        console.warn('shop overrides skipped', e);
+      }
     }
   } catch (error) {
     console.error('업체 데이터 초기화 중 오류:', error);
@@ -6703,7 +6708,8 @@ function displayFilteredResults() {
   const isMainPage =
     window.location.pathname.includes('index.html') ||
     window.location.pathname === '/' ||
-    window.location.pathname === '';
+    window.location.pathname === '' ||
+    /\/twon\/?$/i.test(window.location.pathname);
   let title = isMainPage ? '전체 마사지사이트 업체' : '전체 마사지 업체';
 
   // 검색어가 있으면 제목에 검색어 표시
@@ -9158,18 +9164,24 @@ async function initializeApp() {
 
     if (lastSegment.endsWith('.html')) {
       // 파일 기반 URL
-      if (lastSegment === 'index.html' && pathSegments.length > 1) {
-        // .../region/district/.../index.html → region-district-... 형태로 복원
-        currentFileName = pathSegments
-          .slice(0, pathSegments.length - 1)
-          .join('-');
+      if (lastSegment === 'index.html') {
+        // /twon/index.html, /index.html 모두 메인으로 처리
+        currentFileName = 'index';
       } else {
         // 일반적인 xxx.html
         currentFileName = lastSegment.replace('.html', '');
       }
     } else {
-      // 폴더 기반 URL (예: /seoul/, /seoul/gangnam/)
-      currentFileName = pathSegments.join('-');
+      // 폴더 기반 URL
+      // GitHub Pages 프로젝트 루트(/twon/)는 districtMap에 없는 단일 세그먼트 → index
+      if (
+        pathSegments.length === 1 &&
+        !(window.districtMap && window.districtMap[pathSegments[0]])
+      ) {
+        currentFileName = 'index';
+      } else {
+        currentFileName = pathSegments.join('-');
+      }
     }
   }
 

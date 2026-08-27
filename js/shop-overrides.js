@@ -3,7 +3,12 @@ async function applyShopOverridesToCardData() {
   if (typeof fetchShopOverrides !== "function") return window.shopCardData;
 
   try {
-    const payload = await fetchShopOverrides();
+    const payload = await Promise.race([
+      fetchShopOverrides(),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("shop overrides timeout")), 2500)
+      ),
+    ]);
     const deleted = new Set((payload.deletedIds || []).map(String));
     const map = new Map();
     (payload.items || []).forEach((item) => {
@@ -18,7 +23,6 @@ async function applyShopOverridesToCardData() {
         return patch ? { ...shop, ...patch, id: shop.id } : shop;
       });
 
-    // 신규 추가 오버라이드(원본에 없는 id)
     map.forEach((data, id) => {
       if (window.shopCardData.some((s) => String(s.id) === id)) return;
       if (data && data.id != null) window.shopCardData.push({ ...data, id: data.id });
