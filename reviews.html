@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>reviews 마사지 BEST 샵 | 지금 가장 핫 업체</title><link rel="canonical" href="https://msg1000.com/reviews.html" />
+<link rel="preload" href="css/style.css" as="style" />
+
+<link rel="stylesheet" href="css/style.css" />
+    
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f6fa;
+      }
+
+      .review-header {
+        background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .review-header h1 {
+        margin: 0;
+        font-size: 24px;
+        flex: 1;
+      }
+
+      .review-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .review-actions {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(25, 84, 123, 0.4);
+      }
+
+      .review-list {
+        display: grid;
+        gap: 20px;
+      }
+
+      .review-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .review-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .review-header-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+
+      .review-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .review-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      .review-author-info h3 {
+        margin: 0 0 3px 0;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .review-author-info p {
+        margin: 0;
+        font-size: 13px;
+        color: #999;
+      }
+
+      .review-rating {
+        display: flex;
+        gap: 3px;
+        color: #ffc107;
+        font-size: 18px;
+      }
+
+      .review-content {
+        margin: 15px 0;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .review-meta {
+        display: flex;
+        gap: 15px;
+        font-size: 13px;
+        color: #999;
+        padding-top: 15px;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .review-shop {
+        display: inline-block;
+        background: #f8f9fa;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        color: #19547b;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      /* 모달.modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        padding: 20px;
+      }
+
+      .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 12px;
+        max-width: 600px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        padding: 20px 30px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+      }
+
+      .modal-body {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .form-input,
+      .form-textarea,
+      .form-select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: #19547b;
+      }
+
+      .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .rating-input {
+        display: flex;
+        gap: 10px;
+        font-size: 30px;
+      }
+
+      .rating-star {
+        cursor: pointer;
+        color: #ddd;
+        transition: color 0.2s;
+      }
+
+      .rating-star.active {
+        color: #ffc107;
+      }
+
+      .rating-star:hover {
+        color: #ffc107;
+      }
+
+      .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+        color: #666;
+        background: white;
+        border-radius: 12px;
+      }
+
+      .empty-state i {
+        font-size: 64px;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+    </style>
+  
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="reviews 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta property="og:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+    <meta property="og:url" content="https://msg1000.com/reviews.html" />
+    <meta property="og:site_name" content="서울출장마사지" />
+    <meta property="og:locale" content="ko_KR" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="reviews 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta name="twitter:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+</head>
+  <body>
+    <div id="massageList">
+      </div>
+
+      <script>
+      // 관련정보 버튼 클릭 이벤트 리스너
+      document.addEventListener('DOMContentLoaded', function() {
+        const relatedInfoBtn = document.getElementById('relatedInfoBtn');
+        if (relatedInfoBtn) {
+          relatedInfoBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const modal = document.getElementById('relatedInfoModal');
+            if (modal) {
+              modal.classList.add('active');
+              modal.style.display = 'flex';
+              modal.style.alignItems = 'flex-start';
+              modal.style.justifyContent = 'center';
+              modal.style.padding = '20px';
+              modal.style.position = 'fixed';
+              modal.style.top = '0';
+              modal.style.left = '0';
+              modal.style.width = '100%';
+              modal.style.height = '100%';
+              modal.style.background = 'rgba(0, 0, 0, 0.6)';
+              modal.style.zIndex = '1000';
+              document.body.style.overflow = 'hidden';
+            }
+          });
+        }
+      });
+
+      // 모달 닫기 함수
+      function closeModal(modalId) {
+        try {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        } catch (error) {
+          console.error('closeModal 오류:', error);
+        }
+      }
+
+      if (typeof window !== 'undefined') {
+        window.closeModal = closeModal;
+      }
+    </script>
+      <script src="js/shop-card-data.js" defer></script>
+    <script src="js/common-components.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+  </body>
+</html>
+/html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .auth-page { max-width: 430px; margin: 0 auto; min-height: 100vh; background: #fff; padding: 24px 16px 40px; box-sizing: border-box; }
+      .auth-page h1 { margin: 0 0 8px; font-size: 1.4rem; }
+      .auth-page .auth-sub { margin: 0 0 20px; color: #666; font-size: 0.92rem; }
+      .auth-form label { display: block; margin-bottom: 12px; font-weight: 600; font-size: 0.9rem; }
+      .auth-form input { width: 100%; margin-top: 6px; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
+      .auth-error { color: #c62828; margin: 8px 0 0; font-size: 0.9rem; }
+      .auth-submit { width: 100%; margin-top: 16px; padding: 14px; border: 0; border-radius: 10px; background: #111; color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer; }
+      .auth-switch { text-align: center; margin-top: 16px; color: #666; }
+      .auth-back { display: inline-block; margin-bottom: 16px; color: #333; text-decoration: none; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <main class="auth-page">
+      <a class="auth-back" href="index.html">← 홈으로</a>
+      <h1>로그인</h1>
+      <p class="auth-sub">햄버거 메뉴에서도 로그인할 수 있습니다.</p>
+      <form class="auth-form" id="login-form">
+        <label>아이디
+          <input type="text" name="username" autocomplete="username" required minlength="4" maxlength="20" />
+        </label>
+        <label>비밀번호
+          <input type="password" name="password" autocomplete="current-password" required minlength="6" />
+        </label>
+        <p class="auth-error" id="login-error" hidden></p>
+        <button type="submit" class="auth-submit">로그인</button>
+        <p class="auth-switch">계정이 없으신가요? <a href="signup.html">회원가입</a></p>
+      </form>
+    </main>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script>
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const errorEl = document.getElementById('login-error');
+        const btn = form.querySelector('button[type="submit"]');
+        errorEl.hidden = true;
+        btn.disabled = true;
+        try {
+          const user = await loginUser({
+            username: form.username.value.trim(),
+            password: form.password.value,
+          });
+          setAdminMode(user.role === 'admin');
+          location.href = 'index.html';
+        } catch (err) {
+          errorEl.textContent = err.message || '로그인 실패';
+          errorEl.hidden = false;
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

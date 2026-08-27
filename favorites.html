@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>favorites 마사지 BEST 샵 | 지금 가장 핫 업체</title><link rel="canonical" href="https://msg1000.com/favorites.html" />
+<link rel="preload" href="css/style.css" as="style" />
+
+<link rel="stylesheet" href="css/style.css" />
+    
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f6fa;
+      }
+
+      .favorites-header {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: all 0.3s;
+      }
+
+      .favorites-header h1 {
+        margin: 0;
+        font-size: 24px;
+        flex: 1;
+      }
+
+      .favorites-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .shop-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .shop-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .shop-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 48px;
+      }
+
+      .favorite-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #ff4757;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+      }
+
+      .favorite-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .shop-content {
+        padding: 20px;
+      }
+
+      .shop-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .shop-location {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .shop-rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #ffc107;
+        font-size: 14px;
+      }
+
+      .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+        color: #666;
+        background: white;
+        border-radius: 12px;
+      }
+
+      .empty-state i {
+        font-size: 64px;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+    </style>
+  
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="favorites 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta property="og:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+    <meta property="og:url" content="https://msg1000.com/favorites.html" />
+    <meta property="og:site_name" content="서울출장마사지" />
+    <meta property="og:locale" content="ko_KR" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="favorites 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta name="twitter:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+</head>
+  <body>
+    <div id="massageList">
+      </div>
+
+      <script>
+      // 관련정보 버튼 클릭 이벤트 리스너
+      document.addEventListener('DOMContentLoaded', function() {
+        const relatedInfoBtn = document.getElementById('relatedInfoBtn');
+        if (relatedInfoBtn) {
+          relatedInfoBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const modal = document.getElementById('relatedInfoModal');
+            if (modal) {
+              modal.classList.add('active');
+              modal.style.display = 'flex';
+              modal.style.alignItems = 'flex-start';
+              modal.style.justifyContent = 'center';
+              modal.style.padding = '20px';
+              modal.style.position = 'fixed';
+              modal.style.top = '0';
+              modal.style.left = '0';
+              modal.style.width = '100%';
+              modal.style.height = '100%';
+              modal.style.background = 'rgba(0, 0, 0, 0.6)';
+              modal.style.zIndex = '1000';
+              document.body.style.overflow = 'hidden';
+            }
+          });
+        }
+      });
+
+      // 모달 닫기 함수
+      function closeModal(modalId) {
+        try {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        } catch (error) {
+          console.error('closeModal 오류:', error);
+        }
+      }
+
+      if (typeof window !== 'undefined') {
+        window.closeModal = closeModal;
+      }
+    </script>
+      <script src="js/shop-card-data.js" defer></script>
+    <script src="js/common-components.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+  </body>
+</html>
+/html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event 마사지 BEST 샵 | 지금 가장 핫 업체</title><link rel="canonical" href="https://msg1000.com/event.html" />
+<link rel="preload" href="css/style.css" as="style" />
+
+<link rel="stylesheet" href="css/style.css" />
+    
+    
+    
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f6fa;
+      }
+
+      .event-header {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .event-header h1 {
+        margin: 0;
+        font-size: 24px;
+        flex: 1;
+      }
+
+      .event-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .event-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 20px;
+      }
+
+      .event-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+
+      .event-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .event-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 48px;
+      }
+
+      .event-content {
+        padding: 20px;
+      }
+
+      .event-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .badge-active {
+        background: #d4edda;
+        color: #155724;
+      }
+
+      .badge-ended {
+        background: #f8d7da;
+        color: #721c24;
+      }
+
+      .event-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .event-description {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .event-period {
+        font-size: 14px;
+        color: #999;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+        color: #666;
+        background: white;
+        border-radius: 12px;
+      }
+
+      .empty-state i {
+        font-size: 64px;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+
+      /* 모달 */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 12px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        padding: 20px 30px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .modal-header h2 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: white;
+        transition: opacity 0.3s;
+      }
+
+      .modal-close:hover {
+        opacity: 0.8;
+      }
+
+      .modal-body {
+        padding: 30px;
+      }
+
+      .event-detail-content {
+        line-height: 1.8;
+        font-size: 16px;
+        color: #333;
+        white-space: pre-wrap;
+      }
+
+      .event-detail-period {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        color: #f5576c;
+      }
+
+      @media (max-width: 768px) {
+        .event-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="event 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta property="og:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+    <meta property="og:url" content="https://msg1000.com/event.html" />
+    <meta property="og:site_name" content="서울출장마사지" />
+    <meta property="og:locale" content="ko_KR" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="event 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta name="twitter:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+</head>
+  <body>
+    <div id="header-container"></div>
+    
+    <div class="event-header">
+      <button class="back-btn" onclick="window.history.back()">←</button>
+      <h1>이벤트</h1>
+    </div>
+
+    <main class="event-container">
+      <div class="event-grid" id="eventGrid">
+        <div class="event-card" onclick="openEventDetail(1)">
+          <div class="event-image">🎁</div>
+          <div class="event-content">
+            <span class="event-badge badge-active">진행중</span>
+            <div class="event-title">신규 회원 가입 이벤트</div>
+            <div class="event-description">신규 가입 시 첫 예약 20% 할인 혜택을 드립니다!</div>
+            <div class="event-period">📅 2025-11-23 ~ 2025-12-31</div>
+          </div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail(2)">
+          <div class="event-image">🎉</div>
+          <div class="event-content">
+            <span class="event-badge badge-active">진행중</span>
+            <div class="event-title">친구 추천 이벤트</div>
+            <div class="event-description">친구를 추천하면 양쪽 모두 10,000원 적립금을 드립니다!</div>
+            <div class="event-period">📅 2025-11-20 ~ 2025-12-31</div>
+          </div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail(3)">
+          <div class="event-image">💝</div>
+          <div class="event-content">
+            <span class="event-badge badge-active">진행중</span>
+            <div class="event-title">주말 특가 이벤트</div>
+            <div class="event-description">주말 예약 시 추가 10% 할인 혜택을 제공합니다!</div>
+            <div class="event-period">📅 매주 토요일, 일요일</div>
+          </div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail(4)">
+          <div class="event-image">⭐</div>
+          <div class="event-content">
+            <span class="event-badge badge-active">진행중</span>
+            <div class="event-title">리뷰 작성 이벤트</div>
+            <div class="event-description">이용 후 리뷰를 작성하시면 다음 이용 시 5,000원 할인 쿠폰을 드립니다!</div>
+            <div class="event-period">📅 상시 진행</div>
+          </div>
+        </div>
+
+        <div class="event-card" onclick="openEventDetail(5)">
+          <div class="event-image">🎊</div>
+          <div class="event-content">
+            <span class="event-badge badge-ended">종료</span>
+            <div class="event-title">오픈 기념 이벤트</div>
+            <div class="event-description">서비스 오픈을 기념하여 진행했던 특별 이벤트입니다.</div>
+            <div class="event-period">📅 2025-10-01 ~ 2025-10-31</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 이벤트 상세 모달 -->
+    <div id="eventModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="eventModalTitle">이벤트 상세</h2>
+          <button class="modal-close" onclick="closeEventModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="eventDetail"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const events = [
+        {
+          id: 1,
+          title: '신규 회원 가입 이벤트',
+          description: '신규 가입 시 첫 예약 20% 할인 혜택을 드립니다!',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+신규 회원 가입 이벤트를 진행합니다!
+
+🎁 이벤트 혜택
+- 신규 가입 시 첫 예약 20% 할인
+- 가입 즉시 5,000원 적립금 지급
+
+📅 이벤트 기간
+2025년 11월 23일 ~ 12월 31일
+
+📝 참여 방법
+1. 서울출장마사지 회원 가입
+2. 첫 예약 시 자동 할인 적용
+
+많은 참여 부탁드립니다!`,
+          period: '2025-11-23 ~ 2025-12-31',
+          status: 'active'
+        },
+        {
+          id: 2,
+          title: '친구 추천 이벤트',
+          description: '친구를 추천하면 양쪽 모두 10,000원 적립금을 드립니다!',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+친구 추천 이벤트를 진행합니다!
+
+🎁 이벤트 혜택
+- 추천인: 10,000원 적립금
+- 피추천인: 10,000원 적립금
+
+📅 이벤트 기간
+2025년 11월 20일 ~ 12월 31일
+
+📝 참여 방법
+1. 친구에게 추천 코드 공유
+2. 친구가 가입 후 첫 예약 완료
+3. 양쪽 모두 적립금 지급
+
+많은 참여 부탁드립니다!`,
+          period: '2025-11-20 ~ 2025-12-31',
+          status: 'active'
+        },
+        {
+          id: 3,
+          title: '주말 특가 이벤트',
+          description: '주말 예약 시 추가 10% 할인 혜택을 제공합니다!',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+주말 특가 이벤트를 진행합니다!
+
+🎁 이벤트 혜택
+- 주말(토요일, 일요일) 예약 시 추가 10% 할인
+- 기존 할인과 중복 적용 가능
+
+📅 이벤트 기간
+매주 토요일, 일요일
+
+📝 참여 방법
+1. 주말에 예약하기
+2. 자동으로 추가 할인 적용
+
+많은 이용 부탁드립니다!`,
+          period: '매주 토요일, 일요일',
+          status: 'active'
+        },
+        {
+          id: 4,
+          title: '리뷰 작성 이벤트',
+          description: '이용 후 리뷰를 작성하시면 다음 이용 시 5,000원 할인 쿠폰을 드립니다!',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+리뷰 작성 이벤트를 진행합니다!
+
+🎁 이벤트 혜택
+- 이용 후 리뷰 작성 시 5,000원 할인 쿠폰 지급
+- 다음 예약 시 자동 적용
+
+📅 이벤트 기간
+상시 진행
+
+📝 참여 방법
+1. 마사지 이용 완료
+2. 리뷰 작성
+3. 쿠폰 자동 지급
+
+많은 참여 부탁드립니다!`,
+          period: '상시 진행',
+          status: 'active'
+        },
+        {
+          id: 5,
+          title: '오픈 기념 이벤트',
+          description: '서비스 오픈을 기념하여 진행했던 특별 이벤트입니다.',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+서비스 오픈을 기념하여 진행했던 특별 이벤트입니다.
+
+이벤트는 종료되었지만, 앞으로도 더 많은 이벤트를 준비하겠습니다!
+
+감사합니다.`,
+          period: '2025-10-01 ~ 2025-10-31',
+          status: 'ended'
+        }
+      ];
+
+      function openEventDetail(id) {
+        const event = events.find(e => e.id === id);
+        if (!event) return;
+
+        const detailHtml = `
+          <div class="event-detail-content">
+            <h3 style="margin-top: 0;">${event.title}</h3>
+            <div class="event-detail-period">
+              📅 기간: ${event.period}
+            </div>
+            <div style="white-space: pre-wrap; line-height: 1.8;">${event.content}</div>
+          </div>
+        `;
+
+        document.getElementById('eventModalTitle').textContent = event.title;
+        document.getElementById('eventDetail').innerHTML = detailHtml;
+        document.getElementById('eventModal').classList.add('active');
+      }
+
+      function closeEventModal() {
+        document.getElementById('eventModal').classList.remove('active');
+      }
+
+      window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+          e.target.classList.remove('active');
+        }
+      });
+    </script>
+    <div id="hamburger-menu-container"></div>
+      <!-- 관련정보 모달 -->
+    <div id="relatedInfoModal" class="modal" role="dialog" aria-labelledby="relatedInfoModalTitle" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="relatedInfoModalTitle">마사지 관련정보</h2>
+          <button class="modal-close" onclick="closeModal('relatedInfoModal')" aria-label="닫기">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="info-section">
+            <h3>📍 마사지 업체별 서비스 안내</h3>
+          </div>
+
+          <div class="info-section">
+            <h3>⭐ 마사지 후기</h3>
+            <p>
+              마사지을(를) 이용한 고객들은 편리한 접근성과 전문적인 서비스에 만족한다는 후기가 많습니다. 
+              특히 주변 지역으로 빠른 방문 서비스를 제공받을 수 있어 비즈니스 여행객들과 주민들에게 인기가 높습니다.
+            </p>
+            <p>
+              많은 고객들이 전문 관리사들의 친절한 서비스와 깔끔한 시설에 대해 긍정적인 평가를 남기고 있으며, 
+              특히 다양한 서비스를 통해 원하는 장소에서 편안하게 마사지를 받을 수 있다는 점이 큰 장점으로 꼽힙니다.
+            </p>
+          </div>
+
+          <div class="info-section">
+            <h3>🗺️ 주변 지역 소개</h3>
+            <p>
+              마사지 주변은 주요 상업지역으로, 다양한 문화시설이 위치해 있습니다. 
+              역세권의 편리한 접근성과 함께 전역으로 빠른 방문 서비스를 제공받을 수 있어 매우 편리합니다.
+            </p>
+            <p>
+              주변 지역은 교통이 발달되어 있어 전지역으로 서비스를 제공하는 업체들이 많습니다. 
+              특히 이 지역을 중심으로 한 지역은 서비스의 주요 수요 지역 중 하나로, 24시간 서비스를 제공하는 업체들이 활발히 운영하고 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <script>
+      // 관련정보 버튼 클릭 이벤트 리스너
+      document.addEventListener('DOMContentLoaded', function() {
+        const relatedInfoBtn = document.getElementById('relatedInfoBtn');
+        if (relatedInfoBtn) {
+          relatedInfoBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const modal = document.getElementById('relatedInfoModal');
+            if (modal) {
+              modal.classList.add('active');
+              modal.style.display = 'flex';
+              modal.style.alignItems = 'flex-start';
+              modal.style.justifyContent = 'center';
+              modal.style.padding = '20px';
+              modal.style.position = 'fixed';
+              modal.style.top = '0';
+              modal.style.left = '0';
+              modal.style.width = '100%';
+              modal.style.height = '100%';
+              modal.style.background = 'rgba(0, 0, 0, 0.6)';
+              modal.style.zIndex = '1000';
+              document.body.style.overflow = 'hidden';
+            }
+          });
+        }
+      });
+
+      // 모달 닫기 함수
+      function closeModal(modalId) {
+        try {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        } catch (error) {
+          console.error('closeModal 오류:', error);
+        }
+      }
+
+      if (typeof window !== 'undefined') {
+        window.closeModal = closeModal;
+      }
+    </script>
+      <script src="js/shop-card-data.js" defer></script>
+    <script src="js/common-components.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+  </body>
+</html>
+/html>

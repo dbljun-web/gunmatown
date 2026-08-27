@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>notice 마사지 BEST 샵 | 지금 가장 핫 업체</title><link rel="canonical" href="https://msg1000.com/notice.html" />
+<link rel="preload" href="css/style.css" as="style" />
+
+<link rel="stylesheet" href="css/style.css" />
+    
+    
+    
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f6fa;
+      }
+
+      .notice-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid white;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .notice-header h1 {
+        margin: 0;
+        font-size: 24px;
+        flex: 1;
+      }
+
+      .notice-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .notice-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+      }
+
+      .stat-icon.blue {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .stat-icon.green {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      }
+
+      .stat-content h3 {
+        margin: 0 0 5px 0;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .stat-content p {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .notice-actions {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .search-box {
+        display: flex;
+        gap: 10px;
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-secondary {
+        background: #f8f9fa;
+        color: #333;
+        border: 1px solid #dee2e6;
+      }
+
+      .btn-secondary:hover {
+        background: #e9ecef;
+      }
+
+      .notice-list {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .notice-item {
+        border-bottom: 1px solid #f0f0f0;
+        padding: 20px;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .notice-item:hover {
+        background: #f8f9fa;
+      }
+
+      .notice-item:last-child {
+        border-bottom: none;
+      }
+
+      .notice-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .badge-important {
+        background: #fee;
+        color: #c33;
+      }
+
+      .badge-new {
+        background: #e3f2fd;
+        color: #1976d2;
+      }
+
+      .badge-event {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .notice-content {
+        flex: 1;
+      }
+
+      .notice-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .notice-meta {
+        font-size: 14px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .notice-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+      }
+
+      .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+        color: #666;
+      }
+
+      .empty-state i {
+        font-size: 64px;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+
+      .empty-state h3 {
+        margin: 0 0 10px 0;
+        color: #333;
+      }
+
+      /* 모달 */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 12px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        padding: 20px 30px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+        transition: color 0.3s;
+      }
+
+      .modal-close:hover {
+        color: #333;
+      }
+
+      .modal-body {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .form-input,
+      .form-textarea,
+      .form-select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .notice-detail {
+        line-height: 1.8;
+      }
+
+      .notice-detail-header {
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f0f0f0;
+        margin-bottom: 30px;
+      }
+
+      .notice-detail-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .notice-detail-meta {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .notice-detail-content {
+        font-size: 16px;
+        color: #333;
+        white-space: pre-wrap;
+      }
+
+      @media (max-width: 768px) {
+        .notice-header h1 {
+          font-size: 20px;
+        }
+
+        .notice-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .notice-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .search-box {
+          width: 100%;
+        }
+      }
+    </style>
+  
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="notice 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta property="og:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+    <meta property="og:url" content="https://msg1000.com/notice.html" />
+    <meta property="og:site_name" content="서울출장마사지" />
+    <meta property="og:locale" content="ko_KR" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="notice 마사지 BEST 샵 | 지금 가장 핫 업체" />
+    <meta name="twitter:description" content="서울출장마사지에서 지역별 마사지 정보를 확인하세요." />
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630?text=서울출장마사지" />
+</head>
+  <body>
+    <div id="header-container"></div>
+    
+    <div class="notice-header">
+      <button class="back-btn" onclick="window.history.back()">←</button>
+      <h1>공지사항</h1>
+    </div>
+
+    <main class="notice-container">
+      <div class="notice-stats">
+        <div class="stat-card">
+          <div class="stat-icon blue">📢</div>
+          <div class="stat-content">
+            <h3>전체 공지사항</h3>
+            <p id="totalNotices">5</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">🆕</div>
+          <div class="stat-content">
+            <h3>새 공지사항</h3>
+            <p id="newNotices">2</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-actions">
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="공지사항 검색..."
+          />
+          <button class="btn btn-primary" onclick="searchNotices()">검색</button>
+        </div>
+      </div>
+
+      <div class="notice-list" id="noticeList">
+        <div class="notice-item" onclick="openNoticeDetail(1)">
+          <div class="notice-icon">📢</div>
+          <div class="notice-content">
+            <div class="notice-title">
+              <span class="notice-badge badge-important">중요</span>
+              서비스 이용 안내 및 주의사항
+            </div>
+            <div class="notice-meta">
+              <span>관리자</span>
+              <span>2025-11-25</span>
+              <span>조회수: 125</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-item" onclick="openNoticeDetail(2)">
+          <div class="notice-icon">🆕</div>
+          <div class="notice-content">
+            <div class="notice-title">
+              <span class="notice-badge badge-new">신규</span>
+              마사지 예약 시스템 개선 안내
+            </div>
+            <div class="notice-meta">
+              <span>관리자</span>
+              <span>2025-11-24</span>
+              <span>조회수: 89</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-item" onclick="openNoticeDetail(3)">
+          <div class="notice-icon">📢</div>
+          <div class="notice-content">
+            <div class="notice-title">
+              <span class="notice-badge badge-event">이벤트</span>
+              신규 회원 가입 이벤트 진행 중
+            </div>
+            <div class="notice-meta">
+              <span>관리자</span>
+              <span>2025-11-23</span>
+              <span>조회수: 156</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-item" onclick="openNoticeDetail(4)">
+          <div class="notice-icon">📢</div>
+          <div class="notice-content">
+            <div class="notice-title">
+              <span class="notice-badge badge-important">중요</span>
+              개인정보 처리방침 변경 안내
+            </div>
+            <div class="notice-meta">
+              <span>관리자</span>
+              <span>2025-11-20</span>
+              <span>조회수: 203</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-item" onclick="openNoticeDetail(5)">
+          <div class="notice-icon">📢</div>
+          <div class="notice-content">
+            <div class="notice-title">
+              <span class="notice-badge badge-new">신규</span>
+              마사지샵 등록 절차 안내
+            </div>
+            <div class="notice-meta">
+              <span>관리자</span>
+              <span>2025-11-18</span>
+              <span>조회수: 67</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 상세 모달 -->
+    <div id="detailModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>공지사항 상세</h2>
+          <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="noticeDetail"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const notices = [
+        {
+          id: 1,
+          title: '서비스 이용 안내 및 주의사항',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+서비스를 이용하시기 전에 다음 사항을 확인해 주시기 바랍니다.
+
+1. 예약 및 취소 정책
+- 예약은 최소 2시간 전까지 가능합니다.
+- 취소는 이용 1시간 전까지 가능하며, 이후 취소 시 위약금이 발생할 수 있습니다.
+
+2. 이용 시 주의사항
+- 건강 상태가 좋지 않으신 경우 사전에 관리사에게 알려주시기 바랍니다.
+- 서비스 이용 중 불편사항이 있으시면 즉시 말씀해 주시기 바랍니다.
+
+3. 문의사항
+- 기타 문의사항은 고객센터(0507-1859-XXXX)로 연락 주시기 바랍니다.
+
+감사합니다.`,
+          type: 'important',
+          date: '2025-11-25',
+          author: '관리자',
+          views: 125
+        },
+        {
+          id: 2,
+          title: '마사지 예약 시스템 개선 안내',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+더욱 편리한 예약 서비스를 제공하기 위해 예약 시스템을 개선했습니다.
+
+주요 개선사항:
+1. 실시간 예약 가능 시간 확인
+2. 간편한 예약 취소 및 변경
+3. 예약 내역 자동 저장
+
+앞으로도 더 나은 서비스로 보답하겠습니다.`,
+          type: 'new',
+          date: '2025-11-24',
+          author: '관리자',
+          views: 89
+        },
+        {
+          id: 3,
+          title: '신규 회원 가입 이벤트 진행 중',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+신규 회원 가입 이벤트를 진행합니다!
+
+이벤트 기간: 2025년 11월 23일 ~ 12월 31일
+
+혜택:
+- 신규 가입 시 첫 예약 20% 할인
+- 친구 추천 시 양쪽 모두 10,000원 적립금 지급
+
+많은 참여 부탁드립니다!`,
+          type: 'event',
+          date: '2025-11-23',
+          author: '관리자',
+          views: 156
+        },
+        {
+          id: 4,
+          title: '개인정보 처리방침 변경 안내',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+개인정보 보호법 개정에 따라 개인정보 처리방침을 변경하였습니다.
+
+주요 변경사항:
+1. 개인정보 보유기간 명확화
+2. 제3자 제공 동의 절차 개선
+3. 개인정보 열람 및 정정 요청 절차 안내
+
+자세한 내용은 개인정보 처리방침 페이지를 확인해 주시기 바랍니다.`,
+          type: 'important',
+          date: '2025-11-20',
+          author: '관리자',
+          views: 203
+        },
+        {
+          id: 5,
+          title: '마사지샵 등록 절차 안내',
+          content: `안녕하세요. 서울출장마사지입니다.
+
+마사지샵 등록을 원하시는 업체를 위한 등록 절차를 안내드립니다.
+
+등록 절차:
+1. 홈페이지에서 '업체 등록' 메뉴 클릭
+2. 필수 정보 입력 (업체명, 주소, 연락처 등)
+3. 서류 제출 (사업자등록증, 인허가증 등)
+4. 심사 및 승인 (약 3~5일 소요)
+5. 등록 완료
+
+문의사항은 고객센터로 연락 주시기 바랍니다.`,
+          type: 'new',
+          date: '2025-11-18',
+          author: '관리자',
+          views: 67
+        }
+      ];
+
+      function openNoticeDetail(id) {
+        const notice = notices.find(n => n.id === id);
+        if (!notice) return;
+
+        const detailHtml = `
+          <div class="notice-detail">
+            <div class="notice-detail-header">
+              <div class="notice-detail-title">${notice.title}</div>
+              <div class="notice-detail-meta">
+                <span>작성자: ${notice.author}</span>
+                <span>작성일: ${notice.date}</span>
+                <span>조회수: ${notice.views}</span>
+              </div>
+            </div>
+            <div class="notice-detail-content">${notice.content.replace(/\n/g, '<br>')}</div>
+          </div>
+        `;
+
+        document.getElementById('noticeDetail').innerHTML = detailHtml;
+        document.getElementById('detailModal').classList.add('active');
+      }
+
+      function closeDetailModal() {
+        document.getElementById('detailModal').classList.remove('active');
+      }
+
+      function searchNotices() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const noticeItems = document.querySelectorAll('.notice-item');
+        
+        noticeItems.forEach(item => {
+          const title = item.querySelector('.notice-title').textContent.toLowerCase();
+          if (title.includes(searchTerm)) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+
+      document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchNotices();
+        }
+      });
+
+      window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+          e.target.classList.remove('active');
+        }
+      });
+    </script>
+    <div id="hamburger-menu-container"></div>
+      <!-- 관련정보 모달 -->
+    <div id="relatedInfoModal" class="modal" role="dialog" aria-labelledby="relatedInfoModalTitle" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="relatedInfoModalTitle">마사지 관련정보</h2>
+          <button class="modal-close" onclick="closeModal('relatedInfoModal')" aria-label="닫기">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="info-section">
+            <h3>📍 마사지 업체별 서비스 안내</h3>
+          </div>
+
+          <div class="info-section">
+            <h3>⭐ 마사지 후기</h3>
+            <p>
+              마사지을(를) 이용한 고객들은 편리한 접근성과 전문적인 서비스에 만족한다는 후기가 많습니다. 
+              특히 주변 지역으로 빠른 방문 서비스를 제공받을 수 있어 비즈니스 여행객들과 주민들에게 인기가 높습니다.
+            </p>
+            <p>
+              많은 고객들이 전문 관리사들의 친절한 서비스와 깔끔한 시설에 대해 긍정적인 평가를 남기고 있으며, 
+              특히 다양한 서비스를 통해 원하는 장소에서 편안하게 마사지를 받을 수 있다는 점이 큰 장점으로 꼽힙니다.
+            </p>
+          </div>
+
+          <div class="info-section">
+            <h3>🗺️ 주변 지역 소개</h3>
+            <p>
+              마사지 주변은 주요 상업지역으로, 다양한 문화시설이 위치해 있습니다. 
+              역세권의 편리한 접근성과 함께 전역으로 빠른 방문 서비스를 제공받을 수 있어 매우 편리합니다.
+            </p>
+            <p>
+              주변 지역은 교통이 발달되어 있어 전지역으로 서비스를 제공하는 업체들이 많습니다. 
+              특히 이 지역을 중심으로 한 지역은 서비스의 주요 수요 지역 중 하나로, 24시간 서비스를 제공하는 업체들이 활발히 운영하고 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <script>
+      // 관련정보 버튼 클릭 이벤트 리스너
+      document.addEventListener('DOMContentLoaded', function() {
+        const relatedInfoBtn = document.getElementById('relatedInfoBtn');
+        if (relatedInfoBtn) {
+          relatedInfoBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const modal = document.getElementById('relatedInfoModal');
+            if (modal) {
+              modal.classList.add('active');
+              modal.style.display = 'flex';
+              modal.style.alignItems = 'flex-start';
+              modal.style.justifyContent = 'center';
+              modal.style.padding = '20px';
+              modal.style.position = 'fixed';
+              modal.style.top = '0';
+              modal.style.left = '0';
+              modal.style.width = '100%';
+              modal.style.height = '100%';
+              modal.style.background = 'rgba(0, 0, 0, 0.6)';
+              modal.style.zIndex = '1000';
+              document.body.style.overflow = 'hidden';
+            }
+          });
+        }
+      });
+
+      // 모달 닫기 함수
+      function closeModal(modalId) {
+        try {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        } catch (error) {
+          console.error('closeModal 오류:', error);
+        }
+      }
+
+      if (typeof window !== 'undefined') {
+        window.closeModal = closeModal;
+      }
+    </script>
+      <script src="js/shop-card-data.js" defer></script>
+    <script src="js/common-components.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+  </body>
+</html>
+/html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>업체 수정</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .edit-page { max-width: 430px; margin: 0 auto; background: #fff; min-height: 100vh; padding: 16px 14px 40px; box-sizing: border-box; }
+      .edit-page h1 { font-size: 1.25rem; margin: 0 0 12px; }
+      .edit-back { display: inline-block; margin-bottom: 12px; color: #333; text-decoration: none; font-weight: 600; }
+      .edit-card-preview { border: 1px solid #eee; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+      .edit-card-preview img { width: 100%; height: 160px; object-fit: cover; display: block; background: #f3f4f6; }
+      .edit-card-preview .body { padding: 12px; }
+      .edit-card-preview .name { font-weight: 800; margin-bottom: 4px; }
+      .edit-card-preview .meta { color: #666; font-size: 0.86rem; }
+      .edit-form label { display: block; margin-bottom: 10px; font-size: 0.88rem; font-weight: 700; color: #333; }
+      .edit-form input, .edit-form textarea, .edit-form select {
+        width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px;
+        box-sizing: border-box; font-size: 0.95rem; font-family: inherit;
+      }
+      .edit-form textarea { min-height: 110px; resize: vertical; }
+      .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
+      .edit-actions button { flex: 1; padding: 12px; border: 0; border-radius: 10px; font-weight: 700; cursor: pointer; }
+      .btn-save { background: #111; color: #fff; }
+      .btn-delete { background: #fee2e2; color: #b91c1c; }
+      .edit-msg { margin-top: 10px; font-size: 0.9rem; }
+      .edit-msg.error { color: #c62828; }
+      .edit-msg.ok { color: #15803d; }
+      .section-label { margin: 18px 0 8px; font-size: 0.95rem; font-weight: 800; border-top: 8px solid #f5f6f8; padding-top: 14px; }
+    </style>
+  </head>
+  <body>
+    <main class="edit-page">
+      <a class="edit-back" id="backLink" href="index.html">← 돌아가기</a>
+      <h1>업체 카드 · 상세 수정</h1>
+      <p id="authGate" style="display:none;color:#c62828;">관리자 로그인이 필요합니다. <a href="login.html">로그인</a></p>
+
+      <div id="editWrap" hidden>
+        <div class="edit-card-preview" id="cardPreview">
+          <img id="previewImage" alt="업체 이미지" />
+          <div class="body">
+            <div class="name" id="previewName"></div>
+            <div class="meta" id="previewMeta"></div>
+            <div class="meta" id="previewPrice"></div>
+          </div>
+        </div>
+
+        <form class="edit-form" id="shop-edit-form">
+          <div class="section-label">카드 정보</div>
+          <label>업체명 <input name="name" required /></label>
+          <label>지역(region) <input name="region" /></label>
+          <label>구/시(district) <input name="district" /></label>
+          <label>동(dong) <input name="dong" /></label>
+          <label>주소 <input name="address" /></label>
+          <label>전화 <input name="phone" /></label>
+          <label>가격 표시(price) <input name="price" /></label>
+          <label>가격 라벨(priceLabel) <input name="priceLabel" /></label>
+          <label>이미지 경로 <input name="image" /></label>
+          <label>타입
+            <select name="type">
+              <option value="마사지">마사지</option>
+              <option value="출장마사지">출장마사지</option>
+            </select>
+          </label>
+          <label>힐링샵
+            <select name="showHealingShop">
+              <option value="true">예</option>
+              <option value="false">아니오</option>
+            </select>
+          </label>
+
+          <div class="section-label">상세 정보</div>
+          <label>소개글 <textarea name="description"></textarea></label>
+          <label>상세내용 <textarea name="detailContent"></textarea></label>
+          <label>오시는 길 <textarea name="directions"></textarea></label>
+          <label>운영시간 <input name="operatingHours" /></label>
+          <label>관리사 정보 <textarea name="staffInfo"></textarea></label>
+          <label>국가(country) <input name="country" placeholder="korea,thailand" /></label>
+
+          <div class="edit-actions">
+            <button type="submit" class="btn-save">저장</button>
+            <button type="button" class="btn-delete" id="deleteBtn">삭제</button>
+          </div>
+          <p class="edit-msg" id="editMsg" hidden></p>
+        </form>
+      </div>
+    </main>
+
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script>
+      let currentShop = null;
+
+      function getShopId() {
+        return new URLSearchParams(location.search).get('id');
+      }
+
+      function fillForm(shop) {
+        const form = document.getElementById('shop-edit-form');
+        const fields = [
+          'name','region','district','dong','address','phone','price','priceLabel',
+          'image','type','description','detailContent','directions','operatingHours',
+          'staffInfo','country'
+        ];
+        fields.forEach((key) => {
+          if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
+        });
+        form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
+        updatePreview(shop);
+      }
+
+      function updatePreview(shop) {
+        document.getElementById('previewImage').src = shop.image || '';
+        document.getElementById('previewName').textContent = shop.name || '';
+        document.getElementById('previewMeta').textContent =
+          [shop.district, shop.dong].filter(Boolean).join(' ') || shop.region || '';
+        document.getElementById('previewPrice').textContent =
+          shop.priceLabel || shop.price || '';
+      }
+
+      function readFormShop(base) {
+        const form = document.getElementById('shop-edit-form');
+        const next = { ...base };
+        [
+          'name','region','district','dong','address','phone','price','priceLabel',
+          'image','type','description','detailContent','directions','operatingHours',
+          'staffInfo','country'
+        ].forEach((key) => {
+          next[key] = form[key].value;
+        });
+        next.showHealingShop = form.showHealingShop.value === 'true';
+        next.typeLabel = next.showHealingShop ? '힐링샵' : '';
+        if (next.image) next.images = [next.image];
+        return next;
+      }
+
+      async function boot() {
+        const id = getShopId();
+        document.getElementById('backLink').href = id ? `detail.html?id=${id}` : 'index.html';
+
+        await fetchCurrentUser();
+        if (!isAdminMode()) {
+          document.getElementById('authGate').style.display = 'block';
+          return;
+        }
+
+        await applyShopOverridesToCardData();
+        const shop = (window.shopCardData || []).find((s) => String(s.id) === String(id));
+        if (!shop) {
+          document.getElementById('authGate').style.display = 'block';
+          document.getElementById('authGate').textContent = '업체를 찾을 수 없습니다.';
+          return;
+        }
+
+        currentShop = shop;
+        document.getElementById('editWrap').hidden = false;
+        fillForm(shop);
+
+        const form = document.getElementById('shop-edit-form');
+        form.addEventListener('input', () => {
+          updatePreview(readFormShop(currentShop));
+        });
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const msg = document.getElementById('editMsg');
+          msg.hidden = true;
+          try {
+            const payload = readFormShop(currentShop);
+            await saveShopOverride(payload.id, payload);
+            currentShop = payload;
+            msg.className = 'edit-msg ok';
+            msg.textContent = '저장되었습니다. 목록/상세에 반영됩니다.';
+            msg.hidden = false;
+          } catch (err) {
+            msg.className = 'edit-msg error';
+            msg.textContent = err.message || '저장 실패';
+            msg.hidden = false;
+          }
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', async () => {
+          if (!confirm('이 업체를 삭제(비공개)할까요?')) return;
+          try {
+            await deleteShopOverride(currentShop.id);
+            alert('삭제되었습니다.');
+            location.href = 'index.html';
+          } catch (err) {
+            alert(err.message || '삭제 실패');
+          }
+        });
+      }
+
+      boot();
+    </script>
+  </body>
+</html>
