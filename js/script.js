@@ -6206,7 +6206,8 @@ function performLocationSearch() {
     const isMainPage =
       window.location.pathname.includes('index.html') ||
       window.location.pathname === '/' ||
-      window.location.pathname === '';
+      window.location.pathname === '' ||
+      /\/twon\/?$/i.test(window.location.pathname);
     const title = isMainPage ? '전체 마사지사이트 업체' : '전체 마사지 업체';
     updateResultsHeader(title, massageShops.length);
     return;
@@ -7263,7 +7264,8 @@ function updateResultsTitleByTheme(selectedTheme) {
       const isMainPage =
         window.location.pathname.includes('index.html') ||
         window.location.pathname === '/' ||
-        window.location.pathname === '';
+        window.location.pathname === '' ||
+        /\/twon\/?$/i.test(window.location.pathname);
       const baseTitle = isMainPage
         ? '전체 마사지사이트 업체'
         : '전체 마사지 업체';
@@ -9924,7 +9926,8 @@ function updateResultsTitle() {
     const isMainPage =
       window.location.pathname.includes('index.html') ||
       window.location.pathname === '/' ||
-      window.location.pathname === '';
+      window.location.pathname === '' ||
+      /\/twon\/?$/i.test(window.location.pathname);
 
     // spa.html 같은 경우 currentFilter가 설정되지 않았을 수 있으므로 파일명으로 확인
     const fileName = window.location.pathname.split('/').pop();
