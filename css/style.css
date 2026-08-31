@@ -3847,6 +3847,27 @@ body.detail-page #shopImage {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.gallery-lightbox-back {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gallery-lightbox-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+}
+
 .gallery-lightbox-close {
   border: 0;
   background: transparent;

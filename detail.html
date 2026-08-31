@@ -16,7 +16,7 @@
     <meta property="og:image" id="ogImage" content="" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" id="twitterImage" content="" />
-    <link rel="stylesheet" href="css/style.css?v=20260831f" />
+    <link rel="stylesheet" href="css/style.css?v=20260831j" />
     <script type="application/ld+json" id="shopJsonLd"></script>
   </head>
   <body class="detail-page">
@@ -66,8 +66,10 @@
             <div class="gallery-lightbox-backdrop" data-lightbox-close></div>
             <div class="gallery-lightbox-panel">
               <header class="gallery-lightbox-header">
-                <span id="galleryLightboxTitle">사진</span>
-                <button type="button" class="gallery-lightbox-close" data-lightbox-close aria-label="닫기">&times;</button>
+                <button type="button" class="gallery-lightbox-back" data-lightbox-close aria-label="뒤로가기">
+                  <span aria-hidden="true">←</span> 뒤로가기
+                </button>
+                <span id="galleryLightboxTitle" class="gallery-lightbox-title">사진</span>
               </header>
               <div class="gallery-lightbox-list" id="galleryLightboxList"></div>
             </div>
@@ -179,6 +181,6 @@
     <script src="js/admin-mode.js"></script>
     <script src="js/shop-overrides.js"></script>
     <script src="js/common-components.js"></script>
-    <script src="js/detail.js?v=20260831g"></script>
+    <script src="js/detail.js?v=20260831j"></script>
   </body>
 </html>
