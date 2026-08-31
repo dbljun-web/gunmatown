@@ -7233,10 +7233,12 @@ function createShopCard(shop) {
 
   const flagsHtml = renderCountryFlagsHtml(shop.country);
   const healingLabel = getTypeName(shop);
+  const typeText = String(shop.type || '');
   const showOutcallBadge =
-    typeof isOutcallType === 'function'
-      ? isOutcallType(shop)
-      : shop.type === '출장마사지' || shop.type === 'outcall';
+    (typeof isOutcallType === 'function' && isOutcallType(shop)) ||
+    (typeof isOutcallShop === 'function' && isOutcallShop(shop)) ||
+    typeText.includes('출장') ||
+    typeText.toLowerCase() === 'outcall';
   const typeBadgesHtml = [
     healingLabel
       ? `<div class="shop-type shop-type-healing">${healingLabel}</div>`
