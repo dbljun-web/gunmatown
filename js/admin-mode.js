@@ -1,4 +1,4 @@
-const ADMIN_STORAGE_KEY = "twon-admin-mode";
+const ADMIN_STORAGE_KEY = "gunmatown-admin-mode";
 
 function getAuthUserSafe() {
   try {

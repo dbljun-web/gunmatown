@@ -2,15 +2,15 @@ const AUTH_API_BASE = (() => {
   try {
     return (
       (typeof localStorage !== "undefined" &&
-        localStorage.getItem("twon-api-base")) ||
-      "https://twon-api.pages.dev"
+        localStorage.getItem("gunmatown-api-base")) ||
+      "https://gunmatown-api.pages.dev"
     );
   } catch {
-    return "https://twon-api.pages.dev";
+    return "https://gunmatown-api.pages.dev";
   }
 })();
-const AUTH_TOKEN_KEY = "twon-auth-token";
-const AUTH_USER_KEY = "twon-auth-user";
+const AUTH_TOKEN_KEY = "gunmatown-auth-token";
+const AUTH_USER_KEY = "gunmatown-auth-user";
 
 function getAuthToken() {
   try {

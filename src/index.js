@@ -485,7 +485,7 @@ export default {
       } else if (request.method === "GET" && path === "/api/health") {
         response = json({
           ok: true,
-          service: "twon-api",
+          service: "gunmatown-api",
           r2: !!env.SHOP_IMAGES,
         });
       } else {

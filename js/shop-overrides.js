@@ -8,7 +8,7 @@ async function applyShopOverridesToCardData(options = {}) {
 
   const timeoutMs =
     options.timeoutMs != null ? Number(options.timeoutMs) : 15000;
-  const CACHE_KEY = "twon-shop-overrides-cache-v1";
+  const CACHE_KEY = "gunmatown-shop-overrides-cache-v1";
 
   function mergePayload(payload) {
     if (!payload || typeof payload !== "object") return;

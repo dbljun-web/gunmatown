@@ -1,11 +1,11 @@
 {
-  "name": "twon",
+  "name": "gunmatown",
   "private": true,
   "scripts": {
-    "dev:api": "wrangler pages dev public-api --d1=DB=msg1000-auth",
-    "deploy:api": "wrangler pages deploy public-api --project-name=twon-api",
-    "db:migrate:local": "wrangler d1 migrations apply msg1000-auth --local",
-    "db:migrate": "wrangler d1 migrations apply msg1000-auth --remote"
+    "dev:api": "wrangler pages dev public-api --d1=DB=gunmatown-auth",
+    "deploy:api": "wrangler pages deploy public-api --project-name=gunmatown-api",
+    "db:migrate:local": "wrangler d1 migrations apply gunmatown-auth --local",
+    "db:migrate": "wrangler d1 migrations apply gunmatown-auth --remote"
   },
   "devDependencies": {
     "wrangler": "^4.120.1"
