@@ -3804,15 +3804,20 @@ body.detail-page #shopImage {
 /* 전체보기 라이트박스: 사진 세로로 쭉 */
 .gallery-lightbox {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2000;
   display: flex;
   align-items: stretch;
   justify-content: center;
+  /* svh = 모바일 주소창/하단바 떠 있을 때 기준 → 하단 UI에 안 잘림 */
   height: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
+  height: 100svh;
+  max-height: 100svh;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .gallery-lightbox[hidden] {
@@ -3891,9 +3896,9 @@ body.detail-page #shopImage {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  /* 마지막 사진이 잘리지 않도록 하단 스크롤 여유 */
-  padding: 0 0 calc(48vh + env(safe-area-inset-bottom, 0px));
+  overscroll-behavior: none;
+  /* 마지막 사진 + 모바일 하단바 여유 */
+  padding: 0 0 calc(40vh + env(safe-area-inset-bottom, 0px));
   touch-action: pan-y;
 }
 
@@ -3905,7 +3910,6 @@ body.detail-page #shopImage {
 
 .gallery-lightbox-item:last-child {
   border-bottom: 0;
-  /* 마지막 이미지 전체가 보이도록 추가 여백 */
   padding-bottom: 24px;
 }
 
@@ -3921,6 +3925,14 @@ body.detail-page #shopImage {
 body.gallery-lightbox-open {
   overflow: hidden;
   touch-action: none;
+  /* 사진 보기 중 하단 전화/지도 바 숨김 */
+}
+
+body.gallery-lightbox-open .detail-action-bar,
+body.gallery-lightbox-open .booking-section {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* 하단 버튼바 = 본문과 동일 폭(430) + 동일 좌우 패딩(14) */

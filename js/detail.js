@@ -362,12 +362,50 @@ function setupShopImages(shop, mainImg) {
 
   let lightboxHistoryPushed = false;
 
+  const syncLightboxViewport = () => {
+    if (!lightbox || lightbox.hidden) return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    // 모바일 주소창/하단바가 올라와도 보이는 영역에만 맞춤
+    lightbox.style.top = `${Math.round(vv.offsetTop)}px`;
+    lightbox.style.left = `${Math.round(vv.offsetLeft)}px`;
+    lightbox.style.width = `${Math.round(vv.width)}px`;
+    lightbox.style.height = `${Math.round(vv.height)}px`;
+    lightbox.style.right = 'auto';
+    lightbox.style.bottom = 'auto';
+  };
+
+  const clearLightboxViewport = () => {
+    if (!lightbox) return;
+    lightbox.style.top = '';
+    lightbox.style.left = '';
+    lightbox.style.width = '';
+    lightbox.style.height = '';
+    lightbox.style.right = '';
+    lightbox.style.bottom = '';
+  };
+
+  const onLightboxViewportChange = () => {
+    if (lightbox && !lightbox.hidden) syncLightboxViewport();
+  };
+
+  const bindLightboxViewport = () => {
+    if (window.__galleryLightboxVvBound) return;
+    window.__galleryLightboxVvBound = true;
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', onLightboxViewportChange);
+      window.visualViewport.addEventListener('scroll', onLightboxViewportChange);
+    }
+    window.addEventListener('resize', onLightboxViewportChange);
+  };
+
   const closeLightbox = (opts = {}) => {
     if (!lightbox) return;
     const wasOpen = !lightbox.hidden;
     lightbox.hidden = true;
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('gallery-lightbox-open');
+    clearLightboxViewport();
     if (!wasOpen) return;
     if (!opts.fromPopstate && lightboxHistoryPushed) {
       lightboxHistoryPushed = false;
@@ -395,12 +433,15 @@ function setupShopImages(shop, mainImg) {
     lightbox.hidden = false;
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.classList.add('gallery-lightbox-open');
+    bindLightboxViewport();
+    syncLightboxViewport();
     if (!alreadyOpen && !lightboxHistoryPushed) {
       history.pushState({ galleryLightbox: true }, '', location.href);
       lightboxHistoryPushed = true;
     }
     // 맨 위부터 전체 스크롤 가능하도록
     requestAnimationFrame(() => {
+      syncLightboxViewport();
       lightboxList.scrollTop = 0;
     });
   };
