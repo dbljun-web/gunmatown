@@ -33,7 +33,10 @@
         width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px;
         box-sizing: border-box; font-size: 0.95rem; font-family: inherit;
       }
-      .edit-form textarea { min-height: 90px; resize: vertical; }
+      .edit-form input[readonly] {
+        background: #f5f6f8;
+        color: #333;
+      }
       .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
       .edit-actions button { flex: 1; padding: 12px; border: 0; border-radius: 10px; font-weight: 700; cursor: pointer; }
       .btn-save { background: #111; color: #fff; }
@@ -121,35 +124,22 @@
         </div>
 
         <form class="edit-form" id="shop-edit-form">
-          <div class="section-label">1. 이미지 · 배지</div>
-          <p class="hint">상세/카드 갤러리. 첫 이미지가 대표입니다.</p>
-          <div class="images-editor" id="imagesEditor"></div>
-          <div class="image-add-bar">
-            <input type="url" id="imageUrlInput" placeholder="https://... 이미지 URL" />
-            <button type="button" class="mini-btn primary" id="addImageUrlBtn">URL추가</button>
-          </div>
-          <div class="image-add-bar" style="margin-top:6px;">
-            <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" />
-            <button type="button" class="mini-btn primary" id="uploadImageBtn">업로드</button>
-          </div>
+          <div class="section-label">1. 기본 정보</div>
+          <label>업체명 <input name="name" required /></label>
           <label>타입
-            <select name="type">
+            <select name="type" id="typeSelect">
               <option value="마사지">마사지</option>
               <option value="출장마사지">출장마사지</option>
+              <option value="스웨디시">스웨디시</option>
+              <option value="타이마사지">타이마사지</option>
+              <option value="아로마마사지">아로마마사지</option>
+              <option value="왁싱">왁싱</option>
+              <option value="중국마사지">중국마사지</option>
+              <option value="발마사지">발마사지</option>
+              <option value="스파">스파</option>
             </select>
           </label>
-          <label>힐링샵
-            <select name="showHealingShop">
-              <option value="true">예</option>
-              <option value="false">아니오</option>
-            </select>
-          </label>
-          <div class="section-label" style="border-top:0;padding-top:8px;margin-top:8px;">국기</div>
-          <div class="flag-picker" id="flagPicker"></div>
-          <input type="hidden" name="country" id="countryInput" />
-
-          <div class="section-label">2. 기본 정보</div>
-          <label>업체명 <input name="name" required /></label>
+          <p class="hint">테마(스웨디시 등) 선택 시 해당 테마 필터에 업체가 노출됩니다.</p>
           <label>지역(region) <input name="region" /></label>
           <label>구/시(district) <input name="district" /></label>
           <label>동(dong) <input name="dong" /></label>
@@ -157,22 +147,18 @@
           <label>전화 <input name="phone" /></label>
           <label>운영시간 <input name="operatingHours" /></label>
 
-          <div class="section-label">3. 코스 · 가격</div>
-          <p class="hint">카테고리/코스 아래 「설명문」을 눌러 설명을 넣을 수 있습니다.</p>
-          <label>가격 표시(price) <input name="price" placeholder="예: 120,000원~" /></label>
-          <label>회원가(memberPrice) <input name="memberPrice" /></label>
-          <label>기존가(originalPrice) <input name="originalPrice" /></label>
-          <label>가격 라벨(priceLabel) <input name="priceLabel" /></label>
+          <div class="section-label">2. 코스 · 가격</div>
+          <p class="hint">코스 가격 중 가장 낮은 값이 카드 「가격 표시」에 자동 반영됩니다.</p>
+          <label>가격 표시(price) <input name="price" placeholder="예: 120,000원~" readonly /></label>
           <div class="courses-editor" id="coursesEditor"></div>
           <div class="course-tools">
             <button type="button" class="mini-btn" id="addCourseCatBtn">카테고리 추가</button>
-            <button type="button" class="mini-btn" id="syncPriceFromCoursesBtn">최저가 → 카드가격</button>
           </div>
 
-          <div class="section-label">4. 오시는 길</div>
+          <div class="section-label">3. 오시는 길</div>
           <label>오시는 길 <textarea name="directions"></textarea></label>
 
-          <div class="section-label">5. 업체소개</div>
+          <div class="section-label">4. 업체소개</div>
           <label>소개글 <textarea name="description" placeholder="업체소개 본문"></textarea></label>
           <label>
             <span class="field-label-row">
@@ -186,13 +172,34 @@
           </label>
           <input type="hidden" name="showOneLiner" id="showOneLinerInput" value="false" />
 
-          <div class="section-label">6. 관리사 정보</div>
+          <div class="section-label">5. 관리사 정보</div>
           <label>관리사 정보 <textarea name="staffInfo" placeholder="이름 나이 등"></textarea></label>
 
-          <div class="section-label">7. 카드 전용</div>
+          <div class="section-label">6. 카드 전용</div>
           <label>카드 인사말(greeting)
             <textarea name="greeting" placeholder="목록 카드에 보이는 인사말"></textarea>
           </label>
+
+          <div class="section-label">7. 이미지 · 배지</div>
+          <p class="hint">상세/카드 갤러리. 첫 이미지가 대표입니다.</p>
+          <div class="images-editor" id="imagesEditor"></div>
+          <div class="image-add-bar">
+            <input type="url" id="imageUrlInput" placeholder="https://... 이미지 URL" />
+            <button type="button" class="mini-btn primary" id="addImageUrlBtn">URL추가</button>
+          </div>
+          <div class="image-add-bar" style="margin-top:6px;">
+            <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" />
+            <button type="button" class="mini-btn primary" id="uploadImageBtn">업로드</button>
+          </div>
+          <label>힐링샵
+            <select name="showHealingShop">
+              <option value="true">예</option>
+              <option value="false">아니오</option>
+            </select>
+          </label>
+          <div class="section-label" style="border-top:0;padding-top:8px;margin-top:8px;">국기</div>
+          <div class="flag-picker" id="flagPicker"></div>
+          <input type="hidden" name="country" id="countryInput" />
 
           <div class="edit-actions">
             <button type="submit" class="btn-save">저장</button>
@@ -264,6 +271,51 @@
           });
         });
         return min;
+      }
+
+      function syncPriceFromLowest() {
+        const form = document.getElementById('shop-edit-form');
+        if (!form || !form.price) return;
+        const min = lowestCoursePrice(editCourses);
+        if (min == null) return;
+        form.price.value = formatPriceNumber(min) + '~';
+      }
+
+      const TYPE_SERVICE_MAP = {
+        마사지: '마사지',
+        출장마사지: '출장마사지',
+        스웨디시: '스웨디시',
+        타이마사지: '타이마사지',
+        아로마마사지: '아로마',
+        왁싱: '왁싱',
+        중국마사지: '중국마사지',
+        발마사지: '발마사지',
+        스파: '스파',
+      };
+
+      function syncServicesForType(services, typeValue) {
+        const list = Array.isArray(services) ? services.slice() : [];
+        const keyword = TYPE_SERVICE_MAP[typeValue] || typeValue;
+        if (!keyword) return list;
+        const has = list.some((s) => {
+          const t = String(s);
+          return t === keyword || t.includes(keyword) || keyword.includes(t);
+        });
+        if (!has) list.unshift(keyword);
+        return list;
+      }
+
+      function ensureTypeOption(typeValue) {
+        const sel = document.getElementById('typeSelect');
+        if (!sel || !typeValue) return;
+        const exists = Array.from(sel.options).some((o) => o.value === typeValue);
+        if (!exists) {
+          const opt = document.createElement('option');
+          opt.value = typeValue;
+          opt.textContent = typeValue;
+          sel.appendChild(opt);
+        }
+        sel.value = typeValue;
       }
 
       function normalizeCourses(courses) {
@@ -431,6 +483,10 @@
               if (inp.dataset.f === 'cat-note') return;
               inp.addEventListener('input', () => {
                 editCourses[ci].items[ii][inp.dataset.f] = inp.value;
+                if (inp.dataset.f === 'price') {
+                  syncPriceFromLowest();
+                  syncPreviewFromState();
+                }
               });
             });
             wrap.querySelector('[data-role="toggle-item-desc"]').addEventListener('click', () => {
@@ -469,13 +525,13 @@
       function fillForm(shop) {
         const form = document.getElementById('shop-edit-form');
         const fields = [
-          'name','region','district','dong','address','phone','price','priceLabel',
-          'originalPrice','memberPrice','type','description','detailContent','directions',
-          'operatingHours','staffInfo','greeting'
+          'name','region','district','dong','address','phone','price','type',
+          'description','detailContent','directions','operatingHours','staffInfo','greeting'
         ];
         fields.forEach((key) => {
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
+        ensureTypeOption(shop.type || '마사지');
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
         setOneLinerVisibility(false);
 
@@ -492,8 +548,9 @@
 
         editCourses = normalizeCourses(shop.courses);
         renderCoursesEditor();
+        syncPriceFromLowest();
 
-        updatePreview(shop);
+        updatePreview(readFormShop(shop));
       }
 
       function updatePreview(shop) {
@@ -532,18 +589,24 @@
         const form = document.getElementById('shop-edit-form');
         const next = { ...base };
         [
-          'name','region','district','dong','address','phone','price','priceLabel',
-          'originalPrice','memberPrice','type','description','detailContent','directions',
-          'operatingHours','staffInfo','greeting'
+          'name','region','district','dong','address','phone','price','type',
+          'description','detailContent','directions','operatingHours','staffInfo','greeting'
         ].forEach((key) => {
           next[key] = form[key].value;
         });
+        // 최저가 자동 반영
+        const min = lowestCoursePrice(editCourses);
+        if (min != null) {
+          next.price = formatPriceNumber(min) + '~';
+          form.price.value = next.price;
+        }
         next.showHealingShop = form.showHealingShop.value === 'true';
         next.showOneLiner = form.showOneLiner.value === 'true';
         next.typeLabel = next.showHealingShop ? '힐링샵' : '';
         next.country = selectedCountries.join(',') || 'korea';
         next.images = editImages.filter(Boolean);
         next.image = next.images[0] || '';
+        next.services = syncServicesForType(base.services || next.services || [], next.type);
         next.courses = editCourses.map((cat) => ({
           category: cat.category || '코스',
           note: cat.note || '',
@@ -552,7 +615,6 @@
             duration: it.duration || '',
             price: it.price || '',
             note: it.note || '',
-            // 원본 description은 유지하되 상세 노출에는 사용하지 않음
             description: it.description || '',
           })),
         }));
@@ -666,17 +728,6 @@
           btn.addEventListener('click', () => {
             setOneLinerVisibility(btn.getAttribute('data-oneliner-vis') === '1');
           });
-        });
-
-        document.getElementById('syncPriceFromCoursesBtn').addEventListener('click', () => {
-          const min = lowestCoursePrice(editCourses);
-          if (min == null) {
-            alert('코스 가격을 먼저 입력해 주세요.');
-            return;
-          }
-          form.price.value = formatPriceNumber(min) + '~';
-          if (!form.memberPrice.value) form.memberPrice.value = formatPriceNumber(min);
-          syncPreviewFromState();
         });
 
         form.addEventListener('submit', async (e) => {
