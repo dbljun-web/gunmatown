@@ -5430,7 +5430,11 @@ function isOutcallShop(shop) {
 function isOutcallType(shop) {
   if (!shop) return false;
   const t = String(shop.type || '').trim();
-  return t === '출장마사지' || t.toLowerCase() === 'outcall';
+  if (t === '출장마사지' || t.toLowerCase() === 'outcall') return true;
+  if (Array.isArray(shop.types) && shop.types.some((x) => String(x).includes('출장'))) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -5462,11 +5466,36 @@ function isMassageType(shop) {
   }
   // type에 '마사지'가 있어도 출장이면 위에서 제외됨
   if (t.includes('마사지')) return true;
+  if (
+    Array.isArray(shop.types) &&
+    shop.types.some((x) => {
+      const s = String(x);
+      return s === '마사지' || (/마사지|스웨디시|타이|아로마|중국|발|스파|왁싱/.test(s) && !/출장/.test(s));
+    })
+  ) {
+    return true;
+  }
   return false;
+}
+
+/** type / types[] / services 에서 테마 키워드 매칭 (다중 타입 지원) */
+function shopMatchesTheme(shop, keywords) {
+  if (!shop || !keywords || !keywords.length) return false;
+  const parts = [];
+  if (shop.type) parts.push(String(shop.type));
+  if (Array.isArray(shop.types)) parts.push(shop.types.map(String).join(' '));
+  if (Array.isArray(shop.services)) parts.push(shop.services.map(String).join(' '));
+  const text = parts.join(' ');
+  const lower = text.toLowerCase();
+  return keywords.some((k) => {
+    const key = String(k);
+    return text.includes(key) || lower.includes(key.toLowerCase());
+  });
 }
 
 window.isOutcallType = isOutcallType;
 window.isMassageType = isMassageType;
+window.shopMatchesTheme = shopMatchesTheme;
 
 function getShopRegionList(shop) {
   const found = [];
@@ -6668,44 +6697,13 @@ function displayFilteredResults() {
     // 출장마사지만
     filteredShops = filteredShops.filter((shop) => isOutcallType(shop));
   } else if (currentFilter === 'waxing') {
-    // 왁싱 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 왁싱이 포함된 경우
-      if (shop.type && shop.type.toLowerCase().includes('왁싱')) {
-        return true;
-      }
-      // services에 왁싱이 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some((service) => {
-          const serviceLower = service.toLowerCase();
-          return (
-            serviceLower.includes('왁싱') ||
-            serviceLower.includes('waxing') ||
-            serviceLower.includes('브라질리언')
-          );
-        })
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['왁싱', 'waxing', '브라질리언'])
+    );
   } else if (currentFilter === 'swedish') {
-    // 스웨디시 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 스웨디시가 포함된 경우
-      if (shop.type && shop.type.includes('스웨디시')) {
-        return true;
-      }
-      // services에 스웨디시가 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some((service) => service.includes('스웨디시'))
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['스웨디시'])
+    );
 
     // 국가별 필터 적용 (출장마사지는 한국, 일본에서 제공)
     if (currentCountry && currentCountry !== 'overall') {
@@ -6731,108 +6729,25 @@ function displayFilteredResults() {
       });
     }
   } else if (currentFilter === 'thai') {
-    // 타이마사지 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 타이마사지가 포함된 경우
-      if (
-        shop.type &&
-        (shop.type.includes('타이') || shop.type.includes('thai'))
-      ) {
-        return true;
-      }
-      // services에 타이마사지가 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some(
-          (service) => service.includes('타이') || service.includes('태국')
-        )
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['타이', 'thai', '태국'])
+    );
   } else if (currentFilter === 'aroma') {
-    // 아로마마사지 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 아로마가 포함된 경우
-      if (shop.type && shop.type.includes('아로마')) {
-        return true;
-      }
-      // services에 아로마가 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some(
-          (service) => service.includes('아로마') || service.includes('에센셜')
-        )
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['아로마', '에센셜'])
+    );
   } else if (currentFilter === 'chinese') {
-    // 중국마사지 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 중국마사지가 포함된 경우
-      if (shop.type && shop.type.includes('중국')) {
-        return true;
-      }
-      // services에 중국마사지가 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some(
-          (service) =>
-            service.includes('중국') ||
-            service.includes('지압') ||
-            service.includes('경락')
-        )
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['중국', '지압', '경락'])
+    );
   } else if (currentFilter === 'foot') {
-    // 발마사지 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 발마사지가 포함된 경우
-      if (shop.type && (shop.type.includes('발') || shop.type === 'foot')) {
-        return true;
-      }
-      // services에 발마사지가 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some(
-          (service) =>
-            service.includes('발') ||
-            service.includes('족욕') ||
-            service.includes('풋')
-        )
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['발마사지', '족욕', '풋', 'foot'])
+    );
   } else if (currentFilter === 'spa') {
-    // 스파 타입
-    filteredShops = filteredShops.filter((shop) => {
-      // type에 스파가 포함된 경우
-      if (shop.type && (shop.type.includes('스파') || shop.type === 'spa')) {
-        return true;
-      }
-      // services에 스파가 포함된 경우
-      if (
-        shop.services &&
-        shop.services.some(
-          (service) =>
-            service.includes('스파') ||
-            service.includes('SPA') ||
-            service.includes('스크럽') ||
-            service.includes('VIP케어')
-        )
-      ) {
-        return true;
-      }
-      return false;
-    });
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesTheme(shop, ['스파', 'SPA', '스크럽', 'VIP케어', 'spa'])
+    );
   } else if (currentFilter !== 'all') {
     filteredShops = filteredShops.filter((shop) => shop.type === currentFilter);
   }
