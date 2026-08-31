@@ -134,8 +134,8 @@
           <div class="section-label">1. 기본 정보</div>
           <label>업체명 <input name="name" required /></label>
           <div style="margin-bottom:10px;">
-            <div style="font-size:0.88rem;font-weight:700;color:#333;">타입 (클릭 선택)</div>
-            <p class="hint">여러 개 선택 가능. 테마 선택 시 해당 필터에 노출됩니다.</p>
+            <div style="font-size:0.88rem;font-weight:700;color:#333;">타입</div>
+            <p class="hint">마사지 또는 출장마사지 중 하나를 선택하세요.</p>
             <div class="type-picker" id="typePicker"></div>
             <input type="hidden" name="type" id="typeInput" value="마사지" />
           </div>
@@ -227,31 +227,9 @@
       let editImages = [];
       let editCourses = [];
       let selectedCountries = [];
-      let selectedTypes = ['마사지'];
+      let selectedType = '마사지';
 
-      const TYPE_OPTIONS = [
-        '마사지',
-        '출장마사지',
-        '스웨디시',
-        '타이마사지',
-        '아로마마사지',
-        '왁싱',
-        '중국마사지',
-        '발마사지',
-        '스파',
-      ];
-
-      const TYPE_SERVICE_MAP = {
-        마사지: '마사지',
-        출장마사지: '출장마사지',
-        스웨디시: '스웨디시',
-        타이마사지: '타이마사지',
-        아로마마사지: '아로마',
-        왁싱: '왁싱',
-        중국마사지: '중국마사지',
-        발마사지: '발마사지',
-        스파: '스파',
-      };
+      const TYPE_OPTIONS = ['마사지', '출장마사지'];
 
       function getShopId() {
         return new URLSearchParams(location.search).get('id');
@@ -305,79 +283,30 @@
         form.price.value = formatPriceNumber(min) + '~';
       }
 
-      const TYPE_MATCHERS = [
-        { key: '출장마사지', test: (t, s) => /출장/.test(t) || /출장/.test(s) },
-        { key: '스웨디시', test: (t, s) => /스웨디시|스웨덴/.test(t) || /스웨디시|스웨덴/.test(s) },
-        { key: '타이마사지', test: (t, s) => /타이|thai/i.test(t) || /타이|태국/.test(s) },
-        { key: '아로마마사지', test: (t, s) => /아로마/.test(t) || /아로마|에센셜/.test(s) },
-        { key: '왁싱', test: (t, s) => /왁싱|waxing/i.test(t) || /왁싱|제모/.test(s) },
-        { key: '중국마사지', test: (t, s) => /중국/.test(t) || /중국|지압|경락/.test(s) },
-        { key: '발마사지', test: (t, s) => /발마사지|^발$|foot/i.test(t) || /발마사지|족욕|풋/.test(s) },
-        { key: '스파', test: (t, s) => /스파|spa/i.test(t) || /스파|SPA|스크럽/.test(s) },
-        { key: '마사지', test: (t, s) => t === '마사지' || t === 'massage' || /(^|[,\s])마사지([,\s]|$)/.test(s) },
-      ];
-
-      function parseTypesFromShop(shop) {
-        if (Array.isArray(shop.types) && shop.types.length) {
-          const fromTypes = shop.types
-            .map(String)
-            .map((t) => t.trim())
-            .filter((t) => TYPE_OPTIONS.includes(t));
-          if (fromTypes.length) return fromTypes;
+      function resolveTypeFromShop(shop) {
+        if (!shop) return '마사지';
+        if (typeof isOutcallType === 'function' && isOutcallType(shop)) return '출장마사지';
+        const t = String(shop.type || '').trim();
+        if (t === '출장마사지' || t.toLowerCase() === 'outcall' || /출장/.test(t)) {
+          return '출장마사지';
         }
-        const typeRaw = String(shop.type || '');
-        if (typeRaw.includes(',')) {
-          const parts = typeRaw
-            .split(',')
-            .map((s) => s.trim())
-            .filter((t) => TYPE_OPTIONS.includes(t));
-          if (parts.length) return parts;
+        if (Array.isArray(shop.types) && shop.types.some((x) => String(x).includes('출장'))) {
+          return '출장마사지';
         }
-        const type = typeRaw;
-        const services = Array.isArray(shop.services)
-          ? shop.services.map(String).join(' ')
-          : '';
-        const picked = [];
-        TYPE_MATCHERS.forEach((m) => {
-          if (m.test(type, services) && !picked.includes(m.key)) picked.push(m.key);
-        });
-        return picked.length ? picked : ['마사지'];
+        return '마사지';
       }
 
-      function resolvePrimaryType(types) {
-        const list = types && types.length ? types : ['마사지'];
-        if (list.includes('출장마사지')) return '출장마사지';
-        if (list.includes('마사지')) return '마사지';
-        for (let i = 0; i < TYPE_OPTIONS.length; i++) {
-          if (list.includes(TYPE_OPTIONS[i])) return TYPE_OPTIONS[i];
-        }
-        return list[0];
-      }
-
-      function syncServicesForTypes(services, types) {
-        const selectedKeywords = (types || [])
-          .map((t) => TYPE_SERVICE_MAP[t] || t)
-          .filter(Boolean);
-        const managedKeywords = Object.values(TYPE_SERVICE_MAP);
-        let list = Array.isArray(services)
-          ? services.filter((s) => {
-              const text = String(s);
-              const managed = managedKeywords.find(
-                (k) => text === k || text.includes(k)
-              );
-              if (!managed) return true;
-              return selectedKeywords.some(
-                (k) => text === k || text.includes(k) || k.includes(text)
-              );
-            })
-          : [];
-        selectedKeywords.forEach((keyword) => {
-          const has = list.some((s) => {
+      function syncOutcallService(services, type) {
+        let list = Array.isArray(services) ? services.slice() : [];
+        if (type === '출장마사지') {
+          const has = list.some((s) => String(s).includes('출장'));
+          if (!has) list.push('출장마사지');
+        } else {
+          list = list.filter((s) => {
             const text = String(s);
-            return text === keyword || text.includes(keyword) || keyword.includes(text);
+            return text !== '출장마사지' && text.toLowerCase() !== 'outcall';
           });
-          if (!has) list.push(keyword);
-        });
+        }
         return list;
       }
 
@@ -385,29 +314,16 @@
         const box = document.getElementById('typePicker');
         if (!box) return;
         box.innerHTML = TYPE_OPTIONS.map((label) => {
-          const on = selectedTypes.includes(label) ? ' is-active' : '';
+          const on = selectedType === label ? ' is-active' : '';
           return `<button type="button" class="type-chip${on}" data-type="${label}">
             <span>${label}</span>
           </button>`;
         }).join('');
-        document.getElementById('typeInput').value = resolvePrimaryType(selectedTypes);
+        document.getElementById('typeInput').value = selectedType;
         box.querySelectorAll('.type-chip').forEach((btn) => {
           btn.addEventListener('click', () => {
-            const key = btn.dataset.type;
-            if (selectedTypes.includes(key)) {
-              if (selectedTypes.length === 1) return;
-              selectedTypes = selectedTypes.filter((k) => k !== key);
-            } else {
-              // 마사지 ↔ 출장마사지는 동시에 하나만
-              if (key === '출장마사지') {
-                selectedTypes = selectedTypes.filter((k) => k !== '마사지');
-              }
-              if (key === '마사지') {
-                selectedTypes = selectedTypes.filter((k) => k !== '출장마사지');
-              }
-              selectedTypes = [...selectedTypes, key];
-            }
-            document.getElementById('typeInput').value = resolvePrimaryType(selectedTypes);
+            selectedType = btn.dataset.type;
+            document.getElementById('typeInput').value = selectedType;
             renderTypePicker();
             updatePreview(readFormShop(currentShop));
           });
@@ -627,7 +543,7 @@
         fields.forEach((key) => {
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
-        selectedTypes = parseTypesFromShop(shop);
+        selectedType = resolveTypeFromShop(shop);
         renderTypePicker();
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
         setOneLinerVisibility(false);
@@ -672,7 +588,7 @@
           t === '출장마사지' ||
           t.toLowerCase() === 'outcall' ||
           /출장/.test(servicesText) ||
-          (selectedTypes && selectedTypes.includes('출장마사지'))
+          selectedType === '출장마사지'
         ) {
           badges.push('<span class="preview-badge outcall">출장샵</span>');
         }
@@ -709,10 +625,10 @@
         next.country = selectedCountries.join(',') || 'korea';
         next.images = editImages.filter(Boolean);
         next.image = next.images[0] || '';
-        next.types = selectedTypes.slice();
-        next.type = resolvePrimaryType(selectedTypes);
+        next.types = [selectedType];
+        next.type = selectedType;
         if (form.type) form.type.value = next.type;
-        next.services = syncServicesForTypes(base.services || next.services || [], selectedTypes);
+        next.services = syncOutcallService(base.services || next.services || [], selectedType);
         next.courses = editCourses.map((cat) => ({
           category: cat.category || '코스',
           note: cat.note || '',
