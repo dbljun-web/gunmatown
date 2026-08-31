@@ -5613,8 +5613,26 @@ body.detail-page .staff-card {
   grid-template-columns: 1.1fr 0.8fr 1fr;
   gap: 8px;
   align-items: center;
-  padding: 8px 0;
+  padding: 8px 0 0;
+  border-bottom: none;
+}
+
+.course-item-block {
+  padding: 0 0 10px;
   border-bottom: 1px solid #eee;
+}
+
+.course-item-block:last-child {
+  border-bottom: none;
+}
+
+.course-item-block .course-table-row {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.course-item-block .course-table-row:only-child {
+  padding-bottom: 8px;
 }
 
 .course-table-row:last-child {
@@ -5626,15 +5644,15 @@ body.detail-page .staff-card {
 }
 
 .course-row-desc {
-  padding: 0 0 12px;
+  padding: 4px 0 0;
   color: #7a8799;
   font-size: 0.86rem;
   line-height: 1.45;
-  border-bottom: 1px solid #eee;
+  border-bottom: none;
 }
 
 .course-table-row + .course-row-desc {
-  margin-top: -2px;
+  margin-top: 0;
   border-top: none;
 }
 

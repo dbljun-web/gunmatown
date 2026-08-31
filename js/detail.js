@@ -210,7 +210,7 @@ function displayShopInfo(shop) {
   const oneLinerEl = document.getElementById('shopOneLiner');
   if (oneLinerEl) {
     const oneLiner = String(shop.detailContent || '').trim();
-    const showOneLiner = shop.showOneLiner !== false && !!oneLiner;
+    const showOneLiner = shop.showOneLiner === true && !!oneLiner;
     if (showOneLiner) {
       oneLinerEl.hidden = false;
       oneLinerEl.style.whiteSpace = 'pre-line';
@@ -1307,20 +1307,22 @@ function displayShopCourses(shop) {
         memberWon != null ? formatCoursePriceWon(memberWon) : rawPrice;
       const priceAttr =
         memberWon != null ? ` data-member-price="${memberWon}"` : '';
+      const itemDesc = String(course.description || '').trim();
+      html += `<div class="course-item-block">`;
       html += `<div class="course-table-row">
         <span class="course-col-name">${name}</span>
         <span class="course-col-time">${duration}</span>
         <span class="course-col-price"${priceAttr}>${priceText}</span>
       </div>`;
-      const itemDesc = String(course.description || '').trim();
       if (itemDesc && !descOnly) {
         html += `<div class="course-row-desc">${escapeCourseHtml(itemDesc)}</div>`;
       }
+      html += `</div>`;
     });
 
     // └ 베이직 코스 ┘ 같은 설명은 해당 코스들 바로 아래
     if (descOnly && title) {
-      html += `<div class="course-row-desc">${escapeCourseHtml(title)}</div>`;
+      html += `<div class="course-item-block"><div class="course-row-desc">${escapeCourseHtml(title)}</div></div>`;
     }
   });
 

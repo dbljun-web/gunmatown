@@ -178,13 +178,13 @@
             <span class="field-label-row">
               <span>한마디</span>
               <span class="vis-toggle" role="group" aria-label="한마디 노출">
-                <button type="button" class="vis-btn is-active" data-oneliner-vis="1">노출</button>
-                <button type="button" class="vis-btn" data-oneliner-vis="0">비노출</button>
+                <button type="button" class="vis-btn" data-oneliner-vis="1">노출</button>
+                <button type="button" class="vis-btn is-active" data-oneliner-vis="0">비노출</button>
               </span>
             </span>
             <textarea name="detailContent" placeholder="상세 페이지에 라벨 없이 내용만 표시"></textarea>
           </label>
-          <input type="hidden" name="showOneLiner" id="showOneLinerInput" value="true" />
+          <input type="hidden" name="showOneLiner" id="showOneLinerInput" value="false" />
 
           <div class="section-label">6. 관리사 정보</div>
           <label>관리사 정보 <textarea name="staffInfo" placeholder="이름 나이 등"></textarea></label>
@@ -474,7 +474,7 @@
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
-        setOneLinerVisibility(shop.showOneLiner !== false);
+        setOneLinerVisibility(shop.showOneLiner === true);
 
         selectedCountries = parseCountries(shop.country);
         document.getElementById('countryInput').value = selectedCountries.join(',');
@@ -536,7 +536,7 @@
           next[key] = form[key].value;
         });
         next.showHealingShop = form.showHealingShop.value === 'true';
-        next.showOneLiner = form.showOneLiner.value !== 'false';
+        next.showOneLiner = form.showOneLiner.value === 'true';
         next.typeLabel = next.showHealingShop ? '힐링샵' : '';
         next.country = selectedCountries.join(',') || 'korea';
         next.images = editImages.filter(Boolean);
