@@ -282,7 +282,7 @@
       </div>
 
       <div id="massageList" class="massage-list">
-      </div>        </a>        
+      </div>        
     </main>
 
     <footer class="footer">
@@ -410,45 +410,26 @@
       </div>
     </div>
 
-        <script src="js/shop-card-data.js" defer></script>
-    <script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer></script>
-<script src="js/script.js" defer>
-      // 페이지 로드 시 서귀포시 지역 자동 선택
-      document.addEventListener('DOMContentLoaded', function () {
-        const regionSelect = document.getElementById('regionSelect');
-        const districtSelect = document.getElementById('districtSelect');
-
-        if (regionSelect) {
-          regionSelect.value = '제주';
-
-          if (typeof updateDistrictOptions === 'function') {
-            updateDistrictOptions('제주');
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
           }
-
-          if (typeof currentRegion !== 'undefined') {
-            currentRegion = '제주';
-          }
+        } catch (e) {
+          console.warn(e);
         }
-
-        setTimeout(function () {
-          if (districtSelect) {
-            districtSelect.value = '서귀포시';
-            if (typeof currentDistrict !== 'undefined') {
-              currentDistrict = '서귀포시';
-            }
-          }
-
-          else {
-            const shops = massageShops.filter(
-              (shop) => shop.region === '제주' && shop.district === '서귀포시'
-            );
-            /* displayMassageShops(shops); */updateResultsHeader('마사지사이트 추천 BEST 샵', shops.length);
-          }
-        }, 100);
+        if (typeof initAuthUi === 'function') initAuthUi();
       });
     </script>
-      <!-- 관련정보 모달 -->
+
+<!-- 관련정보 모달 -->
     <div id="relatedInfoModal" class="modal" role="dialog" aria-labelledby="relatedInfoModalTitle" aria-hidden="true">
       <div class="modal-content">
         <div class="modal-header">

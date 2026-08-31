@@ -417,38 +417,26 @@
       </div>
     </div>
 
-        <script src="js/shop-card-data.js" defer></script>
-    <script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer></script>
-<script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer>
-      document.addEventListener('DOMContentLoaded', function () {
-        const regionSelect = document.getElementById('regionSelect');
-        if (regionSelect) {
-          regionSelect.value = '대구';
-          if (typeof updateDistrictOptions === 'function') {
-            updateDistrictOptions('대구');
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
           }
-          if (typeof currentRegion !== 'undefined') {
-            currentRegion = '대구';
-          }
+        } catch (e) {
+          console.warn(e);
         }
-
-        /* if (typeof displayFilteredResults === 'function') {
-          displayFilteredResults();
-        } */ else if (Array.isArray(window.massageShops)) {
-          const shops = massageShops.filter((shop) => shop.region === '대구');
-          /* if (typeof displayMassageShops === 'function') {
-            /* displayMassageShops(shops); */
-          } */
-          if (typeof updateResultsHeader === 'function') {
-            updateResultsHeader('대구 마사지사이트 추천 BEST 샵', shops.length);
-          }
-        }
+        if (typeof initAuthUi === 'function') initAuthUi();
       });
     </script>
 
-    <div id="hamburger-menu-container"></div>
+<div id="hamburger-menu-container"></div>
 
     <div id="aboutModal" class="modal">
       <div class="modal-content">

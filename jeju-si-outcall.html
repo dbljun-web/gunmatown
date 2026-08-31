@@ -334,8 +334,7 @@
       </div>
 
       <div id="massageList" class="massage-list">
-      </div>
-                </a>        
+      </div>        
     </main>
 
     <footer class="footer">
@@ -495,57 +494,26 @@
       </div>
     </div>
 
-        <script src="js/shop-card-data.js" defer></script>
-    <script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer></script>
-<script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer>
-      document.addEventListener('DOMContentLoaded', function () {
-        if (typeof currentRegion !== 'undefined') {
-          currentRegion = '제주';
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
+          }
+        } catch (e) {
+          console.warn(e);
         }
-
-        const regionSelect = document.getElementById('regionSelect');
-        if (regionSelect) {
-          regionSelect.value = '제주';
-          if (typeof updateDistrictOptions === 'function') {
-            updateDistrictOptions('제주');
-          }
-          const districtSelect = document.getElementById('districtSelect');
-          if (districtSelect) {
-            districtSelect.value = '제주시';
-            districtSelect.disabled = false;
-            districtSelect.style.opacity = '1';
-          }
-        }
-
-        // 출장마사지 필터 버튼을 기본으로 활성화
-        const outcallFilterBtn = document.querySelector(
-          '[data-filter="outcall"]'
-        );
-        if (outcallFilterBtn) {
-          document.querySelectorAll('.filter-btn').forEach((btn) => {
-            btn.classList.remove('active');
-          });
-          outcallFilterBtn.classList.add('active');
-
-          if (typeof currentFilter !== 'undefined') {
-            currentFilter = 'outcall';
-          }
-
-          // resultsTitle을 "제주시 출장마사지 업체"로 업데이트
-          const resultsTitle = document.getElementById('resultsTitle');
-          if (resultsTitle) {
-            /* resultsTitle.textContent = '제주시 출장마사지 추천 BEST 샵'; */}
-        
-          const resultsH2 = document.querySelector('h2.visually-hidden');
-          if (resultsH2) {
-            resultsH2.textContent = ' (2025년 12월 실시간 순위)';
-          }}
+        if (typeof initAuthUi === 'function') initAuthUi();
       });
     </script>
 
-    <div id="hamburger-menu-container"></div>
+<div id="hamburger-menu-container"></div>
       <!-- 관련정보 모달 -->
     <div id="relatedInfoModal" class="modal" role="dialog" aria-labelledby="relatedInfoModalTitle" aria-hidden="true">
       <div class="modal-content">

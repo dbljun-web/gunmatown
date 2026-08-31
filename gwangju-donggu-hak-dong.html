@@ -715,86 +715,26 @@
       </div>
     </div>
 
-        <script src="js/shop-card-data.js" defer></script>
-    <script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer></script>
-<script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer>
-      document.addEventListener('DOMContentLoaded', function () {
-        if (typeof currentRegion !== 'undefined') {
-          currentRegion = '광주';
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
+          }
+        } catch (e) {
+          console.warn(e);
         }
-
-        const regionSelect = document.getElementById('regionSelect');
-        if (regionSelect) {
-          regionSelect.value = '광주';
-          if (typeof updateDistrictOptions === 'function') {
-            updateDistrictOptions('서울');
-          }
-          const districtSelect = document.getElementById('districtSelect');
-          if (districtSelect) {
-            districtSelect.value = '동구';
-            districtSelect.disabled = false;
-            districtSelect.style.opacity = '1';
-          // 동/역 옵션 업데이트
-          if (typeof updateDongStationOptions === 'function') {
-            updateDongStationOptions('광주', '동구');
-          }
-          // 동/역 선택값 설정 (약간의 지연 후)
-          setTimeout(() => {
-            const dongStationSelect = document.getElementById('dongStationSelect');
-            if (dongStationSelect) {
-              dongStationSelect.value = 'hak-dong';
-              dongStationSelect.disabled = false;
-              dongStationSelect.style.opacity = '1';
-            }
-          }, 200);
-  
-          }
-          if (typeof currentDistrict !== 'undefined') {
-            currentDistrict = '동구';
-          }
-        }
-
-        // 마사지 필터 버튼을 기본으로 활성화
-        const massageFilterBtn = document.querySelector('[data-filter="massage"]'
-        );
-        if (massageFilterBtn) {
-          document.querySelectorAll('.filter-btn').forEach((btn) => {
-            btn.classList.remove('active');
-          });
-          massageFilterBtn.classList.add('active');
-
-          if (typeof currentFilter !== 'undefined') {
-            currentFilter = 'massage';
-          }
-          window.currentFilter = 'massage';
-
-          /* if (typeof displayFilteredResults === 'function') {
-            displayFilteredResults();
-          } */else if (Array.isArray(window.massageShops)) {
-            const shops = massageShops.filter(
-              (shop) => shop.region === '서울' && shop.district === '강남' && shop.type === 'massage'
-            );
-            /* if (typeof displayMassageShops === 'function') {
-              /* displayMassageShops(shops); */} */if (typeof updateResultsHeader === 'function') {
-              updateResultsHeader('강남 마사지 추천 BEST 샵', shops.length);
-            }
-          }
-
-          // resultsTitle을 "서울 강남 마사지 업체"로 업데이트
-          const resultsTitle = document.getElementById('resultsTitle');
-          if (resultsTitle) {
-            /* resultsTitle.textContent = '강남 마사지 추천 BEST 샵'; */}
-        
-          const resultsH2 = document.querySelector('h2.visually-hidden');
-          if (resultsH2) {
-            resultsH2.textContent = ' (2025년 12월 실시간 순위)';
-          }}
+        if (typeof initAuthUi === 'function') initAuthUi();
       });
     </script>
 
-    <!-- 햄버거 메뉴 -->
+<!-- 햄버거 메뉴 -->
     <div id="hamburger-menu-container"></div>
       <script>
       // 관련정보 버튼 클릭 이벤트 리스너

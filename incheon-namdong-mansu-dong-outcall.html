@@ -1,4 +1,20 @@
 
-    <script src="js/shop-card-data.js" defer></script>
-    <script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer></script>
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
+          }
+        } catch (e) {
+          console.warn(e);
+        }
+        if (typeof initAuthUi === 'function') initAuthUi();
+      });
+    </script>
+
