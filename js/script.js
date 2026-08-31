@@ -7251,7 +7251,11 @@ function createShopCard(shop) {
 
                 <div class="card-info">
                     <div class="info-item greeting">
-                        <span>${getGreeting(shop)}</span>
+                        <span>${String(getGreeting(shop))
+                          .replace(/&/g, '&amp;')
+                          .replace(/</g, '&lt;')
+                          .replace(/>/g, '&gt;')
+                          .replace(/"/g, '&quot;')}</span>
                     </div>
                 </div>
 
@@ -7352,10 +7356,9 @@ function filterByType(selectedType) {
 
 // 인사말 반환 (업체별 동적 생성)
 function getGreeting(shop) {
-  // shop-card-data.js에서 greeting 필드가 있으면 우선 사용
-  if (shop.greeting && shop.greeting.trim() !== '') {
-    return shop.greeting;
-  }
+  // shop-card-data / 관리자 오버라이드 greeting 우선
+  const custom = shop && shop.greeting != null ? String(shop.greeting).trim() : '';
+  if (custom) return custom;
   // 관리사 나이 정보 추출
   let ageGroup = '20대';
   if (shop.staffInfo) {

@@ -48,10 +48,11 @@ function getCachedAuthUser() {
 }
 
 async function authApi(path, options = {}) {
-  const headers = {
-    "content-type": "application/json",
-    ...(options.headers || {}),
-  };
+  const headers = { ...(options.headers || {}) };
+  const hasBody = options.body != null && options.body !== "";
+  if (hasBody && !headers["content-type"] && !headers["Content-Type"]) {
+    headers["content-type"] = "application/json";
+  }
   const token = getAuthToken();
   if (token) headers.authorization = `Bearer ${token}`;
 
