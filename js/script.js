@@ -8490,34 +8490,26 @@ function generateFilterLinkUrl(filter, region, district, dongStationKey = '') {
       }
 
       if (regionKey && districtKey) {
-        // 테마 필터인 경우
+        // 동/역 페이지: massage/outcall은 전용 HTML, 테마는 ?filter=
         if (
-          filter === 'swedish' ||
-          filter === 'thai' ||
-          filter === 'aroma' ||
-          filter === 'chinese' ||
-          filter === 'foot' ||
-          filter === 'waxing' ||
-          filter === 'spa'
+          window.getThemePageUrl &&
+          typeof window.getThemePageUrl === 'function'
         ) {
-          if (
-            window.getThemePageUrl &&
-            typeof window.getThemePageUrl === 'function'
-          ) {
-            const themePage = window.getThemePageUrl(
-              filter,
-              region,
-              district,
-              dongStationKey
-            );
-            if (themePage) return themePage;
-          }
-          return `${regionKey}-${districtKey}-${dongStationKey}-${filter}.html`;
-        } else if (filter === 'massage') {
+          const themePage = window.getThemePageUrl(
+            filter,
+            region,
+            district,
+            dongStationKey
+          );
+          if (themePage) return themePage;
+        }
+        if (filter === 'massage') {
           return `${regionKey}-${districtKey}-${dongStationKey}-massage.html`;
-        } else if (filter === 'outcall') {
+        }
+        if (filter === 'outcall') {
           return `${regionKey}-${districtKey}-${dongStationKey}-outcall.html`;
         }
+        return `${regionKey}-${districtKey}-${dongStationKey}.html?filter=${filter}`;
       }
     }
 
