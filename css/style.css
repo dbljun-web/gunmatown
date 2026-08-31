@@ -3892,7 +3892,8 @@ body.detail-page #shopImage {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 0 0 calc(16px + env(safe-area-inset-bottom, 0px));
+  /* 마지막 사진이 잘리지 않도록 하단 스크롤 여유 */
+  padding: 0 0 calc(48vh + env(safe-area-inset-bottom, 0px));
   touch-action: pan-y;
 }
 
@@ -3900,6 +3901,12 @@ body.detail-page #shopImage {
   margin: 0;
   padding: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gallery-lightbox-item:last-child {
+  border-bottom: 0;
+  /* 마지막 이미지 전체가 보이도록 추가 여백 */
+  padding-bottom: 24px;
 }
 
 .gallery-lightbox-item img {
