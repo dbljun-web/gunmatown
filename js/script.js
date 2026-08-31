@@ -5478,23 +5478,55 @@ function isMassageType(shop) {
   return false;
 }
 
-/** type / types[] / services 에서 테마 키워드 매칭 (다중 타입 지원) */
+/**
+ * 테마 필터용 본문 텍스트 (후기·리뷰 제외)
+ * 업체명·소개·상세·코스 등 실제 글만 사용. services SEO 태그는 제외.
+ */
+function getShopThemeBodyText(shop) {
+  if (!shop) return '';
+  const parts = [];
+  const push = (v) => {
+    if (v == null || v === '') return;
+    parts.push(String(v));
+  };
+  push(shop.name);
+  push(shop.description);
+  push(shop.detailContent);
+  push(shop.greeting);
+  push(shop.staffInfo);
+  push(shop.directions);
+  push(shop.type);
+  if (Array.isArray(shop.types)) {
+    shop.types.forEach(push);
+  }
+  (shop.courses || []).forEach((cat) => {
+    push(cat.category);
+    push(cat.note);
+    (cat.items || []).forEach((it) => {
+      push(it.name);
+      push(it.note);
+    });
+  });
+  // reviews / reviewCount / reviewText 등은 의도적으로 제외
+  return parts.join('\n');
+}
+
+/** 업체 본문 글에서 테마 키워드 매칭 (후기 미반영) */
 function shopMatchesTheme(shop, keywords) {
   if (!shop || !keywords || !keywords.length) return false;
-  const parts = [];
-  if (shop.type) parts.push(String(shop.type));
-  if (Array.isArray(shop.types)) parts.push(shop.types.map(String).join(' '));
-  if (Array.isArray(shop.services)) parts.push(shop.services.map(String).join(' '));
-  const text = parts.join(' ');
+  const text = getShopThemeBodyText(shop);
+  if (!text) return false;
   const lower = text.toLowerCase();
   return keywords.some((k) => {
     const key = String(k);
+    if (!key) return false;
     return text.includes(key) || lower.includes(key.toLowerCase());
   });
 }
 
 window.isOutcallType = isOutcallType;
 window.isMassageType = isMassageType;
+window.getShopThemeBodyText = getShopThemeBodyText;
 window.shopMatchesTheme = shopMatchesTheme;
 
 function getShopRegionList(shop) {
@@ -6698,11 +6730,11 @@ function displayFilteredResults() {
     filteredShops = filteredShops.filter((shop) => isOutcallType(shop));
   } else if (currentFilter === 'waxing') {
     filteredShops = filteredShops.filter((shop) =>
-      shopMatchesTheme(shop, ['왁싱', 'waxing', '브라질리언'])
+      shopMatchesTheme(shop, ['왁싱', 'waxing', '브라질리언', '제모'])
     );
   } else if (currentFilter === 'swedish') {
     filteredShops = filteredShops.filter((shop) =>
-      shopMatchesTheme(shop, ['스웨디시'])
+      shopMatchesTheme(shop, ['스웨디시', '스웨덴'])
     );
 
     // 국가별 필터 적용 (출장마사지는 한국, 일본에서 제공)
@@ -6730,7 +6762,7 @@ function displayFilteredResults() {
     }
   } else if (currentFilter === 'thai') {
     filteredShops = filteredShops.filter((shop) =>
-      shopMatchesTheme(shop, ['타이', 'thai', '태국'])
+      shopMatchesTheme(shop, ['타이마사지', '타이', 'thai'])
     );
   } else if (currentFilter === 'aroma') {
     filteredShops = filteredShops.filter((shop) =>
@@ -6738,15 +6770,15 @@ function displayFilteredResults() {
     );
   } else if (currentFilter === 'chinese') {
     filteredShops = filteredShops.filter((shop) =>
-      shopMatchesTheme(shop, ['중국', '지압', '경락'])
+      shopMatchesTheme(shop, ['중국마사지', '중국', '지압'])
     );
   } else if (currentFilter === 'foot') {
     filteredShops = filteredShops.filter((shop) =>
-      shopMatchesTheme(shop, ['발마사지', '족욕', '풋', 'foot'])
+      shopMatchesTheme(shop, ['발마사지', '족욕', '풋케어', '풋마사지'])
     );
   } else if (currentFilter === 'spa') {
     filteredShops = filteredShops.filter((shop) =>
-      shopMatchesTheme(shop, ['스파', 'SPA', '스크럽', 'VIP케어', 'spa'])
+      shopMatchesTheme(shop, ['스파', 'SPA', '스크럽'])
     );
   } else if (currentFilter !== 'all') {
     filteredShops = filteredShops.filter((shop) => shop.type === currentFilter);
@@ -7256,38 +7288,22 @@ function filterByType(selectedType) {
       return;
     }
 
-    // 테마별 서비스 키워드 매핑
+    // 테마별 본문 키워드 (후기·services SEO 태그 제외, shopMatchesTheme 사용)
     const themeKeywords = {
       swedish: ['스웨디시', '스웨덴'],
-      thai: ['타이마사지', '타이', '태국'],
-      aroma: ['아로마', '아로마마사지', '에센셜오일'],
-      waxing: ['왁싱', '제모'],
+      thai: ['타이마사지', '타이', 'thai'],
+      aroma: ['아로마', '에센셜'],
+      waxing: ['왁싱', 'waxing', '브라질리언', '제모'],
       chinese: ['중국마사지', '중국', '지압'],
-      foot: ['발마사지', '족욕', '풋케어', '발'],
-      spa: ['스파', 'SPA', '스크럽', 'VIP케어', '호텔식'],
+      foot: ['발마사지', '족욕', '풋케어', '풋마사지'],
+      spa: ['스파', 'SPA', '스크럽'],
     };
 
     const keywords = themeKeywords[selectedType];
     if (keywords) {
-      filteredShops = massageShops.filter((shop) => {
-        // 서비스 배열에서 키워드 검색
-        if (shop.services && Array.isArray(shop.services)) {
-          return shop.services.some((service) =>
-            keywords.some((keyword) =>
-              service.toLowerCase().includes(keyword.toLowerCase())
-            )
-          );
-        }
-
-        // 설명에서도 키워드 검색
-        if (shop.description) {
-          return keywords.some((keyword) =>
-            shop.description.toLowerCase().includes(keyword.toLowerCase())
-          );
-        }
-
-        return false;
-      });
+      filteredShops = massageShops.filter((shop) =>
+        shopMatchesTheme(shop, keywords)
+      );
     }
   }
 
