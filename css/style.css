@@ -3809,6 +3809,10 @@ body.detail-page #shopImage {
   display: flex;
   align-items: stretch;
   justify-content: center;
+  height: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
 }
 
 .gallery-lightbox[hidden] {
@@ -3828,10 +3832,13 @@ body.detail-page #shopImage {
   max-width: 430px;
   margin: 0 auto;
   height: 100%;
+  max-height: 100%;
+  min-height: 0;
   background: #111;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .gallery-lightbox-header {
@@ -3880,9 +3887,13 @@ body.detail-page #shopImage {
 
 .gallery-lightbox-list {
   flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   padding: 0 0 calc(16px + env(safe-area-inset-bottom, 0px));
+  touch-action: pan-y;
 }
 
 .gallery-lightbox-item {
@@ -3893,13 +3904,16 @@ body.detail-page #shopImage {
 
 .gallery-lightbox-item img {
   width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
   background: #000;
+  vertical-align: top;
 }
 
 body.gallery-lightbox-open {
   overflow: hidden;
+  touch-action: none;
 }
 
 /* 하단 버튼바 = 본문과 동일 폭(430) + 동일 좌우 패딩(14) */

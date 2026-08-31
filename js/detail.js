@@ -382,11 +382,12 @@ function setupShopImages(shop, mainImg) {
     if (lightboxTitle) {
       lightboxTitle.textContent = `${gallery.length}장`;
     }
+    // 항상 전체 사진을 위에서부터 렌더 (현재 인덱스만 보이며 잘리는 문제 방지)
     lightboxList.innerHTML = gallery
       .map(
         (item, i) => `
       <figure class="gallery-lightbox-item" id="galleryLbItem${i}">
-        <img src="${item.src}" alt="${item.alt.replace(/"/g, '&quot;')}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" />
+        <img src="${item.src}" alt="${item.alt.replace(/"/g, '&quot;')}" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async" />
       </figure>`
       )
       .join('');
@@ -398,12 +399,10 @@ function setupShopImages(shop, mainImg) {
       history.pushState({ galleryLightbox: true }, '', location.href);
       lightboxHistoryPushed = true;
     }
-    const focusItem = document.getElementById(`galleryLbItem${index}`);
-    if (focusItem) {
-      focusItem.scrollIntoView({ block: 'start' });
-    } else {
+    // 맨 위부터 전체 스크롤 가능하도록
+    requestAnimationFrame(() => {
       lightboxList.scrollTop = 0;
-    }
+    });
   };
 
   window.__closeGalleryLightbox = (opts) => closeLightbox(opts || {});
