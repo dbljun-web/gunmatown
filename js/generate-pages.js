@@ -308,11 +308,11 @@ function generateRegionPage(regionKor, regionData) {
     <meta name="description" content="${regionKor}마사지 추천 업체 정보. ${regionKor} 전 지역 마사지샵 가격, 위치, 리뷰 정보. ${regionKor} 최고의 마사지를 마사지천국에서 찾아보세요.">
     <meta name="keywords" content="${regionKor}마사지, ${regionKor}건마, ${regionKor}스웨디시, ${regionKor}1인샵, ${regionKor}아로마, 마사지천국">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <link rel="canonical" href="https://msg1000.com/${regionEng}-massage.html">
+    <link rel="canonical" href="https://gunmatown.com/${regionEng}-massage.html">
     
     <meta property="og:type" content="website">
     <meta property="og:title" content="${regionKor}마사지 추천 - ${regionKor} 마사지 업체 모음 | 마사지천국">
-    <meta property="og:url" content="https://msg1000.com/${regionEng}-massage.html">
+    <meta property="og:url" content="https://gunmatown.com/${regionEng}-massage.html">
     <meta property="og:site_name" content="마사지천국">
     
     <link rel="stylesheet" href="style.css">
@@ -382,27 +382,27 @@ function generateRegionPage(regionKor, regionData) {
                     <span class="country-name">전체</span>
                 </div>
                 <div class="country-box" data-country="korea">
-                    <img src="https://www.msg1000.com/images/한국.jpg" alt="한국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/한국.jpg" alt="한국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">한국</span>
                 </div>
                 <div class="country-box" data-country="thai">
-                    <img src="https://www.msg1000.com/images/태국.jpg" alt="태국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/태국.jpg" alt="태국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">태국</span>
                 </div>
                 <div class="country-box" data-country="china">
-                    <img src="https://www.msg1000.com/images/중국.jpg" alt="중국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/중국.jpg" alt="중국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">중국</span>
                 </div>
                 <div class="country-box" data-country="russia">
-                    <img src="https://www.msg1000.com/images/러시아.jpg" alt="러시아" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/러시아.jpg" alt="러시아" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">러시아</span>
                 </div>
                 <div class="country-box" data-country="japan">
-                    <img src="https://www.msg1000.com/images/일본.jpg" alt="일본" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/일본.jpg" alt="일본" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">일본</span>
                 </div>
@@ -419,27 +419,27 @@ function generateRegionPage(regionKor, regionData) {
                     <span class="country-name">전체</span>
                 </div>
                 <div class="country-box" data-country="korea">
-                    <img src="https://www.msg1000.com/images/한국.jpg" alt="한국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/한국.jpg" alt="한국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">한국</span>
                 </div>
                 <div class="country-box" data-country="thai">
-                    <img src="https://www.msg1000.com/images/태국.jpg" alt="태국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/태국.jpg" alt="태국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">태국</span>
                 </div>
                 <div class="country-box" data-country="china">
-                    <img src="https://www.msg1000.com/images/중국.jpg" alt="중국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/중국.jpg" alt="중국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">중국</span>
                 </div>
                 <div class="country-box" data-country="russia">
-                    <img src="https://www.msg1000.com/images/러시아.jpg" alt="러시아" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/러시아.jpg" alt="러시아" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">러시아</span>
                 </div>
                 <div class="country-box" data-country="japan">
-                    <img src="https://www.msg1000.com/images/일본.jpg" alt="일본" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/일본.jpg" alt="일본" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">일본</span>
                 </div>
@@ -566,7 +566,7 @@ function generateDistrictPage(regionKor, districtKor) {
     <meta name="description" content="${districtKor}마사지 추천 업체 정보. ${regionKor} ${districtKor} 마사지샵 가격, 위치, 리뷰 정보. ${districtKor} 최고의 마사지를 마사지천국에서 찾아보세요.">
     <meta name="keywords" content="${districtKor}마사지, ${districtKor}건마, ${districtKor}스웨디시, ${districtKor}1인샵, ${regionKor}마사지, 마사지천국">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <link rel="canonical" href="https://msg1000.com/${regionEng}-${districtEng}-massage.html">
+    <link rel="canonical" href="https://gunmatown.com/${regionEng}-${districtEng}-massage.html">
     
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -635,27 +635,27 @@ function generateDistrictPage(regionKor, districtKor) {
                     <span class="country-name">전체</span>
                 </div>
                 <div class="country-box" data-country="korea">
-                    <img src="https://www.msg1000.com/images/한국.jpg" alt="한국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/한국.jpg" alt="한국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">한국</span>
                 </div>
                 <div class="country-box" data-country="thai">
-                    <img src="https://www.msg1000.com/images/태국.jpg" alt="태국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/태국.jpg" alt="태국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">태국</span>
                 </div>
                 <div class="country-box" data-country="china">
-                    <img src="https://www.msg1000.com/images/중국.jpg" alt="중국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/중국.jpg" alt="중국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">중국</span>
                 </div>
                 <div class="country-box" data-country="russia">
-                    <img src="https://www.msg1000.com/images/러시아.jpg" alt="러시아" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/러시아.jpg" alt="러시아" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">러시아</span>
                 </div>
                 <div class="country-box" data-country="japan">
-                    <img src="https://www.msg1000.com/images/일본.jpg" alt="일본" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/일본.jpg" alt="일본" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">일본</span>
                 </div>
@@ -672,27 +672,27 @@ function generateDistrictPage(regionKor, districtKor) {
                     <span class="country-name">전체</span>
                 </div>
                 <div class="country-box" data-country="korea">
-                    <img src="https://www.msg1000.com/images/한국.jpg" alt="한국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/한국.jpg" alt="한국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">한국</span>
                 </div>
                 <div class="country-box" data-country="thai">
-                    <img src="https://www.msg1000.com/images/태국.jpg" alt="태국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/태국.jpg" alt="태국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">태국</span>
                 </div>
                 <div class="country-box" data-country="china">
-                    <img src="https://www.msg1000.com/images/중국.jpg" alt="중국" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/중국.jpg" alt="중국" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">중국</span>
                 </div>
                 <div class="country-box" data-country="russia">
-                    <img src="https://www.msg1000.com/images/러시아.jpg" alt="러시아" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/러시아.jpg" alt="러시아" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">러시아</span>
                 </div>
                 <div class="country-box" data-country="japan">
-                    <img src="https://www.msg1000.com/images/일본.jpg" alt="일본" class="country-flag" 
+                    <img src="https://www.gunmatown.com/images/일본.jpg" alt="일본" class="country-flag" 
                          onerror="this.onerror=null; this.style.display='none';" loading="lazy">
                     <span class="country-name">일본</span>
                 </div>

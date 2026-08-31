@@ -113,7 +113,7 @@ function generateHTML(
 
   const pageTitle = `${districtName} ${dongName} ${titleSuffix} 추천 BEST 샵｜${titleSuffixText} 가격·후기`;
   const metaDescription = `${districtName} ${dongName} ${titleSuffix} BEST 샵 실시간 순위★ 시내·역세권 안마, 힐링마사지, 전신마사지 가격 비교. 검증된 1위 샵만 골라서 0507 전화로 바로 예약 가능. 실제 후기 100+ 확인하세요!`;
-  const canonicalUrl = `https://msg1000.com/${filename}`;
+  const canonicalUrl = `https://gunmatown.com/${filename}`;
   const resultsTitle = `${districtName} ${dongName} ${titleSuffix} 추천 BEST 샵`;
 
   let html = template;
