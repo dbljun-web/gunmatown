@@ -205,6 +205,21 @@ function displayShopInfo(shop) {
     elements.shopDescription.style.whiteSpace = 'pre-line';
     elements.shopDescription.textContent = descText;
   }
+
+  // 한마디 (라벨 없이 내용만, 노출 시에만)
+  const oneLinerEl = document.getElementById('shopOneLiner');
+  if (oneLinerEl) {
+    const oneLiner = String(shop.detailContent || '').trim();
+    const showOneLiner = shop.showOneLiner !== false && !!oneLiner;
+    if (showOneLiner) {
+      oneLinerEl.hidden = false;
+      oneLinerEl.style.whiteSpace = 'pre-line';
+      oneLinerEl.textContent = oneLiner;
+    } else {
+      oneLinerEl.hidden = true;
+      oneLinerEl.textContent = '';
+    }
+  }
   // 전화번호 표시 (shop.phone이 없으면 빈 문자열)
   if (elements.shopPhone) {
     elements.shopPhone.textContent = shop.phone || '';
@@ -1275,6 +1290,10 @@ function displayShopCourses(shop) {
     // 일반 카테고리 제목(스크럽 코스 등)은 구분 라벨로, 이전과 다를 때만
     if (title && !descOnly && title !== shownCategory) {
       html += `<div class="course-section-label">${title}</div>`;
+      const catDesc = String(category.description || '').trim();
+      if (catDesc) {
+        html += `<div class="course-category-desc">${escapeCourseHtml(catDesc)}</div>`;
+      }
       shownCategory = title;
     }
 
@@ -1293,11 +1312,15 @@ function displayShopCourses(shop) {
         <span class="course-col-time">${duration}</span>
         <span class="course-col-price"${priceAttr}>${priceText}</span>
       </div>`;
+      const itemDesc = String(course.description || '').trim();
+      if (itemDesc && !descOnly) {
+        html += `<div class="course-row-desc">${escapeCourseHtml(itemDesc)}</div>`;
+      }
     });
 
     // └ 베이직 코스 ┘ 같은 설명은 해당 코스들 바로 아래
     if (descOnly && title) {
-      html += `<div class="course-row-desc">${title}</div>`;
+      html += `<div class="course-row-desc">${escapeCourseHtml(title)}</div>`;
     }
   });
 
@@ -1308,6 +1331,15 @@ function displayShopCourses(shop) {
 
   setupCoursePriceToggle();
   applyCoursePriceMode('member');
+}
+
+function escapeCourseHtml(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\n/g, '<br>');
 }
 
 // 타입별 코스 정보 반환

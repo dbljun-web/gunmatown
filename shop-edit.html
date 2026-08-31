@@ -69,11 +69,29 @@
       .course-cat {
         border: 1px solid #eee; border-radius: 12px; padding: 10px; background: #fafafa;
       }
-      .course-cat-head { display: grid; grid-template-columns: 1fr auto; gap: 6px; margin-bottom: 8px; }
+      .course-cat-head { display: grid; grid-template-columns: 1fr auto; gap: 6px; margin-bottom: 6px; }
       .course-item {
-        display: grid; grid-template-columns: 1.1fr 0.7fr 1fr auto; gap: 6px; margin-bottom: 6px; align-items: center;
+        display: grid; grid-template-columns: 1.1fr 0.7fr 1fr auto; gap: 6px; margin-bottom: 4px; align-items: center;
       }
       .course-item input { margin: 0; padding: 8px; font-size: 0.85rem; }
+      .course-desc-toggle {
+        display: inline-flex; align-items: center; gap: 4px; margin: 0 0 6px; padding: 0;
+        border: 0; background: none; color: #2563eb; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      }
+      .course-desc-box { display: none; margin: 0 0 8px; }
+      .course-desc-box.is-open { display: block; }
+      .course-desc-box textarea { min-height: 60px; margin-top: 0; font-size: 0.85rem; }
+      .course-item-wrap { margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed #e5e7eb; }
+      .course-item-wrap:last-of-type { border-bottom: 0; }
+      .field-label-row {
+        display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 0;
+      }
+      .vis-toggle { display: inline-flex; gap: 4px; }
+      .vis-btn {
+        border: 1px solid #ddd; background: #fff; border-radius: 8px; padding: 5px 10px;
+        font-size: 0.75rem; font-weight: 700; cursor: pointer; color: #555;
+      }
+      .vis-btn.is-active { background: #111; color: #fff; border-color: #111; }
       .course-tools { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
       @media (max-width: 400px) {
         .course-item { grid-template-columns: 1fr 1fr; }
@@ -103,20 +121,17 @@
         </div>
 
         <form class="edit-form" id="shop-edit-form">
-          <div class="section-label">카드 정보</div>
-          <label>업체명 <input name="name" required /></label>
-          <label>지역(region) <input name="region" /></label>
-          <label>구/시(district) <input name="district" /></label>
-          <label>동(dong) <input name="dong" /></label>
-          <label>주소 <input name="address" /></label>
-          <label>전화 <input name="phone" /></label>
-          <label>가격 표시(price) <input name="price" placeholder="예: 120,000원~" /></label>
-          <label>가격 라벨(priceLabel) <input name="priceLabel" /></label>
-          <label>기존가(originalPrice) <input name="originalPrice" /></label>
-          <label>회원가(memberPrice) <input name="memberPrice" /></label>
-          <label>카드 인사말(greeting)
-            <textarea name="greeting" placeholder="업체 카드에 보이는 인사말"></textarea>
-          </label>
+          <div class="section-label">1. 이미지 · 배지</div>
+          <p class="hint">상세/카드 갤러리. 첫 이미지가 대표입니다.</p>
+          <div class="images-editor" id="imagesEditor"></div>
+          <div class="image-add-bar">
+            <input type="url" id="imageUrlInput" placeholder="https://... 이미지 URL" />
+            <button type="button" class="mini-btn primary" id="addImageUrlBtn">URL추가</button>
+          </div>
+          <div class="image-add-bar" style="margin-top:6px;">
+            <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" />
+            <button type="button" class="mini-btn primary" id="uploadImageBtn">업로드</button>
+          </div>
           <label>타입
             <select name="type">
               <option value="마사지">마사지</option>
@@ -129,38 +144,55 @@
               <option value="false">아니오</option>
             </select>
           </label>
-
-          <div class="section-label">국기 (클릭 선택)</div>
-          <p class="hint">선택한 국기가 업체 카드에 표시됩니다.</p>
+          <div class="section-label" style="border-top:0;padding-top:8px;margin-top:8px;">국기</div>
           <div class="flag-picker" id="flagPicker"></div>
           <input type="hidden" name="country" id="countryInput" />
 
-          <div class="section-label">이미지</div>
-          <p class="hint">URL 추가 또는 파일 업로드. 첫 이미지가 카드 대표 이미지입니다. 서버(R2) 업로드 가능하면 CDN URL로 저장됩니다.</p>
-          <div class="images-editor" id="imagesEditor"></div>
-          <div class="image-add-bar">
-            <input type="url" id="imageUrlInput" placeholder="https://... 이미지 URL" />
-            <button type="button" class="mini-btn primary" id="addImageUrlBtn">URL추가</button>
-          </div>
-          <div class="image-add-bar" style="margin-top:6px;">
-            <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" />
-            <button type="button" class="mini-btn primary" id="uploadImageBtn">업로드</button>
-          </div>
+          <div class="section-label">2. 기본 정보</div>
+          <label>업체명 <input name="name" required /></label>
+          <label>지역(region) <input name="region" /></label>
+          <label>구/시(district) <input name="district" /></label>
+          <label>동(dong) <input name="dong" /></label>
+          <label>주소 <input name="address" /></label>
+          <label>전화 <input name="phone" /></label>
+          <label>운영시간 <input name="operatingHours" /></label>
 
-          <div class="section-label">코스 · 가격</div>
-          <p class="hint">상세 페이지 코스 표에 반영됩니다. 저장 시 최저가를 카드 가격에 맞춰 갱신할 수 있습니다.</p>
+          <div class="section-label">3. 코스 · 가격</div>
+          <p class="hint">카테고리/코스 아래 「설명문」을 눌러 설명을 넣을 수 있습니다.</p>
+          <label>가격 표시(price) <input name="price" placeholder="예: 120,000원~" /></label>
+          <label>회원가(memberPrice) <input name="memberPrice" /></label>
+          <label>기존가(originalPrice) <input name="originalPrice" /></label>
+          <label>가격 라벨(priceLabel) <input name="priceLabel" /></label>
           <div class="courses-editor" id="coursesEditor"></div>
           <div class="course-tools">
             <button type="button" class="mini-btn" id="addCourseCatBtn">카테고리 추가</button>
             <button type="button" class="mini-btn" id="syncPriceFromCoursesBtn">최저가 → 카드가격</button>
           </div>
 
-          <div class="section-label">상세 정보</div>
-          <label>소개글 <textarea name="description"></textarea></label>
-          <label>상세내용 <textarea name="detailContent"></textarea></label>
+          <div class="section-label">4. 오시는 길</div>
           <label>오시는 길 <textarea name="directions"></textarea></label>
-          <label>운영시간 <input name="operatingHours" /></label>
-          <label>관리사 정보 <textarea name="staffInfo"></textarea></label>
+
+          <div class="section-label">5. 업체소개</div>
+          <label>소개글 <textarea name="description" placeholder="업체소개 본문"></textarea></label>
+          <label>
+            <span class="field-label-row">
+              <span>한마디</span>
+              <span class="vis-toggle" role="group" aria-label="한마디 노출">
+                <button type="button" class="vis-btn is-active" data-oneliner-vis="1">노출</button>
+                <button type="button" class="vis-btn" data-oneliner-vis="0">비노출</button>
+              </span>
+            </span>
+            <textarea name="detailContent" placeholder="상세 페이지에 라벨 없이 내용만 표시"></textarea>
+          </label>
+          <input type="hidden" name="showOneLiner" id="showOneLinerInput" value="true" />
+
+          <div class="section-label">6. 관리사 정보</div>
+          <label>관리사 정보 <textarea name="staffInfo" placeholder="이름 나이 등"></textarea></label>
+
+          <div class="section-label">7. 카드 전용</div>
+          <label>카드 인사말(greeting)
+            <textarea name="greeting" placeholder="목록 카드에 보이는 인사말"></textarea>
+          </label>
 
           <div class="edit-actions">
             <button type="submit" class="btn-save">저장</button>
@@ -236,10 +268,15 @@
 
       function normalizeCourses(courses) {
         if (!Array.isArray(courses) || !courses.length) {
-          return [{ category: '단일 코스', items: [{ name: 'A코스', duration: '60분', price: '' }] }];
+          return [{
+            category: '단일 코스',
+            description: '',
+            items: [{ name: 'A코스', duration: '60분', price: '', description: '' }],
+          }];
         }
         return courses.map((cat) => ({
           category: cat.category || cat.title || '코스',
+          description: cat.description || '',
           items: (cat.items || cat.courses || []).map((it) => ({
             name: it.name || '',
             duration: it.duration || '',
@@ -320,20 +357,34 @@
         const box = document.getElementById('coursesEditor');
         box.innerHTML = editCourses
           .map((cat, ci) => {
+            const catDescOpen = cat._descOpen ? ' is-open' : '';
+            const catDescLabel = (cat.description || '').trim() ? '설명문 수정' : '설명문 추가';
             const items = (cat.items || [])
-              .map(
-                (it, ii) => `<div class="course-item" data-ci="${ci}" data-ii="${ii}">
-                  <input data-f="name" placeholder="코스명" value="${escapeAttr(it.name)}" />
-                  <input data-f="duration" placeholder="시간" value="${escapeAttr(it.duration)}" />
-                  <input data-f="price" placeholder="가격" value="${escapeAttr(it.price)}" />
-                  <button type="button" data-role="del-item">삭제</button>
-                </div>`
-              )
+              .map((it, ii) => {
+                const itemOpen = it._descOpen ? ' is-open' : '';
+                const itemLabel = (it.description || '').trim() ? '설명문 수정' : '설명문 추가';
+                return `<div class="course-item-wrap" data-ci="${ci}" data-ii="${ii}">
+                  <div class="course-item">
+                    <input data-f="name" placeholder="코스명" value="${escapeAttr(it.name)}" />
+                    <input data-f="duration" placeholder="시간" value="${escapeAttr(it.duration)}" />
+                    <input data-f="price" placeholder="가격" value="${escapeAttr(it.price)}" />
+                    <button type="button" data-role="del-item">삭제</button>
+                  </div>
+                  <button type="button" class="course-desc-toggle" data-role="toggle-item-desc">${itemLabel}</button>
+                  <div class="course-desc-box${itemOpen}">
+                    <textarea data-f="description" placeholder="이 코스 설명문">${escapeAttr(it.description)}</textarea>
+                  </div>
+                </div>`;
+              })
               .join('');
             return `<div class="course-cat" data-ci="${ci}">
               <div class="course-cat-head">
                 <input data-f="category" placeholder="카테고리명" value="${escapeAttr(cat.category)}" />
                 <button type="button" data-role="del-cat">카테고리삭제</button>
+              </div>
+              <button type="button" class="course-desc-toggle" data-role="toggle-cat-desc">${catDescLabel}</button>
+              <div class="course-desc-box${catDescOpen}">
+                <textarea data-f="cat-description" placeholder="카테고리 설명문">${escapeAttr(cat.description)}</textarea>
               </div>
               ${items}
               <button type="button" class="mini-btn" data-role="add-item">코스 추가</button>
@@ -347,23 +398,43 @@
           catInput.addEventListener('input', () => {
             editCourses[ci].category = catInput.value;
           });
+          const catDesc = catEl.querySelector('[data-f="cat-description"]');
+          if (catDesc) {
+            catDesc.addEventListener('input', () => {
+              editCourses[ci].description = catDesc.value;
+            });
+          }
+          catEl.querySelector('[data-role="toggle-cat-desc"]').addEventListener('click', () => {
+            editCourses[ci]._descOpen = !editCourses[ci]._descOpen;
+            renderCoursesEditor();
+          });
           catEl.querySelector('[data-role="del-cat"]').addEventListener('click', () => {
             if (editCourses.length <= 1) return;
             editCourses.splice(ci, 1);
             renderCoursesEditor();
           });
           catEl.querySelector('[data-role="add-item"]').addEventListener('click', () => {
-            editCourses[ci].items.push({ name: '', duration: '', price: '' });
+            editCourses[ci].items.push({
+              name: '',
+              duration: '',
+              price: '',
+              description: '',
+            });
             renderCoursesEditor();
           });
-          catEl.querySelectorAll('.course-item').forEach((row) => {
-            const ii = Number(row.dataset.ii);
-            row.querySelectorAll('input[data-f]').forEach((inp) => {
+          catEl.querySelectorAll('.course-item-wrap').forEach((wrap) => {
+            const ii = Number(wrap.dataset.ii);
+            wrap.querySelectorAll('input[data-f], textarea[data-f]').forEach((inp) => {
+              if (inp.dataset.f === 'cat-description') return;
               inp.addEventListener('input', () => {
                 editCourses[ci].items[ii][inp.dataset.f] = inp.value;
               });
             });
-            row.querySelector('[data-role="del-item"]').addEventListener('click', () => {
+            wrap.querySelector('[data-role="toggle-item-desc"]').addEventListener('click', () => {
+              editCourses[ci].items[ii]._descOpen = !editCourses[ci].items[ii]._descOpen;
+              renderCoursesEditor();
+            });
+            wrap.querySelector('[data-role="del-item"]').addEventListener('click', () => {
               if (editCourses[ci].items.length <= 1) return;
               editCourses[ci].items.splice(ii, 1);
               renderCoursesEditor();
@@ -383,6 +454,15 @@
         updatePreview(readFormShop(currentShop));
       }
 
+      function setOneLinerVisibility(show) {
+        const on = show !== false;
+        document.getElementById('showOneLinerInput').value = on ? 'true' : 'false';
+        document.querySelectorAll('[data-oneliner-vis]').forEach((btn) => {
+          const want = btn.getAttribute('data-oneliner-vis') === '1';
+          btn.classList.toggle('is-active', want === on);
+        });
+      }
+
       function fillForm(shop) {
         const form = document.getElementById('shop-edit-form');
         const fields = [
@@ -394,6 +474,7 @@
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
+        setOneLinerVisibility(shop.showOneLiner !== false);
 
         selectedCountries = parseCountries(shop.country);
         document.getElementById('countryInput').value = selectedCountries.join(',');
@@ -455,12 +536,14 @@
           next[key] = form[key].value;
         });
         next.showHealingShop = form.showHealingShop.value === 'true';
+        next.showOneLiner = form.showOneLiner.value !== 'false';
         next.typeLabel = next.showHealingShop ? '힐링샵' : '';
         next.country = selectedCountries.join(',') || 'korea';
         next.images = editImages.filter(Boolean);
         next.image = next.images[0] || '';
         next.courses = editCourses.map((cat) => ({
           category: cat.category || '코스',
+          description: cat.description || '',
           items: (cat.items || []).map((it) => ({
             name: it.name || '',
             duration: it.duration || '',
@@ -568,9 +651,16 @@
         document.getElementById('addCourseCatBtn').addEventListener('click', () => {
           editCourses.push({
             category: '새 카테고리',
-            items: [{ name: 'A코스', duration: '60분', price: '' }],
+            description: '',
+            items: [{ name: 'A코스', duration: '60분', price: '', description: '' }],
           });
           renderCoursesEditor();
+        });
+
+        document.querySelectorAll('[data-oneliner-vis]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            setOneLinerVisibility(btn.getAttribute('data-oneliner-vis') === '1');
+          });
         });
 
         document.getElementById('syncPriceFromCoursesBtn').addEventListener('click', () => {

@@ -3368,6 +3368,40 @@ body.detail-page .detail-intro-section .detail-description {
   margin: 0 0 10px;
 }
 
+body.detail-page .detail-oneliner {
+  margin: 0 0 4px;
+  padding: 10px 12px;
+  background: #f7f8fa;
+  border-radius: 10px;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+body.detail-page .detail-staff-section {
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 8px solid #f3f4f6;
+}
+
+body.detail-page .detail-staff-section .staff-card {
+  margin-top: 0;
+}
+
+body.detail-page .detail-intro-section {
+  padding-bottom: 8px;
+}
+
+.course-category-desc {
+  padding: 6px 10px 8px;
+  margin: 0 0 4px;
+  color: #666;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  background: #fafafa;
+}
+
 body.detail-page .reviews-section {
   background: transparent;
   border-bottom: none;
