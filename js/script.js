@@ -5478,9 +5478,21 @@ function isMassageType(shop) {
   return false;
 }
 
-/** type / types[] / services 에서 테마 키워드 매칭 (다중 타입 지원) */
+/** 테마 필터 매칭: 관리자 themes[] 우선, 없으면 type/services 폴백 */
 function shopMatchesTheme(shop, keywords) {
   if (!shop || !keywords || !keywords.length) return false;
+
+  // 관리자가 저장한 themes가 있으면 그 값만 사용 (테마보기와 일치)
+  if (Array.isArray(shop.themes)) {
+    if (!shop.themes.length) return false;
+    const text = shop.themes.map(String).join(' ');
+    const lower = text.toLowerCase();
+    return keywords.some((k) => {
+      const key = String(k);
+      return text.includes(key) || lower.includes(key.toLowerCase());
+    });
+  }
+
   const parts = [];
   if (shop.type) parts.push(String(shop.type));
   if (Array.isArray(shop.types)) parts.push(shop.types.map(String).join(' '));
@@ -7256,38 +7268,22 @@ function filterByType(selectedType) {
       return;
     }
 
-    // 테마별 서비스 키워드 매핑
+    // 테마별 키워드 → 관리자 themes / services 매칭
     const themeKeywords = {
       swedish: ['스웨디시', '스웨덴'],
-      thai: ['타이마사지', '타이', '태국'],
-      aroma: ['아로마', '아로마마사지', '에센셜오일'],
-      waxing: ['왁싱', '제모'],
+      thai: ['타이마사지', '타이', 'thai'],
+      aroma: ['아로마', '아로마마사지', '에센셜'],
+      waxing: ['왁싱', 'waxing', '브라질리언', '제모'],
       chinese: ['중국마사지', '중국', '지압'],
-      foot: ['발마사지', '족욕', '풋케어', '발'],
-      spa: ['스파', 'SPA', '스크럽', 'VIP케어', '호텔식'],
+      foot: ['발마사지', '족욕', '풋케어', '풋마사지'],
+      spa: ['스파', 'SPA', '스크럽'],
     };
 
     const keywords = themeKeywords[selectedType];
     if (keywords) {
-      filteredShops = massageShops.filter((shop) => {
-        // 서비스 배열에서 키워드 검색
-        if (shop.services && Array.isArray(shop.services)) {
-          return shop.services.some((service) =>
-            keywords.some((keyword) =>
-              service.toLowerCase().includes(keyword.toLowerCase())
-            )
-          );
-        }
-
-        // 설명에서도 키워드 검색
-        if (shop.description) {
-          return keywords.some((keyword) =>
-            shop.description.toLowerCase().includes(keyword.toLowerCase())
-          );
-        }
-
-        return false;
-      });
+      filteredShops = massageShops.filter((shop) =>
+        shopMatchesTheme(shop, keywords)
+      );
     }
   }
 

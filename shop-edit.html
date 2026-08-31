@@ -61,6 +61,15 @@
         font-size: 0.82rem; font-weight: 600; color: #333; user-select: none;
       }
       .type-chip.is-active { border-color: #111; background: #111; color: #fff; }
+      .theme-picker-wrap { margin-top: 10px; }
+      .theme-picker-wrap[hidden] { display: none !important; }
+      .theme-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      .theme-chip {
+        display: inline-flex; align-items: center; padding: 8px 12px;
+        border: 1px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer;
+        font-size: 0.82rem; font-weight: 600; color: #333; user-select: none;
+      }
+      .theme-chip.is-active { border-color: #2563eb; background: #2563eb; color: #fff; }
       .images-editor { display: grid; gap: 8px; margin-top: 8px; }
       .image-row {
         display: grid; grid-template-columns: 64px 1fr auto; gap: 8px; align-items: center;
@@ -138,6 +147,11 @@
             <p class="hint">마사지 또는 출장마사지 중 하나를 선택하세요.</p>
             <div class="type-picker" id="typePicker"></div>
             <input type="hidden" name="type" id="typeInput" value="마사지" />
+            <div class="theme-picker-wrap" id="themePickerWrap">
+              <div style="font-size:0.88rem;font-weight:700;color:#333;margin-top:4px;">테마 (다중 선택)</div>
+              <p class="hint">선택한 테마가 「테마별 마사지」 필터에 반영됩니다.</p>
+              <div class="theme-picker" id="themePicker"></div>
+            </div>
           </div>
           <label>지역(region) <input name="region" /></label>
           <label>구/시(district) <input name="district" /></label>
@@ -228,8 +242,27 @@
       let editCourses = [];
       let selectedCountries = [];
       let selectedType = '마사지';
+      let selectedThemes = [];
 
       const TYPE_OPTIONS = ['마사지', '출장마사지'];
+      const THEME_OPTIONS = [
+        '스웨디시',
+        '타이마사지',
+        '아로마마사지',
+        '왁싱',
+        '중국마사지',
+        '발마사지',
+        '스파',
+      ];
+      const THEME_SERVICE_MAP = {
+        스웨디시: '스웨디시',
+        타이마사지: '타이마사지',
+        아로마마사지: '아로마',
+        왁싱: '왁싱',
+        중국마사지: '중국마사지',
+        발마사지: '발마사지',
+        스파: '스파',
+      };
 
       function getShopId() {
         return new URLSearchParams(location.search).get('id');
@@ -296,18 +329,73 @@
         return '마사지';
       }
 
-      function syncOutcallService(services, type) {
-        let list = Array.isArray(services) ? services.slice() : [];
+      function parseThemesFromShop(shop) {
+        if (Array.isArray(shop.themes)) {
+          return shop.themes.map(String).filter((t) => THEME_OPTIONS.includes(t));
+        }
+        const blob = [
+          shop.type,
+          ...(Array.isArray(shop.types) ? shop.types : []),
+          ...(Array.isArray(shop.services) ? shop.services : []),
+        ]
+          .map(String)
+          .join(' ');
+        return THEME_OPTIONS.filter((label) => {
+          if (label === '아로마마사지') return /아로마/.test(blob);
+          if (label === '타이마사지') return /타이|thai/i.test(blob);
+          if (label === '중국마사지') return /중국/.test(blob);
+          if (label === '발마사지') return /발마사지|족욕|풋/.test(blob);
+          return blob.includes(label);
+        });
+      }
+
+      function syncThemeAndOutcallServices(services, type, themes) {
+        const managed = new Set([
+          ...Object.values(THEME_SERVICE_MAP),
+          ...THEME_OPTIONS,
+          '아로마마사지',
+          '출장마사지',
+          'outcall',
+        ]);
+        let list = Array.isArray(services)
+          ? services.filter((s) => !managed.has(String(s)))
+          : [];
         if (type === '출장마사지') {
-          const has = list.some((s) => String(s).includes('출장'));
-          if (!has) list.push('출장마사지');
+          list.push('출장마사지');
         } else {
-          list = list.filter((s) => {
-            const text = String(s);
-            return text !== '출장마사지' && text.toLowerCase() !== 'outcall';
+          (themes || []).forEach((theme) => {
+            const kw = THEME_SERVICE_MAP[theme] || theme;
+            if (kw && !list.includes(kw)) list.push(kw);
           });
         }
         return list;
+      }
+
+      function renderThemePicker() {
+        const wrap = document.getElementById('themePickerWrap');
+        const box = document.getElementById('themePicker');
+        if (!wrap || !box) return;
+        const show = selectedType === '마사지';
+        wrap.hidden = !show;
+        if (!show) return;
+        box.innerHTML = THEME_OPTIONS.map((label) => {
+          const on = selectedThemes.includes(label) ? ' is-active' : '';
+          return `<button type="button" class="theme-chip${on}" data-theme="${label}">
+            <span>${label}</span>
+          </button>`;
+        }).join('');
+        box.querySelectorAll('.theme-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const key = btn.dataset.theme;
+            if (selectedThemes.includes(key)) {
+              selectedThemes = selectedThemes.filter((k) => k !== key);
+            } else {
+              selectedThemes = [...selectedThemes, key];
+            }
+            renderThemePicker();
+            updatePreview(readFormShop(currentShop));
+          });
+        });
       }
 
       function renderTypePicker() {
@@ -324,10 +412,15 @@
           btn.addEventListener('click', () => {
             selectedType = btn.dataset.type;
             document.getElementById('typeInput').value = selectedType;
+            if (selectedType === '출장마사지') {
+              selectedThemes = [];
+            }
             renderTypePicker();
+            renderThemePicker();
             updatePreview(readFormShop(currentShop));
           });
         });
+        renderThemePicker();
       }
 
       function normalizeCourses(courses) {
@@ -544,6 +637,8 @@
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
         selectedType = resolveTypeFromShop(shop);
+        selectedThemes =
+          selectedType === '마사지' ? parseThemesFromShop(shop) : [];
         renderTypePicker();
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
         setOneLinerVisibility(false);
@@ -628,7 +723,13 @@
         next.types = [selectedType];
         next.type = selectedType;
         if (form.type) form.type.value = next.type;
-        next.services = syncOutcallService(base.services || next.services || [], selectedType);
+        next.themes =
+          selectedType === '마사지' ? selectedThemes.slice() : [];
+        next.services = syncThemeAndOutcallServices(
+          base.services || next.services || [],
+          selectedType,
+          next.themes
+        );
         next.courses = editCourses.map((cat) => ({
           category: cat.category || '코스',
           note: cat.note || '',
