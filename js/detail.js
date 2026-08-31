@@ -1290,7 +1290,7 @@ function displayShopCourses(shop) {
     // 일반 카테고리 제목(스크럽 코스 등)은 구분 라벨로, 이전과 다를 때만
     if (title && !descOnly && title !== shownCategory) {
       html += `<div class="course-section-label">${title}</div>`;
-      const catDesc = String(category.description || '').trim();
+      const catDesc = String(category.note || category.description || '').trim();
       if (catDesc) {
         html += `<div class="course-category-desc">${escapeCourseHtml(catDesc)}</div>`;
       }
@@ -1307,8 +1307,8 @@ function displayShopCourses(shop) {
         memberWon != null ? formatCoursePriceWon(memberWon) : rawPrice;
       const priceAttr =
         memberWon != null ? ` data-member-price="${memberWon}"` : '';
-      const itemDesc = String(course.description || '').trim();
-      const hasDesc = !!(itemDesc && !descOnly);
+      const itemNote = String(course.note || '').trim();
+      const hasDesc = !!itemNote;
       html += `<div class="course-item-block${hasDesc ? ' has-desc' : ''}">`;
       html += `<div class="course-table-row">
         <span class="course-col-name">${name}</span>
@@ -1316,12 +1316,12 @@ function displayShopCourses(shop) {
         <span class="course-col-price"${priceAttr}>${priceText}</span>
       </div>`;
       if (hasDesc) {
-        html += `<div class="course-row-desc">${escapeCourseHtml(itemDesc)}</div>`;
+        html += `<div class="course-row-desc">${escapeCourseHtml(itemNote)}</div>`;
       }
       html += `</div>`;
     });
 
-    // └ 베이직 코스 ┘ 같은 설명은 해당 코스들 바로 아래
+    // └ 베이직 코스 ┘ 같은 카테고리형 설명은 기존과 같이 유지
     if (descOnly && title) {
       html += `<div class="course-item-block has-desc"><div class="course-row-desc">${escapeCourseHtml(title)}</div></div>`;
     }

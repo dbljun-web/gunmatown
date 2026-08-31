@@ -270,17 +270,19 @@
         if (!Array.isArray(courses) || !courses.length) {
           return [{
             category: '단일 코스',
-            description: '',
-            items: [{ name: 'A코스', duration: '60분', price: '', description: '' }],
+            note: '',
+            items: [{ name: 'A코스', duration: '60분', price: '', note: '' }],
           }];
         }
         return courses.map((cat) => ({
           category: cat.category || cat.title || '코스',
-          description: cat.description || '',
+          // 관리자 추가 설명만 (기존 description 자동문구는 무시)
+          note: cat.note || '',
           items: (cat.items || cat.courses || []).map((it) => ({
             name: it.name || '',
             duration: it.duration || '',
             price: it.price || '',
+            note: it.note || '',
             description: it.description || '',
           })),
         }));
@@ -358,11 +360,11 @@
         box.innerHTML = editCourses
           .map((cat, ci) => {
             const catDescOpen = cat._descOpen ? ' is-open' : '';
-            const catDescLabel = (cat.description || '').trim() ? '설명문 수정' : '설명문 추가';
+            const catDescLabel = (cat.note || '').trim() ? '설명문 수정' : '설명문 추가';
             const items = (cat.items || [])
               .map((it, ii) => {
                 const itemOpen = it._descOpen ? ' is-open' : '';
-                const itemLabel = (it.description || '').trim() ? '설명문 수정' : '설명문 추가';
+                const itemLabel = (it.note || '').trim() ? '설명문 수정' : '설명문 추가';
                 return `<div class="course-item-wrap" data-ci="${ci}" data-ii="${ii}">
                   <div class="course-item">
                     <input data-f="name" placeholder="코스명" value="${escapeAttr(it.name)}" />
@@ -372,7 +374,7 @@
                   </div>
                   <button type="button" class="course-desc-toggle" data-role="toggle-item-desc">${itemLabel}</button>
                   <div class="course-desc-box${itemOpen}">
-                    <textarea data-f="description" placeholder="이 코스 설명문">${escapeAttr(it.description)}</textarea>
+                    <textarea data-f="note" placeholder="이 코스 설명문 (직접 입력한 내용만 상세에 표시)">${escapeAttr(it.note)}</textarea>
                   </div>
                 </div>`;
               })
@@ -384,7 +386,7 @@
               </div>
               <button type="button" class="course-desc-toggle" data-role="toggle-cat-desc">${catDescLabel}</button>
               <div class="course-desc-box${catDescOpen}">
-                <textarea data-f="cat-description" placeholder="카테고리 설명문">${escapeAttr(cat.description)}</textarea>
+                <textarea data-f="cat-note" placeholder="카테고리 설명문">${escapeAttr(cat.note)}</textarea>
               </div>
               ${items}
               <button type="button" class="mini-btn" data-role="add-item">코스 추가</button>
@@ -398,10 +400,10 @@
           catInput.addEventListener('input', () => {
             editCourses[ci].category = catInput.value;
           });
-          const catDesc = catEl.querySelector('[data-f="cat-description"]');
-          if (catDesc) {
-            catDesc.addEventListener('input', () => {
-              editCourses[ci].description = catDesc.value;
+          const catNote = catEl.querySelector('[data-f="cat-note"]');
+          if (catNote) {
+            catNote.addEventListener('input', () => {
+              editCourses[ci].note = catNote.value;
             });
           }
           catEl.querySelector('[data-role="toggle-cat-desc"]').addEventListener('click', () => {
@@ -418,6 +420,7 @@
               name: '',
               duration: '',
               price: '',
+              note: '',
               description: '',
             });
             renderCoursesEditor();
@@ -425,7 +428,7 @@
           catEl.querySelectorAll('.course-item-wrap').forEach((wrap) => {
             const ii = Number(wrap.dataset.ii);
             wrap.querySelectorAll('input[data-f], textarea[data-f]').forEach((inp) => {
-              if (inp.dataset.f === 'cat-description') return;
+              if (inp.dataset.f === 'cat-note') return;
               inp.addEventListener('input', () => {
                 editCourses[ci].items[ii][inp.dataset.f] = inp.value;
               });
@@ -543,11 +546,13 @@
         next.image = next.images[0] || '';
         next.courses = editCourses.map((cat) => ({
           category: cat.category || '코스',
-          description: cat.description || '',
+          note: cat.note || '',
           items: (cat.items || []).map((it) => ({
             name: it.name || '',
             duration: it.duration || '',
             price: it.price || '',
+            note: it.note || '',
+            // 원본 description은 유지하되 상세 노출에는 사용하지 않음
             description: it.description || '',
           })),
         }));
@@ -651,8 +656,8 @@
         document.getElementById('addCourseCatBtn').addEventListener('click', () => {
           editCourses.push({
             category: '새 카테고리',
-            description: '',
-            items: [{ name: 'A코스', duration: '60분', price: '', description: '' }],
+            note: '',
+            items: [{ name: 'A코스', duration: '60분', price: '', note: '', description: '' }],
           });
           renderCoursesEditor();
         });
