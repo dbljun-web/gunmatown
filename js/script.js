@@ -7232,6 +7232,21 @@ function createShopCard(shop) {
     : '';
 
   const flagsHtml = renderCountryFlagsHtml(shop.country);
+  const healingLabel = getTypeName(shop);
+  const showOutcallBadge =
+    typeof isOutcallType === 'function'
+      ? isOutcallType(shop)
+      : shop.type === '출장마사지' || shop.type === 'outcall';
+  const typeBadgesHtml = [
+    healingLabel
+      ? `<div class="shop-type shop-type-healing">${healingLabel}</div>`
+      : '',
+    showOutcallBadge
+      ? `<div class="shop-type shop-type-outcall">출장샵</div>`
+      : '',
+  ]
+    .filter(Boolean)
+    .join('');
 
   return `
         <div class="massage-card" data-type="${
@@ -7246,11 +7261,7 @@ function createShopCard(shop) {
                      onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuaXoOazleWKoOi9vTwvdGV4dD48L3N2Zz4='; this.style.display='block';"
                      loading="lazy">
                 <div class="image-overlay">
-                    ${
-                      getTypeName(shop)
-                        ? `<div class="shop-type">${getTypeName(shop)}</div>`
-                        : ''
-                    }
+                    ${typeBadgesHtml}
                 </div>
             </div>
 

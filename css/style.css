@@ -965,7 +965,14 @@ body {
 .card-image .image-overlay {
   position: absolute;
   top: 8px;
-  left: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .card-image .shop-type {
@@ -982,11 +989,27 @@ body {
   animation: pulse 2s infinite;
   white-space: nowrap;
   min-width: fit-content;
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
   text-align: center;
+}
+
+.card-image .shop-type-outcall {
+  background: linear-gradient(135deg, #64b5f6, #90caf9);
+  box-shadow: 0 2px 8px rgba(100, 181, 246, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  animation: pulse-outcall 2s infinite;
+}
+
+@keyframes pulse-outcall {
+  0% {
+    box-shadow: 0 2px 8px rgba(100, 181, 246, 0.35);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(100, 181, 246, 0.55);
+  }
+  100% {
+    box-shadow: 0 2px 8px rgba(100, 181, 246, 0.35);
+  }
 }
 
 @keyframes pulse {
@@ -3639,9 +3662,14 @@ body.detail-page .detail-gallery #shopImage {
 
 body.detail-page .detail-gallery-main .image-overlay {
   top: 12px;
-  left: 12px;
+  left: 50%;
   right: auto;
+  transform: translateX(-50%);
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
 body.detail-page .detail-gallery-main .shop-type {

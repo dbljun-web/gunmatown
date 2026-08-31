@@ -216,12 +216,20 @@ function displayShopInfo(shop) {
       shop.operatingHours || '09:00 - 22:00 (연중무휴)';
   }
 
-  // 타입 배지 (힐링샵만 표시)
+  // 타입 배지 (힐링샵 + 출장마사지면 출장샵)
   if (elements.shopType) {
     const typeText =
       typeof getTypeName === 'function' ? getTypeName(shop) : shop.typeLabel || '';
     elements.shopType.textContent = typeText || '';
     elements.shopType.style.display = typeText ? '' : 'none';
+  }
+  const outcallBadge = document.getElementById('shopTypeOutcall');
+  if (outcallBadge) {
+    const isOutcall =
+      typeof isOutcallType === 'function'
+        ? isOutcallType(shop)
+        : shop.type === '출장마사지' || shop.type === 'outcall';
+    outcallBadge.hidden = !isOutcall;
   }
 
   // 평점 (요소 있을 때만)
