@@ -474,7 +474,7 @@
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
-        setOneLinerVisibility(shop.showOneLiner === true);
+        setOneLinerVisibility(false);
 
         selectedCountries = parseCountries(shop.country);
         document.getElementById('countryInput').value = selectedCountries.join(',');

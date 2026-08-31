@@ -1308,13 +1308,14 @@ function displayShopCourses(shop) {
       const priceAttr =
         memberWon != null ? ` data-member-price="${memberWon}"` : '';
       const itemDesc = String(course.description || '').trim();
-      html += `<div class="course-item-block">`;
+      const hasDesc = !!(itemDesc && !descOnly);
+      html += `<div class="course-item-block${hasDesc ? ' has-desc' : ''}">`;
       html += `<div class="course-table-row">
         <span class="course-col-name">${name}</span>
         <span class="course-col-time">${duration}</span>
         <span class="course-col-price"${priceAttr}>${priceText}</span>
       </div>`;
-      if (itemDesc && !descOnly) {
+      if (hasDesc) {
         html += `<div class="course-row-desc">${escapeCourseHtml(itemDesc)}</div>`;
       }
       html += `</div>`;
@@ -1322,7 +1323,7 @@ function displayShopCourses(shop) {
 
     // └ 베이직 코스 ┘ 같은 설명은 해당 코스들 바로 아래
     if (descOnly && title) {
-      html += `<div class="course-item-block"><div class="course-row-desc">${escapeCourseHtml(title)}</div></div>`;
+      html += `<div class="course-item-block has-desc"><div class="course-row-desc">${escapeCourseHtml(title)}</div></div>`;
     }
   });
 

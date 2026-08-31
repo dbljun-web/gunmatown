@@ -5613,38 +5613,35 @@ body.detail-page .staff-card {
   grid-template-columns: 1.1fr 0.8fr 1fr;
   gap: 8px;
   align-items: center;
-  padding: 8px 0 0;
+  padding: 8px 0;
   border-bottom: none;
 }
 
 .course-item-block {
-  padding: 0 0 10px;
+  padding: 0;
   border-bottom: 1px solid #eee;
 }
 
-.course-item-block:last-child {
-  border-bottom: none;
-}
-
 .course-item-block .course-table-row {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.course-item-block .course-table-row:only-child {
   padding-bottom: 8px;
-}
-
-.course-table-row:last-child {
   border-bottom: none;
 }
 
-.course-table-row + .course-table-row {
-  border-top: none;
+.course-item-block.has-desc .course-table-row {
+  padding-bottom: 4px;
+}
+
+.course-item-block.has-desc .course-row-desc {
+  padding: 0 0 10px;
+  border-bottom: none;
+}
+
+.course-item-block:last-child {
+  border-bottom: 1px solid #eee;
 }
 
 .course-row-desc {
-  padding: 4px 0 0;
+  padding: 0 0 10px;
   color: #7a8799;
   font-size: 0.86rem;
   line-height: 1.45;
