@@ -10,16 +10,19 @@
       .edit-page h1 { font-size: 1.25rem; margin: 0 0 12px; }
       .edit-back { display: inline-block; margin-bottom: 12px; color: #333; text-decoration: none; font-weight: 600; }
       .edit-card-preview { border: 1px solid #eee; border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
-      .edit-card-preview img { width: 100%; height: 160px; object-fit: cover; display: block; background: #f3f4f6; }
+      .edit-card-preview img.preview-main { width: 100%; height: 160px; object-fit: cover; display: block; background: #f3f4f6; }
       .edit-card-preview .body { padding: 12px; }
       .edit-card-preview .name { font-weight: 800; margin-bottom: 4px; }
       .edit-card-preview .meta { color: #666; font-size: 0.86rem; }
+      .edit-card-preview .preview-greeting { margin-top: 8px; font-size: 0.84rem; color: #444; line-height: 1.4; }
+      .edit-card-preview .preview-flags { display: flex; gap: 4px; margin-top: 6px; align-items: center; }
+      .edit-card-preview .preview-flags img { width: 22px; height: 14px; object-fit: cover; border-radius: 2px; }
       .edit-form label { display: block; margin-bottom: 10px; font-size: 0.88rem; font-weight: 700; color: #333; }
       .edit-form input, .edit-form textarea, .edit-form select {
         width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px;
         box-sizing: border-box; font-size: 0.95rem; font-family: inherit;
       }
-      .edit-form textarea { min-height: 110px; resize: vertical; }
+      .edit-form textarea { min-height: 90px; resize: vertical; }
       .edit-actions { display: flex; gap: 8px; margin-top: 16px; }
       .edit-actions button { flex: 1; padding: 12px; border: 0; border-radius: 10px; font-weight: 700; cursor: pointer; }
       .btn-save { background: #111; color: #fff; }
@@ -28,6 +31,43 @@
       .edit-msg.error { color: #c62828; }
       .edit-msg.ok { color: #15803d; }
       .section-label { margin: 18px 0 8px; font-size: 0.95rem; font-weight: 800; border-top: 8px solid #f5f6f8; padding-top: 14px; }
+      .hint { font-size: 0.78rem; font-weight: 500; color: #888; margin: 0 0 8px; }
+      .flag-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      .flag-chip {
+        display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px;
+        border: 1px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer;
+        font-size: 0.82rem; font-weight: 600; color: #333; user-select: none;
+      }
+      .flag-chip.is-active { border-color: #111; background: #111; color: #fff; }
+      .flag-chip img { width: 24px; height: 16px; object-fit: cover; border-radius: 2px; }
+      .images-editor { display: grid; gap: 8px; margin-top: 8px; }
+      .image-row {
+        display: grid; grid-template-columns: 64px 1fr auto; gap: 8px; align-items: center;
+        padding: 8px; border: 1px solid #eee; border-radius: 10px;
+      }
+      .image-row img { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; background: #f3f4f6; }
+      .image-row input { margin: 0; }
+      .image-row .row-actions { display: flex; flex-direction: column; gap: 4px; }
+      .image-row button, .mini-btn {
+        border: 0; border-radius: 8px; padding: 7px 10px; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: #f3f4f6;
+      }
+      .mini-btn.primary { background: #111; color: #fff; }
+      .image-add-bar { display: flex; gap: 6px; margin-top: 8px; }
+      .image-add-bar input { flex: 1; margin: 0; }
+      .courses-editor { display: grid; gap: 12px; margin-top: 8px; }
+      .course-cat {
+        border: 1px solid #eee; border-radius: 12px; padding: 10px; background: #fafafa;
+      }
+      .course-cat-head { display: grid; grid-template-columns: 1fr auto; gap: 6px; margin-bottom: 8px; }
+      .course-item {
+        display: grid; grid-template-columns: 1.1fr 0.7fr 1fr auto; gap: 6px; margin-bottom: 6px; align-items: center;
+      }
+      .course-item input { margin: 0; padding: 8px; font-size: 0.85rem; }
+      .course-tools { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+      @media (max-width: 400px) {
+        .course-item { grid-template-columns: 1fr 1fr; }
+        .course-item button { grid-column: 1 / -1; }
+      }
     </style>
   </head>
   <body>
@@ -38,11 +78,13 @@
 
       <div id="editWrap" hidden>
         <div class="edit-card-preview" id="cardPreview">
-          <img id="previewImage" alt="업체 이미지" />
+          <img class="preview-main" id="previewImage" alt="업체 이미지" />
           <div class="body">
             <div class="name" id="previewName"></div>
             <div class="meta" id="previewMeta"></div>
-            <div class="meta" id="previewPrice"></div>
+            <div class="preview-flags" id="previewFlags"></div>
+            <div class="preview-greeting" id="previewGreeting"></div>
+            <div class="meta" id="previewPrice" style="margin-top:8px;font-weight:700;color:#111;"></div>
           </div>
         </div>
 
@@ -54,9 +96,13 @@
           <label>동(dong) <input name="dong" /></label>
           <label>주소 <input name="address" /></label>
           <label>전화 <input name="phone" /></label>
-          <label>가격 표시(price) <input name="price" /></label>
+          <label>가격 표시(price) <input name="price" placeholder="예: 120,000원~" /></label>
           <label>가격 라벨(priceLabel) <input name="priceLabel" /></label>
-          <label>이미지 경로 <input name="image" /></label>
+          <label>기존가(originalPrice) <input name="originalPrice" /></label>
+          <label>회원가(memberPrice) <input name="memberPrice" /></label>
+          <label>카드 인사말(greeting)
+            <textarea name="greeting" placeholder="업체 카드에 보이는 인사말"></textarea>
+          </label>
           <label>타입
             <select name="type">
               <option value="마사지">마사지</option>
@@ -70,13 +116,37 @@
             </select>
           </label>
 
+          <div class="section-label">국기 (클릭 선택)</div>
+          <p class="hint">선택한 국기가 업체 카드에 표시됩니다.</p>
+          <div class="flag-picker" id="flagPicker"></div>
+          <input type="hidden" name="country" id="countryInput" />
+
+          <div class="section-label">이미지</div>
+          <p class="hint">URL 추가 또는 파일 업로드. 첫 이미지가 카드 대표 이미지입니다. 서버(R2) 업로드 가능하면 CDN URL로 저장됩니다.</p>
+          <div class="images-editor" id="imagesEditor"></div>
+          <div class="image-add-bar">
+            <input type="url" id="imageUrlInput" placeholder="https://... 이미지 URL" />
+            <button type="button" class="mini-btn primary" id="addImageUrlBtn">URL추가</button>
+          </div>
+          <div class="image-add-bar" style="margin-top:6px;">
+            <input type="file" id="imageFileInput" accept="image/jpeg,image/png,image/webp,image/gif" />
+            <button type="button" class="mini-btn primary" id="uploadImageBtn">업로드</button>
+          </div>
+
+          <div class="section-label">코스 · 가격</div>
+          <p class="hint">상세 페이지 코스 표에 반영됩니다. 저장 시 최저가를 카드 가격에 맞춰 갱신할 수 있습니다.</p>
+          <div class="courses-editor" id="coursesEditor"></div>
+          <div class="course-tools">
+            <button type="button" class="mini-btn" id="addCourseCatBtn">카테고리 추가</button>
+            <button type="button" class="mini-btn" id="syncPriceFromCoursesBtn">최저가 → 카드가격</button>
+          </div>
+
           <div class="section-label">상세 정보</div>
           <label>소개글 <textarea name="description"></textarea></label>
           <label>상세내용 <textarea name="detailContent"></textarea></label>
           <label>오시는 길 <textarea name="directions"></textarea></label>
           <label>운영시간 <input name="operatingHours" /></label>
           <label>관리사 정보 <textarea name="staffInfo"></textarea></label>
-          <label>국가(country) <input name="country" placeholder="korea,thailand" /></label>
 
           <div class="edit-actions">
             <button type="submit" class="btn-save">저장</button>
@@ -92,33 +162,262 @@
     <script src="js/admin-mode.js"></script>
     <script src="js/shop-overrides.js"></script>
     <script>
+      const FLAG_OPTIONS = [
+        { key: 'korea', label: '한국', src: 'images/national flag/한국.jpg' },
+        { key: 'japan', label: '일본', src: 'images/national flag/일본.jpg' },
+        { key: 'thailand', label: '태국', src: 'images/national flag/태국.jpg' },
+        { key: 'china', label: '중국', src: 'images/national flag/중국.jpg' },
+        { key: 'russia', label: '러시아', src: 'images/national flag/러시아.jpg' },
+        { key: 'ukraine', label: '우크라이나', src: 'images/national flag/우크라이나국기.png' },
+      ];
+
       let currentShop = null;
+      let editImages = [];
+      let editCourses = [];
+      let selectedCountries = [];
 
       function getShopId() {
         return new URLSearchParams(location.search).get('id');
+      }
+
+      function parseCountries(country) {
+        if (typeof parseShopCountries === 'function') {
+          return parseShopCountries(country).filter(Boolean);
+        }
+        const raw = String(country || '')
+          .toLowerCase()
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean);
+        const keys = [];
+        raw.forEach((part) => {
+          const hit = FLAG_OPTIONS.find(
+            (f) => part.includes(f.key) || part.includes(f.label)
+          );
+          if (hit && !keys.includes(hit.key)) keys.push(hit.key);
+        });
+        return keys.length ? keys : ['korea'];
+      }
+
+      function formatPriceNumber(n) {
+        if (!Number.isFinite(n)) return '';
+        return n.toLocaleString('ko-KR') + '원';
+      }
+
+      function parsePriceNumber(text) {
+        const n = Number(String(text || '').replace(/[^\d]/g, ''));
+        return Number.isFinite(n) && n > 0 ? n : null;
+      }
+
+      function lowestCoursePrice(courses) {
+        let min = null;
+        (courses || []).forEach((cat) => {
+          (cat.items || []).forEach((item) => {
+            const n = parsePriceNumber(item.price);
+            if (n != null && (min == null || n < min)) min = n;
+          });
+        });
+        return min;
+      }
+
+      function normalizeCourses(courses) {
+        if (!Array.isArray(courses) || !courses.length) {
+          return [{ category: '단일 코스', items: [{ name: 'A코스', duration: '60분', price: '' }] }];
+        }
+        return courses.map((cat) => ({
+          category: cat.category || cat.title || '코스',
+          items: (cat.items || cat.courses || []).map((it) => ({
+            name: it.name || '',
+            duration: it.duration || '',
+            price: it.price || '',
+            description: it.description || '',
+          })),
+        }));
+      }
+
+      function renderFlagPicker() {
+        const box = document.getElementById('flagPicker');
+        box.innerHTML = FLAG_OPTIONS.map((f) => {
+          const on = selectedCountries.includes(f.key) ? ' is-active' : '';
+          return `<button type="button" class="flag-chip${on}" data-country="${f.key}">
+            <img src="${f.src}" alt="${f.label}" />
+            <span>${f.label}</span>
+          </button>`;
+        }).join('');
+        box.querySelectorAll('.flag-chip').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const key = btn.dataset.country;
+            if (selectedCountries.includes(key)) {
+              if (selectedCountries.length === 1) return;
+              selectedCountries = selectedCountries.filter((k) => k !== key);
+            } else {
+              selectedCountries = [...selectedCountries, key];
+            }
+            document.getElementById('countryInput').value = selectedCountries.join(',');
+            renderFlagPicker();
+            updatePreview(readFormShop(currentShop));
+          });
+        });
+      }
+
+      function renderImagesEditor() {
+        const box = document.getElementById('imagesEditor');
+        if (!editImages.length) {
+          box.innerHTML = '<p class="hint">이미지가 없습니다. URL 또는 파일로 추가하세요.</p>';
+          return;
+        }
+        box.innerHTML = editImages
+          .map(
+            (url, i) => `<div class="image-row" data-idx="${i}">
+              <img src="${url}" alt="img${i}" onerror="this.style.opacity=.3" />
+              <input type="text" value="${String(url).replace(/"/g, '&quot;')}" data-role="url" />
+              <div class="row-actions">
+                <button type="button" data-role="main"${i === 0 ? ' disabled' : ''}>대표</button>
+                <button type="button" data-role="del">삭제</button>
+              </div>
+            </div>`
+          )
+          .join('');
+
+        box.querySelectorAll('.image-row').forEach((row) => {
+          const idx = Number(row.dataset.idx);
+          row.querySelector('[data-role="url"]').addEventListener('change', (e) => {
+            editImages[idx] = e.target.value.trim();
+            syncPreviewFromState();
+          });
+          row.querySelector('[data-role="del"]').addEventListener('click', () => {
+            editImages.splice(idx, 1);
+            renderImagesEditor();
+            syncPreviewFromState();
+          });
+          const mainBtn = row.querySelector('[data-role="main"]');
+          if (mainBtn && !mainBtn.disabled) {
+            mainBtn.addEventListener('click', () => {
+              const [picked] = editImages.splice(idx, 1);
+              editImages.unshift(picked);
+              renderImagesEditor();
+              syncPreviewFromState();
+            });
+          }
+        });
+      }
+
+      function renderCoursesEditor() {
+        const box = document.getElementById('coursesEditor');
+        box.innerHTML = editCourses
+          .map((cat, ci) => {
+            const items = (cat.items || [])
+              .map(
+                (it, ii) => `<div class="course-item" data-ci="${ci}" data-ii="${ii}">
+                  <input data-f="name" placeholder="코스명" value="${escapeAttr(it.name)}" />
+                  <input data-f="duration" placeholder="시간" value="${escapeAttr(it.duration)}" />
+                  <input data-f="price" placeholder="가격" value="${escapeAttr(it.price)}" />
+                  <button type="button" data-role="del-item">삭제</button>
+                </div>`
+              )
+              .join('');
+            return `<div class="course-cat" data-ci="${ci}">
+              <div class="course-cat-head">
+                <input data-f="category" placeholder="카테고리명" value="${escapeAttr(cat.category)}" />
+                <button type="button" data-role="del-cat">카테고리삭제</button>
+              </div>
+              ${items}
+              <button type="button" class="mini-btn" data-role="add-item">코스 추가</button>
+            </div>`;
+          })
+          .join('');
+
+        box.querySelectorAll('.course-cat').forEach((catEl) => {
+          const ci = Number(catEl.dataset.ci);
+          const catInput = catEl.querySelector('[data-f="category"]');
+          catInput.addEventListener('input', () => {
+            editCourses[ci].category = catInput.value;
+          });
+          catEl.querySelector('[data-role="del-cat"]').addEventListener('click', () => {
+            if (editCourses.length <= 1) return;
+            editCourses.splice(ci, 1);
+            renderCoursesEditor();
+          });
+          catEl.querySelector('[data-role="add-item"]').addEventListener('click', () => {
+            editCourses[ci].items.push({ name: '', duration: '', price: '' });
+            renderCoursesEditor();
+          });
+          catEl.querySelectorAll('.course-item').forEach((row) => {
+            const ii = Number(row.dataset.ii);
+            row.querySelectorAll('input[data-f]').forEach((inp) => {
+              inp.addEventListener('input', () => {
+                editCourses[ci].items[ii][inp.dataset.f] = inp.value;
+              });
+            });
+            row.querySelector('[data-role="del-item"]').addEventListener('click', () => {
+              if (editCourses[ci].items.length <= 1) return;
+              editCourses[ci].items.splice(ii, 1);
+              renderCoursesEditor();
+            });
+          });
+        });
+      }
+
+      function escapeAttr(v) {
+        return String(v == null ? '' : v)
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;');
+      }
+
+      function syncPreviewFromState() {
+        updatePreview(readFormShop(currentShop));
       }
 
       function fillForm(shop) {
         const form = document.getElementById('shop-edit-form');
         const fields = [
           'name','region','district','dong','address','phone','price','priceLabel',
-          'image','type','description','detailContent','directions','operatingHours',
-          'staffInfo','country'
+          'originalPrice','memberPrice','type','description','detailContent','directions',
+          'operatingHours','staffInfo','greeting'
         ];
         fields.forEach((key) => {
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
         });
         form.showHealingShop.value = shop.showHealingShop === false ? 'false' : 'true';
+
+        selectedCountries = parseCountries(shop.country);
+        document.getElementById('countryInput').value = selectedCountries.join(',');
+        renderFlagPicker();
+
+        editImages = Array.isArray(shop.images) && shop.images.length
+          ? shop.images.slice()
+          : shop.image
+            ? [shop.image]
+            : [];
+        renderImagesEditor();
+
+        editCourses = normalizeCourses(shop.courses);
+        renderCoursesEditor();
+
         updatePreview(shop);
       }
 
       function updatePreview(shop) {
-        document.getElementById('previewImage').src = shop.image || '';
+        document.getElementById('previewImage').src = shop.image || (shop.images && shop.images[0]) || '';
         document.getElementById('previewName').textContent = shop.name || '';
         document.getElementById('previewMeta').textContent =
           [shop.district, shop.dong].filter(Boolean).join(' ') || shop.region || '';
         document.getElementById('previewPrice').textContent =
-          shop.priceLabel || shop.price || '';
+          '최저가 ' + (shop.price || shop.priceLabel || '');
+        const greeting =
+          (shop.greeting && String(shop.greeting).trim()) ||
+          '안녕하세요. 저희는 사랑하는 고객님을 위한 서비스를 제공합니다.';
+        document.getElementById('previewGreeting').textContent = greeting;
+
+        const flags = document.getElementById('previewFlags');
+        const keys = parseCountries(shop.country);
+        flags.innerHTML = keys
+          .map((key) => {
+            const f = FLAG_OPTIONS.find((x) => x.key === key);
+            return f ? `<img src="${f.src}" alt="${f.label}" />` : '';
+          })
+          .join('');
       }
 
       function readFormShop(base) {
@@ -126,15 +425,40 @@
         const next = { ...base };
         [
           'name','region','district','dong','address','phone','price','priceLabel',
-          'image','type','description','detailContent','directions','operatingHours',
-          'staffInfo','country'
+          'originalPrice','memberPrice','type','description','detailContent','directions',
+          'operatingHours','staffInfo','greeting'
         ].forEach((key) => {
           next[key] = form[key].value;
         });
         next.showHealingShop = form.showHealingShop.value === 'true';
         next.typeLabel = next.showHealingShop ? '힐링샵' : '';
-        if (next.image) next.images = [next.image];
+        next.country = selectedCountries.join(',') || 'korea';
+        next.images = editImages.filter(Boolean);
+        next.image = next.images[0] || '';
+        next.courses = editCourses.map((cat) => ({
+          category: cat.category || '코스',
+          items: (cat.items || []).map((it) => ({
+            name: it.name || '',
+            duration: it.duration || '',
+            price: it.price || '',
+            description: it.description || '',
+          })),
+        }));
         return next;
+      }
+
+      async function fileToDataUrl(file, maxEdge = 1280, quality = 0.82) {
+        const bitmap = await createImageBitmap(file);
+        const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
+        const w = Math.max(1, Math.round(bitmap.width * scale));
+        const h = Math.max(1, Math.round(bitmap.height * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(bitmap, 0, 0, w, h);
+        bitmap.close();
+        return canvas.toDataURL('image/jpeg', quality);
       }
 
       async function boot() {
@@ -164,6 +488,78 @@
           updatePreview(readFormShop(currentShop));
         });
 
+        document.getElementById('addImageUrlBtn').addEventListener('click', () => {
+          const input = document.getElementById('imageUrlInput');
+          const url = input.value.trim();
+          if (!url) return;
+          editImages.push(url);
+          input.value = '';
+          renderImagesEditor();
+          syncPreviewFromState();
+        });
+
+        document.getElementById('uploadImageBtn').addEventListener('click', async () => {
+          const fileInput = document.getElementById('imageFileInput');
+          const file = fileInput.files && fileInput.files[0];
+          if (!file) {
+            alert('파일을 선택해 주세요.');
+            return;
+          }
+          const msg = document.getElementById('editMsg');
+          msg.hidden = true;
+          try {
+            let url = '';
+            if (typeof uploadShopImage === 'function') {
+              try {
+                const uploaded = await uploadShopImage(file);
+                url = uploaded && uploaded.url;
+              } catch (err) {
+                if (!(err && (err.status === 503 || (err.data && err.data.code === 'R2_MISSING')))) {
+                  throw err;
+                }
+              }
+            }
+            if (!url) {
+              url = await fileToDataUrl(file);
+              if (url.length > 900000) {
+                throw new Error('이미지가 너무 큽니다. URL로 추가하거나 더 작은 파일을 사용해 주세요.');
+              }
+            }
+            editImages.push(url);
+            fileInput.value = '';
+            renderImagesEditor();
+            syncPreviewFromState();
+            msg.className = 'edit-msg ok';
+            msg.textContent = url.startsWith('data:')
+              ? '이미지를 추가했습니다. (로컬 저장 — 저장 버튼을 눌러 반영)'
+              : '이미지를 업로드했습니다. 저장 버튼을 눌러 반영하세요.';
+            msg.hidden = false;
+          } catch (err) {
+            msg.className = 'edit-msg error';
+            msg.textContent = err.message || '업로드 실패';
+            msg.hidden = false;
+          }
+        });
+
+        document.getElementById('addCourseCatBtn').addEventListener('click', () => {
+          editCourses.push({
+            category: '새 카테고리',
+            items: [{ name: 'A코스', duration: '60분', price: '' }],
+          });
+          renderCoursesEditor();
+        });
+
+        document.getElementById('syncPriceFromCoursesBtn').addEventListener('click', () => {
+          const min = lowestCoursePrice(editCourses);
+          if (min == null) {
+            alert('코스 가격을 먼저 입력해 주세요.');
+            return;
+          }
+          form.price.value = formatPriceNumber(min) + '~';
+          if (!form.memberPrice.value) form.memberPrice.value = formatPriceNumber(min);
+          syncPreviewFromState();
+        });
+
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           const msg = document.getElementById('editMsg');
@@ -172,6 +568,10 @@
             const payload = readFormShop(currentShop);
             await saveShopOverride(payload.id, payload);
             currentShop = payload;
+            const idx = (window.shopCardData || []).findIndex(
+              (s) => String(s.id) === String(payload.id)
+            );
+            if (idx >= 0) window.shopCardData[idx] = { ...window.shopCardData[idx], ...payload };
             msg.className = 'edit-msg ok';
             msg.textContent = '저장되었습니다. 목록/상세에 반영됩니다.';
             msg.hidden = false;

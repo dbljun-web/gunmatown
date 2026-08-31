@@ -143,6 +143,36 @@ async function deleteShopOverride(shopId) {
   });
 }
 
+async function uploadShopImage(file) {
+  const token = getAuthToken();
+  const form = new FormData();
+  form.append("file", file, file.name || "upload.jpg");
+
+  const headers = {};
+  if (token) headers.authorization = `Bearer ${token}`;
+
+  const res = await fetch(`${AUTH_API_BASE}/api/upload`, {
+    method: "POST",
+    headers,
+    body: form,
+  });
+
+  let data = null;
+  try {
+    data = await res.json();
+  } catch {
+    data = null;
+  }
+
+  if (!res.ok) {
+    const err = new Error((data && data.error) || "업로드에 실패했습니다.");
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
+  return data;
+}
+
 window.AUTH_API_BASE = AUTH_API_BASE;
 window.getAuthToken = getAuthToken;
 window.setAuthSession = setAuthSession;
@@ -156,3 +186,4 @@ window.fetchShopOverrides = fetchShopOverrides;
 window.fetchShopOverride = fetchShopOverride;
 window.saveShopOverride = saveShopOverride;
 window.deleteShopOverride = deleteShopOverride;
+window.uploadShopImage = uploadShopImage;

@@ -365,6 +365,77 @@ async function handleShopDelete(request, env, shopId) {
   return json({ ok: true, shopId: String(shopId), deleted: true });
 }
 
+async function handleUpload(request, env) {
+  const auth = await requireAdmin(request, env);
+  if (auth.error) return auth.error;
+
+  if (!env.SHOP_IMAGES) {
+    return json(
+      {
+        error:
+          "이미지 저장소(R2)가 아직 연결되지 않았습니다. 이미지 URL을 직접 입력해 주세요.",
+        code: "R2_MISSING",
+      },
+      503
+    );
+  }
+
+  const contentType = request.headers.get("content-type") || "";
+  if (!contentType.includes("multipart/form-data")) {
+    return json({ error: "multipart/form-data 로 업로드해 주세요." }, 400);
+  }
+
+  const form = await request.formData();
+  const file = form.get("file");
+  if (!file || typeof file === "string" || !file.size) {
+    return json({ error: "파일이 없습니다." }, 400);
+  }
+
+  const maxBytes = 4.5 * 1024 * 1024;
+  if (file.size > maxBytes) {
+    return json({ error: "이미지는 4.5MB 이하만 업로드할 수 있습니다." }, 400);
+  }
+
+  const type = String(file.type || "application/octet-stream");
+  if (!/^image\/(jpeg|jpg|png|webp|gif)$/i.test(type)) {
+    return json({ error: "jpg/png/webp/gif 만 지원합니다." }, 400);
+  }
+
+  const ext =
+    type.includes("png")
+      ? "png"
+      : type.includes("webp")
+        ? "webp"
+        : type.includes("gif")
+          ? "gif"
+          : "jpg";
+  const key = `shops/${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
+  const bytes = await file.arrayBuffer();
+  await env.SHOP_IMAGES.put(key, bytes, {
+    httpMetadata: { contentType: type },
+    customMetadata: {
+      uploadedBy: String(auth.user.id),
+      originalName: String(file.name || "").slice(0, 120),
+    },
+  });
+
+  const url = new URL(request.url);
+  const publicUrl = `${url.origin}/api/files/${encodeURIComponent(key)}`;
+  return json({ ok: true, key, url: publicUrl, contentType: type, size: file.size });
+}
+
+async function handleFileGet(env, key) {
+  if (!env.SHOP_IMAGES) return json({ error: "Not found" }, 404);
+  const decoded = decodeURIComponent(key);
+  if (!decoded || decoded.includes("..")) return json({ error: "Invalid key" }, 400);
+  const obj = await env.SHOP_IMAGES.get(decoded);
+  if (!obj) return json({ error: "Not found" }, 404);
+  const headers = new Headers();
+  obj.writeHttpMetadata(headers);
+  headers.set("cache-control", "public, max-age=31536000, immutable");
+  return new Response(obj.body, { headers });
+}
+
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {
@@ -406,8 +477,17 @@ export default {
           env,
           decodeURIComponent(path.split("/").pop())
         );
+      } else if (request.method === "POST" && path === "/api/upload") {
+        response = await handleUpload(request, env);
+      } else if (request.method === "GET" && path.startsWith("/api/files/")) {
+        const key = path.slice("/api/files/".length);
+        response = await handleFileGet(env, key);
       } else if (request.method === "GET" && path === "/api/health") {
-        response = json({ ok: true, service: "twon-api" });
+        response = json({
+          ok: true,
+          service: "twon-api",
+          r2: !!env.SHOP_IMAGES,
+        });
       } else {
         response = json({ error: "Not found" }, 404);
       }

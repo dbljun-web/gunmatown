@@ -7127,8 +7127,6 @@ function parseShopCountries(country) {
         add('ukraine');
     });
   if (keys.length === 0) add('korea');
-  // 기존 UI와 같이 한국 국기는 항상 포함
-  if (!keys.includes('korea')) keys.unshift('korea');
   return keys;
 }
 

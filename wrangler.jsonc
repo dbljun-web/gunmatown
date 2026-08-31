@@ -21,4 +21,9 @@
       "migrations_dir": "migrations"
     }
   ]
+  // R2 활성화 후:
+  // 1) Dashboard에서 R2 enable
+  // 2) wrangler r2 bucket create twon-shop-images
+  // 3) 아래 블록을 다시 추가하고 deploy
+  // "r2_buckets": [{ "binding": "SHOP_IMAGES", "bucket_name": "twon-shop-images" }]
 }
