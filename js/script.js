@@ -5426,6 +5426,48 @@ function isOutcallShop(shop) {
   return false;
 }
 
+/** 출장 타입만 (필터용: type 필드 기준) */
+function isOutcallType(shop) {
+  if (!shop) return false;
+  const t = String(shop.type || '').trim();
+  return t === '출장마사지' || t.toLowerCase() === 'outcall';
+}
+
+/**
+ * 샵 마사지 타입 (출장 제외)
+ * 마사지 · 스웨디시 · 타이 · 아로마 · 중국 · 발 · 스파 포함
+ */
+function isMassageType(shop) {
+  if (!shop || isOutcallType(shop)) return false;
+  const t = String(shop.type || '').trim();
+  const tl = t.toLowerCase();
+  if (t === '마사지' || tl === 'massage' || tl === 'korean') return true;
+  if (
+    [
+      'swedish',
+      'thai',
+      'aroma',
+      'chinese',
+      'foot',
+      'spa',
+    ].includes(tl)
+  ) {
+    return true;
+  }
+  if (
+    /스웨디시|타이|아로마|중국|발마사지|스파|경락|안마/.test(t) &&
+    !/출장/.test(t)
+  ) {
+    return true;
+  }
+  // type에 '마사지'가 있어도 출장이면 위에서 제외됨
+  if (t.includes('마사지')) return true;
+  return false;
+}
+
+window.isOutcallType = isOutcallType;
+window.isMassageType = isMassageType;
+
 function getShopRegionList(shop) {
   const found = [];
   const add = (region) => {
@@ -5471,9 +5513,193 @@ function shopMatchesRegion(shop, region) {
   return getShopRegionList(shop).includes(region);
 }
 
+/** UI '강남' ↔ 데이터 '강남구' 정규화 */
+function normalizeDistrictName(name) {
+  return String(name || '')
+    .trim()
+    .replace(/(특별자치시|특별시|광역시)$/u, '')
+    .replace(/(특별자치구|자치구)$/u, '')
+    .replace(/(구|군|시)$/u, '');
+}
+
+/** 세부지역(구/시/군) 매칭 — '강남' === '강남구' 허용 */
+function shopMatchesDistrict(shop, district) {
+  if (!district) return true;
+  if (!shop) return false;
+  if (isOutcallType(shop) || isOutcallShop(shop)) return true;
+  return isExactDistrictShop(shop, district);
+}
+
+/** 선택 구에 실제로 속한 업체인지 (출장 자동통과 없음) */
+function isExactDistrictShop(shop, district) {
+  if (!shop || !district) return false;
+  const rawA = String(shop.district || '').trim();
+  const rawB = String(district || '').trim();
+  if (rawA && rawA === rawB) return true;
+  const a = normalizeDistrictName(rawA);
+  const b = normalizeDistrictName(rawB);
+  if (!a || !b) return false;
+  return a === b;
+}
+
+/** 구/시 대략 중심 좌표 (가까운 순 정렬용) */
+const DISTRICT_COORDS = {
+  // 서울
+  강남: [37.5172, 127.0473],
+  강동: [37.5301, 127.1238],
+  강북: [37.6396, 127.0257],
+  강서: [37.5509, 126.8495],
+  관악: [37.4784, 126.9516],
+  광진: [37.5384, 127.0822],
+  구로: [37.4954, 126.8874],
+  금천: [37.4601, 126.9008],
+  노원: [37.6542, 127.0568],
+  도봉: [37.6688, 127.0471],
+  동대문: [37.5744, 127.0396],
+  동작: [37.5124, 126.9393],
+  마포: [37.5663, 126.9019],
+  서대문: [37.5791, 126.9368],
+  서초: [37.4837, 127.0324],
+  성동: [37.5633, 127.0366],
+  성북: [37.5894, 127.0167],
+  송파: [37.5145, 127.1059],
+  양천: [37.517, 126.8664],
+  영등포: [37.5264, 126.8962],
+  용산: [37.5326, 126.9906],
+  은평: [37.6027, 126.9291],
+  종로: [37.5735, 126.9788],
+  중: [37.5641, 126.9979], // 중구 정규화
+  중랑: [37.6063, 127.0925],
+  // 부산
+  해운대: [35.1631, 129.1635],
+  부산진: [35.1628, 129.0532],
+  동래: [35.2045, 129.078],
+  수영: [35.1455, 129.113],
+  연제: [35.1762, 129.0797],
+  사상: [35.1526, 128.991],
+  사하: [35.1046, 128.974],
+  금정: [35.2428, 129.092],
+  기장: [35.2445, 129.222],
+  영도: [35.0912, 129.0678],
+  // 인천
+  미추홀: [37.4635, 126.6505],
+  연수: [37.4101, 126.6783],
+  남동: [37.4469, 126.7315],
+  부평: [37.507, 126.7218],
+  계양: [37.537, 126.7377],
+  // 경기 (시 단위)
+  수원: [37.2636, 127.0286],
+  성남: [37.4201, 127.1267],
+  용인: [37.2411, 127.1776],
+  고양: [37.6584, 126.832],
+  부천: [37.5034, 126.766],
+  안양: [37.3943, 126.9568],
+  안산: [37.3219, 126.8309],
+  화성: [37.1995, 126.8312],
+  남양주: [37.636, 127.2165],
+  평택: [36.9921, 127.1129],
+  의정부: [37.7381, 127.0338],
+  시흥: [37.3799, 126.8031],
+  파주: [37.7599, 126.7802],
+  김포: [37.6153, 126.7155],
+  광명: [37.4163, 126.884],
+  광주: [37.4294, 127.255], // 경기 광주
+  군포: [37.3617, 126.9352],
+  하남: [37.5392, 127.2148],
+  오산: [37.1498, 127.0772],
+  이천: [37.272, 127.435],
+  양주: [37.7853, 127.0458],
+  구리: [37.5943, 127.1296],
+  안성: [37.008, 127.2797],
+  포천: [37.8949, 127.2002],
+  의왕: [37.3449, 126.9683],
+  양평: [37.4912, 127.487],
+  여주: [37.2982, 127.637],
+  동두천: [37.9034, 127.0605],
+  과천: [37.4292, 126.987],
+  가평: [37.8315, 127.510],
+  연천: [38.096, 127.075],
+};
+
+function getDistrictCoords(districtName) {
+  const key = normalizeDistrictName(districtName);
+  if (!key) return null;
+  if (DISTRICT_COORDS[key]) return DISTRICT_COORDS[key];
+  // 중구 등
+  if (key === '중구' && DISTRICT_COORDS['중']) return DISTRICT_COORDS['중'];
+  return null;
+}
+
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const toRad = (d) => (d * Math.PI) / 180;
+  const R = 6371;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/** 선택 구 기준 업체까지 대략 거리(km). 좌표 없으면 큰 값 */
+function getShopDistanceToDistrict(shop, district) {
+  if (!shop || !district) return Number.POSITIVE_INFINITY;
+  if (isExactDistrictShop(shop, district)) return 0;
+  const from = getDistrictCoords(district);
+  const to = getDistrictCoords(shop.district);
+  if (!from || !to) return 999;
+  return Math.round(haversineKm(from[0], from[1], to[0], to[1]) * 10) / 10;
+}
+
+function compareHealingFirst(a, b) {
+  const ha = a.showHealingShop === true ? 0 : 1;
+  const hb = b.showHealingShop === true ? 0 : 1;
+  return ha - hb;
+}
+
+/**
+ * 세부지역 선택 시 정렬
+ * 1) 선택 구(예: 강남) 업체 전부 상단
+ * 2) 그 아래 같은 지역 나머지를 가까운 순
+ */
+function sortShopsByProximity(shops, district) {
+  const list = shops || [];
+  const primary = list
+    .filter((shop) => isExactDistrictShop(shop, district))
+    .sort(compareHealingFirst);
+
+  const nearby = list
+    .filter((shop) => !isExactDistrictShop(shop, district))
+    .map((shop) => ({
+      shop,
+      km: getShopDistanceToDistrict(shop, district),
+    }))
+    .sort((a, b) => {
+      if (a.km !== b.km) return a.km - b.km;
+      return compareHealingFirst(a.shop, b.shop);
+    })
+    .map(({ shop, km }) => {
+      shop._proximityKm = km;
+      shop._isSelectedDistrict = false;
+      return shop;
+    });
+
+  primary.forEach((shop) => {
+    shop._proximityKm = 0;
+    shop._isSelectedDistrict = true;
+  });
+
+  return [...primary, ...nearby];
+}
+
 window.isOutcallShop = isOutcallShop;
 window.getShopRegionList = getShopRegionList;
 window.shopMatchesRegion = shopMatchesRegion;
+window.normalizeDistrictName = normalizeDistrictName;
+window.isExactDistrictShop = isExactDistrictShop;
+window.shopMatchesDistrict = shopMatchesDistrict;
+window.getShopDistanceToDistrict = getShopDistanceToDistrict;
+window.sortShopsByProximity = sortShopsByProximity;
 
 // 검색 디바운싱을 위한 타이머
 // 성인 인증 관련 함수 제거됨
@@ -6233,12 +6459,18 @@ function performLocationSearch() {
     currentDistrict = '';
     districtSelect.value = '';
   } else if (currentDistrict) {
-    // 지역과 구 모두 선택된 경우
-    filteredShops = massageShops.filter((shop) => {
-      if (!shopMatchesRegion(shop, currentRegion)) return false;
-      if (isOutcallShop(shop)) return true;
-      return shop.district === currentDistrict;
-    });
+    // 지역 선택 + 세부지역: 같은 지역을 가까운 순으로
+    filteredShops = massageShops.filter((shop) =>
+      shopMatchesRegion(shop, currentRegion)
+    );
+    if (currentFilter === 'massage') {
+      filteredShops = filteredShops.filter((shop) => isMassageType(shop));
+    }
+    filteredShops = sortShopsByProximity(filteredShops, currentDistrict);
+    displayMassageShops(filteredShops, { preserveOrder: true });
+    const title = `${currentRegion} ${currentDistrict}`;
+    updateResultsHeader(title, filteredShops.length);
+    return;
   } else {
     // 지역만 선택된 경우
     filteredShops = massageShops.filter((shop) =>
@@ -6277,23 +6509,28 @@ function performSearch() {
   // 검색 결과 필터링
   let filteredShops;
   if (selectedDistrict) {
-    // 지역과 구 모두 선택된 경우
-    filteredShops = massageShops.filter((shop) => {
-      if (!shopMatchesRegion(shop, selectedRegion)) return false;
-      // 출장마사지인 경우 district 필터 무시
-      if (isOutcallShop(shop)) return true;
-      // 일반 업체는 district 필터 적용
-      return shop.district === selectedDistrict;
-    });
+    // 지역 + 세부지역: 같은 지역을 가까운 순으로
+    filteredShops = massageShops.filter((shop) =>
+      shopMatchesRegion(shop, selectedRegion)
+    );
+    if (currentFilter === 'massage') {
+      filteredShops = filteredShops.filter((shop) => isMassageType(shop));
+    } else if (currentFilter === 'outcall') {
+      filteredShops = filteredShops.filter((shop) => isOutcallType(shop));
+    }
+    if (currentFilter !== 'outcall') {
+      filteredShops = sortShopsByProximity(filteredShops, selectedDistrict);
+      displayMassageShops(filteredShops, { preserveOrder: true });
+    } else {
+      displayMassageShops(filteredShops);
+    }
   } else {
     // 지역만 선택된 경우
     filteredShops = massageShops.filter((shop) =>
       shopMatchesRegion(shop, selectedRegion)
     );
+    displayMassageShops(filteredShops);
   }
-
-  // 결과 표시
-  displayMassageShops(filteredShops);
 
   // 결과 헤더 업데이트
   let title = selectedDistrict
@@ -6376,49 +6613,15 @@ function displayFilteredResults() {
     );
   }
 
-  // 구 필터 적용 (출장마사지는 구를 무시하고 지역만으로 검색)
-  if (currentDistrict && currentFilter !== 'outcall') {
-    filteredShops = filteredShops.filter((shop) => {
-      // 출장마사지인 경우 district 필터 무시 (all 필터에서도 적용)
-      if (
-        shop.type === '출장마사지' ||
-        (shop.services && shop.services.includes('출장마사지'))
-      ) {
-        return true;
-      }
-      // 일반 업체는 district 필터 적용
-      return shop.district === currentDistrict;
-    });
-  }
+  // 구 필터: 출장은 무시. 마사지/전체는 같은 지역을 가까운 순으로 보여주기 위해
+  // 구로 하드컷하지 않고 아래에서 근접 정렬만 적용.
+  const useProximitySort =
+    !!currentDistrict && currentFilter !== 'outcall';
 
   // 타입 필터 적용
   if (currentFilter === 'massage') {
-    // 마사지 타입들 (기존 타입 + 새로운 타입들, 출장마사지 제외)
-    filteredShops = filteredShops.filter((shop) => {
-      // 출장마사지는 제외
-      if (shop.type === '출장마사지') {
-        return false;
-      }
-      // 기존 타입들
-      if (['thai', 'korean', 'foot', 'spa'].includes(shop.type)) {
-        return true;
-      }
-      // 새로운 타입들 (마사지 관련 서비스가 있는 경우)
-      if (shop.type && shop.type.includes('마사지')) {
-        return true;
-      }
-      // services 배열에 마사지 관련 서비스가 있는 경우
-      if (
-        shop.services &&
-        shop.services.some(
-          (service) =>
-            service.includes('마사지') || service.includes('스웨디시')
-        )
-      ) {
-        return true;
-      }
-      return false;
-    });
+    // 마사지 계열만 (출장 제외): 마사지·스웨디시·타이·아로마·중국·발·스파 등
+    filteredShops = filteredShops.filter((shop) => isMassageType(shop));
 
     // 국가별 필터 적용
     if (currentCountry && currentCountry !== 'overall') {
@@ -6444,19 +6647,8 @@ function displayFilteredResults() {
       });
     }
   } else if (currentFilter === 'outcall') {
-    // 출장마사지 타입
-    filteredShops = filteredShops.filter((shop) => {
-      if (shop.type === '출장마사지') return true;
-      if (
-        shop.services &&
-        shop.services.some((s) => String(s).includes('출장'))
-      ) {
-        return true;
-      }
-      if (shop.address && String(shop.address).includes('전지역')) return true;
-      if (shop.district && String(shop.district).includes('전지역')) return true;
-      return false;
-    });
+    // 출장마사지만
+    filteredShops = filteredShops.filter((shop) => isOutcallType(shop));
   } else if (currentFilter === 'waxing') {
     // 왁싱 타입
     filteredShops = filteredShops.filter((shop) => {
@@ -6689,8 +6881,15 @@ function displayFilteredResults() {
   }
 
   // 정적 HTML 카드가 있는지 확인
+  // ※ 동적 렌더된 .massage-card 는 정적 카드로 취급하면 안 됨 (필터 재적용 실패 원인)
   const massageList = document.getElementById('massageList');
+  const hasDynamicData =
+    (Array.isArray(massageShops) && massageShops.length > 0) ||
+    (typeof window !== 'undefined' &&
+      Array.isArray(window.shopCardData) &&
+      window.shopCardData.length > 0);
   const hasStaticCards =
+    !hasDynamicData &&
     massageList &&
     massageList.children.length > 0 &&
     Array.from(massageList.children).some(
@@ -6704,8 +6903,13 @@ function displayFilteredResults() {
     // 정적 HTML 카드가 있으면 검색 필터링만 적용
     filterStaticCards(currentSearchQuery);
   } else {
-    // 동적 생성 카드인 경우 기존 로직 사용
-    displayMassageShops(filteredShops);
+    // 세부지역 선택 시: 같은 지역 샵을 가까운 순으로 표시
+    if (useProximitySort) {
+      filteredShops = sortShopsByProximity(filteredShops, currentDistrict);
+      displayMassageShops(filteredShops, { preserveOrder: true });
+    } else {
+      displayMassageShops(filteredShops);
+    }
   }
 
   // 결과 헤더 업데이트
@@ -7130,18 +7334,16 @@ function filterByType(selectedType) {
     }
   }
 
-  // 현재 지역/구 필터 적용
+  // 현재 지역/구: 세부지역이면 같은 지역을 가까운 순으로
   if (currentRegion) {
+    filteredShops = filteredShops.filter((shop) =>
+      shopMatchesRegion(shop, currentRegion)
+    );
     if (currentDistrict) {
-      filteredShops = filteredShops.filter((shop) => {
-        if (!shopMatchesRegion(shop, currentRegion)) return false;
-        if (isOutcallShop(shop)) return true;
-        return shop.district === currentDistrict;
-      });
-    } else {
-      filteredShops = filteredShops.filter((shop) =>
-        shopMatchesRegion(shop, currentRegion)
-      );
+      filteredShops = sortShopsByProximity(filteredShops, currentDistrict);
+      displayMassageShops(filteredShops, { preserveOrder: true });
+      updateResultsHeader('테마별 업체', filteredShops.length);
+      return;
     }
   }
 
@@ -7368,6 +7570,17 @@ let staticCardsSorted = false;
 function sortStaticCards() {
   // 이미 정렬되었으면 건너뛰기
   if (staticCardsSorted) {
+    return;
+  }
+
+  // 동적 데이터 사용 중이면 정적 재정렬 금지 (선택구 우선 정렬 유지)
+  if (
+    (Array.isArray(massageShops) && massageShops.length > 0) ||
+    (typeof window !== 'undefined' &&
+      Array.isArray(window.shopCardData) &&
+      window.shopCardData.length > 0)
+  ) {
+    staticCardsSorted = true;
     return;
   }
 
@@ -7623,11 +7836,11 @@ function filterStaticCards(searchQuery) {
 }
 
 // 업체 목록 표시 (애니메이션 포함) - 항상 shopCardData 기반 동적 렌더
-function displayMassageShops(shops) {
+function displayMassageShops(shops, options = {}) {
   const listEl = document.getElementById('massageList') || massageList;
   if (!listEl) return;
 
-  if (shops.length === 0) {
+  if (!shops || shops.length === 0) {
     listEl.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-search"></i>
@@ -7635,15 +7848,41 @@ function displayMassageShops(shops) {
                 <p>다른 지역이나 필터를 선택해보세요.</p>
             </div>
         `;
+    listEl.classList.add('sorted');
+    listEl.style.opacity = '1';
+    listEl.style.visibility = 'visible';
     return;
   }
 
-  // 업체 정렬 적용
-  const sortedShops = sortShops([...shops]);
+  // 세부지역이 있으면: 선택 구 업체를 무조건 최상단 → 그 아래 가까운 순
+  // (호출부에서 preserveOrder를 빼먹어도 순서가 깨지지 않도록 여기서 강제)
+  const districtForSort =
+    options.district ||
+    currentDistrict ||
+    (typeof window !== 'undefined' ? window.currentDistrict : '') ||
+    '';
+  const skipProximity =
+    options.skipProximity === true ||
+    currentFilter === 'outcall' ||
+    (typeof window !== 'undefined' && window.currentFilter === 'outcall');
+
+  let sortedShops;
+  if (districtForSort && !skipProximity && typeof sortShopsByProximity === 'function') {
+    sortedShops = sortShopsByProximity([...shops], districtForSort);
+  } else if (options.preserveOrder) {
+    sortedShops = [...shops];
+  } else {
+    sortedShops = sortShops([...shops]);
+  }
 
   listEl.innerHTML = sortedShops
     .map((shop) => createShopCard(shop))
     .join('');
+
+  // CSS .massage-list 기본이 opacity:0 이라 반드시 표시 처리
+  listEl.classList.add('sorted');
+  listEl.style.opacity = '1';
+  listEl.style.visibility = 'visible';
 
   // 카드 애니메이션 적용 (즉시 실행)
   observeCards();
@@ -8949,20 +9188,35 @@ async function initializeApp() {
           district = districtSelect.value;
         }
 
-        // 지역이 선택되지 않은 경우: 현재 페이지 내에서 필터만 변경
+        // 지역이 선택되지 않은 경우: all/massage/outcall 은 전용 페이지로 이동
         if (!region || region === '' || region === '지역을 선택하세요') {
+          const pageByFilter = {
+            all: 'index.html',
+            massage: 'massage.html',
+            outcall: 'outcall.html',
+          };
+          const targetPage = pageByFilter[filter];
+          if (targetPage) {
+            let currentPage =
+              (window.location.pathname.split('/').pop() || '').toLowerCase();
+            if (!currentPage || currentPage === '/') currentPage = 'index.html';
+            if (!currentPage.endsWith('.html')) currentPage += '.html';
+            if (currentPage !== targetPage) {
+              window.location.href = targetPage;
+              return;
+            }
+          }
+
+          currentFilter = filter;
           window.currentFilter = filter;
 
-          // 버튼 active 상태 업데이트
           document
             .querySelectorAll('.filter-btn[data-filter]')
             .forEach((b) => b.classList.remove('active'));
           const targetBtn = document.querySelector(
             `.filter-btn[data-filter="${filter}"]`
           );
-          if (targetBtn) {
-            targetBtn.classList.add('active');
-          }
+          if (targetBtn) targetBtn.classList.add('active');
 
           if (typeof displayFilteredResults === 'function') {
             displayFilteredResults();
@@ -9282,6 +9536,8 @@ async function initializeApp() {
       typeof districtData === 'string'
         ? districtData
         : districtData?.districtsname || districtData || '';
+    window.currentDistrict = currentDistrict;
+    window.currentRegion = currentRegion;
 
     // URL 파라미터에서 district 읽기 (표시용)
     // 출장마사지 페이지인 경우에는 district를 필터링에 사용하지 않음
@@ -10413,6 +10669,17 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 function initStaticCardSorting() {
   // 이미 정렬되었으면 건너뛰기
   if (staticCardsSorted) {
+    return;
+  }
+
+  // 동적 데이터면 스킵
+  if (
+    (Array.isArray(massageShops) && massageShops.length > 0) ||
+    (typeof window !== 'undefined' &&
+      Array.isArray(window.shopCardData) &&
+      window.shopCardData.length > 0)
+  ) {
+    staticCardsSorted = true;
     return;
   }
 

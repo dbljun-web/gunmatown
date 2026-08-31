@@ -3199,6 +3199,10 @@ body.detail-page .detail-admin-actions {
   gap: 6px;
 }
 
+body.detail-page .detail-admin-actions[hidden] {
+  display: none !important;
+}
+
 body.detail-page .detail-admin-btn {
   border: 1px solid #d1d5db;
   background: #f8fafc;
@@ -3234,6 +3238,24 @@ body.detail-page .detail-back-btn {
   color: #2c3e50;
   cursor: pointer;
   padding: 8px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  line-height: 1;
+}
+
+body.detail-page .detail-back-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  line-height: 1;
+  font-weight: 900;
+  -webkit-text-stroke: 0.4px currentColor;
+  transform: translateY(-4px);
+  position: relative;
+  top: 0;
 }
 
 body.detail-page .detail-main {
@@ -3351,6 +3373,12 @@ body.detail-page .detail-section {
   border-top: none;
 }
 
+body.detail-page .detail-section.courses-section,
+body.detail-page #sectionPrice {
+  padding-top: 4px;
+  padding-bottom: 2px;
+}
+
 body.detail-page .detail-section:first-of-type {
   padding-top: 8px;
 }
@@ -3365,6 +3393,16 @@ body.detail-page .detail-section + .detail-section::before {
   background: #f5f6f8;
   border-top: 1px solid #e3e3e3;
   box-sizing: border-box;
+}
+
+body.detail-page .detail-section + #sectionPrice::before,
+body.detail-page .detail-section + .courses-section::before {
+  margin: 4px -14px 6px;
+  height: 6px;
+}
+
+body.detail-page #sectionPrice .courses-card-header {
+  margin-bottom: 4px;
 }
 
 body.detail-page .detail-section-title {
@@ -3617,11 +3655,147 @@ body.detail-page .detail-gallery-main .shop-type {
 }
 
 body.detail-page .detail-gallery-thumbs {
-  display: grid;
-  padding: 10px 14px 0;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  display: none !important;
+}
+
+body.detail-page .detail-gallery-main {
+  position: relative;
+}
+
+body.detail-page .detail-gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+body.detail-page .detail-gallery-nav:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+body.detail-page .detail-gallery-nav--prev {
+  left: 10px;
+}
+
+body.detail-page .detail-gallery-nav--next {
+  right: 10px;
+}
+
+body.detail-page .detail-gallery-nav[hidden] {
+  display: none !important;
+}
+
+body.detail-page .detail-gallery-counter {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+body.detail-page .detail-gallery-counter[hidden] {
+  display: none !important;
+}
+
+body.detail-page #shopImage {
+  cursor: zoom-in;
+}
+
+/* 전체보기 라이트박스: 사진 세로로 쭉 */
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.gallery-lightbox[hidden] {
+  display: none !important;
+}
+
+.gallery-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.gallery-lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  height: 100%;
+  background: #111;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
+}
+
+.gallery-lightbox-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gallery-lightbox-close {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.gallery-lightbox-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 0 calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.gallery-lightbox-item {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gallery-lightbox-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+}
+
+body.gallery-lightbox-open {
+  overflow: hidden;
 }
 
 /* 하단 버튼바 = 본문과 동일 폭(430) + 동일 좌우 패딩(14) */
@@ -3702,9 +3876,7 @@ body.detail-page .staff-card {
 }
 
 .detail-gallery-thumbs {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
-  gap: 8px;
+  display: none !important;
 }
 
 .detail-thumb {
@@ -5331,12 +5503,14 @@ body.detail-page .staff-card {
 }
 
 .course-section-label {
-  padding: 8px 0 6px;
+  padding: 0.35rem 0 0.35rem 0.25rem;
+  margin: 0;
   color: #9d3b63;
-  font-size: 0.82rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  background: transparent;
+  background: #f3f4f6;
   border-bottom: 1px solid #eee;
+  text-align: left;
 }
 
 .course-section-label:not(:first-child) {
@@ -5388,26 +5562,28 @@ body.detail-page .staff-card {
 
 .course-col-name {
   color: #1f2937;
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 400;
+  font-size: 0.9rem;
 }
 
 .course-col-time {
   color: #64748b;
-  font-size: 0.92rem;
+  font-weight: 400;
+  font-size: 0.88rem;
   text-align: center;
 }
 
 .course-col-price {
   color: #e11d68;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.12rem;
   text-align: right;
   letter-spacing: -0.02em;
 }
 
 .course-col-price.is-original {
   color: #111827;
+  font-weight: 800;
 }
 
 @media (max-width: 480px) {
@@ -5427,10 +5603,12 @@ body.detail-page .staff-card {
 
   .course-col-name,
   .course-col-time {
-    font-size: 0.88rem;
+    font-size: 0.84rem;
+    font-weight: 400;
   }
 
   .course-col-price {
-    font-size: 0.92rem;
+    font-size: 1.05rem;
+    font-weight: 800;
   }
 }

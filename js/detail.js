@@ -275,41 +275,142 @@ function setupShopImages(shop, mainImg) {
     shop.alt ||
     `${shop.name || '업체'} ${shop.type === '출장마사지' ? '출장마사지' : '마사지'} 업체 사진`;
 
-  const primary = images[0] || '';
   const localFallback = 'images/강남_강남역_강남클라스.jpg';
-  mainImg.src = primary || localFallback;
-  mainImg.alt = alts[0] || fallbackAlt;
-  mainImg.loading = 'eager';
-  mainImg.decoding = 'async';
-  mainImg.width = 860;
-  mainImg.height = 480;
+  const gallery = images.length
+    ? images.map((src, i) => ({
+        src,
+        alt: alts[i] || (i === 0 ? fallbackAlt : `${fallbackAlt} ${i + 1}`),
+      }))
+    : [{ src: localFallback, alt: fallbackAlt }];
 
+  let index = 0;
+  const prevBtn = document.getElementById('galleryPrevBtn');
+  const nextBtn = document.getElementById('galleryNextBtn');
+  const counter = document.getElementById('galleryCounter');
   const thumbs = document.getElementById('shopImageThumbs');
-  if (!thumbs) return;
-  if (images.length <= 1) {
+  const lightbox = document.getElementById('galleryLightbox');
+  const lightboxList = document.getElementById('galleryLightboxList');
+  const lightboxTitle = document.getElementById('galleryLightboxTitle');
+
+  // 썸네일 그리드는 사용하지 않음
+  if (thumbs) {
+    thumbs.hidden = true;
     thumbs.style.display = 'none';
     thumbs.innerHTML = '';
-    return;
+    thumbs.setAttribute('aria-hidden', 'true');
   }
 
-  thumbs.style.display = 'grid';
-  thumbs.innerHTML = images
-    .map((src, i) => {
-      const alt = alts[i] || `${fallbackAlt} ${i + 1}`;
-      return `<button type="button" class="detail-thumb ${i === 0 ? 'is-active' : ''}" data-src="${src}" data-alt="${alt.replace(/"/g, '&quot;')}" aria-label="${alt}">
-        <img src="${src}" alt="${alt}" loading="lazy" decoding="async" />
-      </button>`;
-    })
-    .join('');
+  const show = (i) => {
+    index = ((i % gallery.length) + gallery.length) % gallery.length;
+    const item = gallery[index];
+    mainImg.src = item.src;
+    mainImg.alt = item.alt;
+    mainImg.loading = index === 0 ? 'eager' : 'lazy';
+    mainImg.decoding = 'async';
+    mainImg.width = 860;
+    mainImg.height = 480;
+    if (counter) {
+      if (gallery.length > 1) {
+        counter.hidden = false;
+        counter.textContent = `${index + 1} / ${gallery.length}`;
+      } else {
+        counter.hidden = true;
+      }
+    }
+  };
 
-  thumbs.querySelectorAll('.detail-thumb').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      mainImg.src = btn.getAttribute('data-src');
-      mainImg.alt = btn.getAttribute('data-alt') || fallbackAlt;
-      thumbs.querySelectorAll('.detail-thumb').forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
+  const multi = gallery.length > 1;
+  if (prevBtn) {
+    prevBtn.hidden = !multi;
+    prevBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      show(index - 1);
+    };
+  }
+  if (nextBtn) {
+    nextBtn.hidden = !multi;
+    nextBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      show(index + 1);
+    };
+  }
+
+  const openLightbox = () => {
+    if (!lightbox || !lightboxList) return;
+    if (lightboxTitle) {
+      lightboxTitle.textContent = `${shop.name || '업체'} 사진 ${gallery.length}장`;
+    }
+    lightboxList.innerHTML = gallery
+      .map(
+        (item, i) => `
+      <figure class="gallery-lightbox-item" id="galleryLbItem${i}">
+        <img src="${item.src}" alt="${item.alt.replace(/"/g, '&quot;')}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async" />
+      </figure>`
+      )
+      .join('');
+    lightbox.hidden = false;
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('gallery-lightbox-open');
+    const focusItem = document.getElementById(`galleryLbItem${index}`);
+    if (focusItem) {
+      focusItem.scrollIntoView({ block: 'start' });
+    } else {
+      lightboxList.scrollTop = 0;
+    }
+  };
+
+  const closeLightbox = () => {
+    if (!lightbox) return;
+    lightbox.hidden = true;
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('gallery-lightbox-open');
+  };
+
+  mainImg.style.cursor = 'zoom-in';
+  mainImg.onclick = (e) => {
+    e.preventDefault();
+    openLightbox();
+  };
+
+  // 메인 영역 클릭(이미지)만 팝업, 화살표는 stopPropagation
+  const mainWrap = document.getElementById('detailGalleryMain');
+  if (mainWrap && !mainWrap.dataset.lightboxBound) {
+    mainWrap.dataset.lightboxBound = '1';
+    mainWrap.addEventListener('click', (e) => {
+      if (e.target.closest('.detail-gallery-nav')) return;
+      if (e.target === mainImg || e.target.closest('#shopImage')) {
+        openLightbox();
+      }
     });
-  });
+  }
+
+  if (lightbox && !lightbox.dataset.bound) {
+    lightbox.dataset.bound = '1';
+    lightbox.addEventListener('click', (e) => {
+      if (e.target.closest('[data-lightbox-close]')) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox && !lightbox.hidden) closeLightbox();
+    });
+  }
+
+  // 스와이프(간단)
+  let touchX = null;
+  mainImg.ontouchstart = (e) => {
+    touchX = e.changedTouches[0]?.clientX ?? null;
+  };
+  mainImg.ontouchend = (e) => {
+    if (touchX == null || gallery.length < 2) return;
+    const dx = (e.changedTouches[0]?.clientX ?? touchX) - touchX;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) show(index + 1);
+    else show(index - 1);
+    touchX = null;
+  };
+
+  show(0);
 }
 
 // 상세 소개문 정리 (업체명/전화/위치 줄 제거, 소개 문장만 유지)

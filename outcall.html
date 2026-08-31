@@ -339,9 +339,7 @@
         
       </div>
 
-      <div id="massageList" class="massage-list">
-      </div>
-                </a>        
+      <div id="massageList" class="massage-list"></div>
     </main>
 
     <footer class="footer">
@@ -573,40 +571,23 @@
 
     </div>
 
-        <script src="js/shop-card-data.js" defer></script>
-    <script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer></script>
-<script src="js/common-components.min.js" defer></script>
-    <script src="js/script.js" defer>
-      // 페이지 로드 시 출장마사지 필터 활성화
-      document.addEventListener('DOMContentLoaded', function () {
-        // 출장마사지 필터 버튼 활성화
-        const outcallFilterBtn = document.querySelector(
-          '[data-filter="outcall"]'
-        );
-        if (outcallFilterBtn) {
-          // 모든 필터 버튼에서 active 클래스 제거
-          document.querySelectorAll('.filter-btn').forEach((btn) => {
-            btn.classList.remove('active');
-          });
-          // 출장마사지 필터 버튼에 active 클래스 추가
-          outcallFilterBtn.classList.add('active');
-
-          // 현재 필터를 'outcall'로 설정
-          if (typeof currentFilter !== 'undefined') {
-            currentFilter = 'outcall';
+    <script src="js/shop-card-data.js"></script>
+    <script src="js/auth-api.js"></script>
+    <script src="js/admin-mode.js"></script>
+    <script src="js/shop-overrides.js"></script>
+    <script src="js/common-components.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      window.currentFilter = 'outcall';
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          if (location.protocol !== 'file:' && typeof applyShopOverridesToCardData === 'function') {
+            await applyShopOverridesToCardData();
           }
-
-          // 출장마사지 업체만 필터링하여 표시
-          // resultsTitle을 "출장마사지 업체"로 업데이트
-          const resultsTitle = document.getElementById('resultsTitle');
-          if (resultsTitle) {
-            /* resultsTitle.textContent = '출장마사지 추천 BEST 샵'; */}
-        
-          const resultsH2 = document.querySelector('h2.visually-hidden');
-          if (resultsH2) {
-            resultsH2.textContent = ' (2025년 12월 실시간 순위)';
-          }}
+        } catch (e) {
+          console.warn(e);
+        }
+        if (typeof initAuthUi === 'function') initAuthUi();
       });
     </script>
 

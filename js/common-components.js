@@ -740,6 +740,10 @@ function loadHamburgerMenu() {
         text-decoration: none;
       }
 
+      .side-menu-item[hidden] {
+        display: none !important;
+      }
+
       .side-menu-item:hover {
         background: #f8f9fa;
       }
@@ -837,6 +841,7 @@ function loadHamburgerMenu() {
       </div>
     `;
     console.log('햄버거 메뉴 컴포넌트 로드 완료');
+    if (typeof applyAuthVisibility === 'function') applyAuthVisibility();
   }
 }
 
@@ -863,8 +868,7 @@ function toggleSideMenu() {
 }
 
 function updateSideMenuAuth() {
-  if (typeof applyAdminVisibility === 'function') applyAdminVisibility();
-  if (typeof applyMemberVisibility === 'function') applyMemberVisibility();
+  if (typeof applyAuthVisibility === 'function') applyAuthVisibility();
 }
 
 async function twonLogout() {
@@ -917,6 +921,7 @@ function showFavorites() {
 document.addEventListener('DOMContentLoaded', function () {
   loadHeader();
   loadHamburgerMenu();
+  if (typeof initAuthUi === 'function') initAuthUi();
 });
 
 // 컴포넌트 업데이트 함수들 (필요시 수동 호출)

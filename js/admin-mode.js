@@ -27,11 +27,22 @@ function setAdminMode(enabled) {
   }
 }
 
+function setAuthElementVisible(el, visible) {
+  if (!el) return;
+  el.hidden = !visible;
+  // .side-menu-item { display:flex } 가 [hidden]을 덮어쓰므로 인라인으로 강제
+  if (el.classList.contains("side-menu-item")) {
+    el.style.display = visible ? "flex" : "none";
+  } else {
+    el.style.display = visible ? "" : "none";
+  }
+}
+
 function applyAdminVisibility() {
   const admin = isAdminMode();
   document.body.classList.toggle("is-admin", admin);
   document.querySelectorAll("[data-admin-only]").forEach((el) => {
-    el.hidden = !admin;
+    setAuthElementVisible(el, admin);
   });
 }
 
@@ -39,10 +50,10 @@ function applyMemberVisibility() {
   const loggedIn = isLoggedInUser();
   document.body.classList.toggle("is-member", loggedIn);
   document.querySelectorAll("[data-member-only]").forEach((el) => {
-    el.hidden = !loggedIn;
+    setAuthElementVisible(el, loggedIn);
   });
   document.querySelectorAll("[data-guest-only]").forEach((el) => {
-    el.hidden = loggedIn;
+    setAuthElementVisible(el, !loggedIn);
   });
   const nameEls = document.querySelectorAll("[data-auth-name]");
   const user = getAuthUserSafe();
@@ -54,7 +65,6 @@ function applyMemberVisibility() {
 function applyAuthVisibility() {
   applyAdminVisibility();
   applyMemberVisibility();
-  if (typeof updateSideMenuAuth === "function") updateSideMenuAuth();
 }
 
 async function initAuthUi() {
