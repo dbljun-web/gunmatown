@@ -60,6 +60,11 @@ async function applyShopOverridesToCardData(options = {}) {
     ) {
       return;
     }
+    // 지역/세부지역/테마 페이지는 displayFilteredResults 가 필터 상태를 반영
+    if (typeof displayFilteredResults === "function") {
+      displayFilteredResults();
+      return;
+    }
     if (typeof performLocationSearch === "function") {
       performLocationSearch();
       return;

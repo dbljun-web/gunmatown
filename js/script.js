@@ -6429,6 +6429,15 @@ function updateDongStationOptions(region, district) {
 
 // 지역별 검색 수행 (즉각 반응용)
 function performLocationSearch() {
+  // 관리자 오버라이드가 반영된 최신 데이터 사용
+  if (Array.isArray(window.shopCardData) && window.shopCardData.length > 0) {
+    massageShops =
+      typeof sortShops === 'function'
+        ? sortShops(window.shopCardData)
+        : window.shopCardData.slice();
+    window.massageShops = massageShops;
+  }
+
   if (!currentRegion) {
     // 지역이 선택되지 않은 경우 전체 표시
     displayMassageShops(massageShops);
@@ -6589,6 +6598,15 @@ function handleRegionChange() {
 // 필터 버튼은 HTML에서 직접 링크로 처리됩니다
 // 필터링된 결과 표시
 function displayFilteredResults() {
+  // 관리자 오버라이드가 반영된 최신 데이터 사용
+  if (Array.isArray(window.shopCardData) && window.shopCardData.length > 0) {
+    massageShops =
+      typeof sortShops === 'function'
+        ? sortShops(window.shopCardData)
+        : window.shopCardData.slice();
+    window.massageShops = massageShops;
+  }
+
   let filteredShops = massageShops;
 
   // window.currentFilter가 설정되어 있으면 우선 사용
@@ -7288,6 +7306,15 @@ function getTypeName(shop) {
 
 // 테마별 필터링 함수
 function filterByType(selectedType) {
+  // 관리자 오버라이드가 반영된 최신 데이터 사용
+  if (Array.isArray(window.shopCardData) && window.shopCardData.length > 0) {
+    massageShops =
+      typeof sortShops === 'function'
+        ? sortShops(window.shopCardData)
+        : window.shopCardData.slice();
+    window.massageShops = massageShops;
+  }
+
   // 모든 업체를 가져와서 선택된 테마와 일치하는 것만 필터링
   let filteredShops = massageShops;
 
