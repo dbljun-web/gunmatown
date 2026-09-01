@@ -112,9 +112,13 @@
         border-color: var(--purple);
         color: #fff;
       }
-      #map {
+      .map-wrap {
+        position: relative;
         flex: 0 0 45vh;
         height: 45vh;
+      }
+      #map {
+        height: 100%;
         width: 100%;
         background: #dbe4f0;
       }
@@ -129,20 +133,39 @@
         font-size: 0.92rem;
       }
       .shop-card {
-        display: block;
+        display: flex;
+        flex-direction: row;
         width: 100%;
         text-align: left;
         background: #fff;
         border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 12px 14px;
+        border-radius: 16px;
+        overflow: hidden;
         margin: 0 0 10px;
         cursor: pointer;
-        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+        box-shadow: 0 2px 12px rgba(0,0,0,.08);
       }
       .shop-card.is-selected {
         border-color: var(--purple);
         box-shadow: 0 0 0 2px rgba(102,126,234,.25);
+      }
+      .shop-card .card-image {
+        width: 92px;
+        height: 118px;
+        flex-shrink: 0;
+        background: #eee;
+        overflow: hidden;
+      }
+      .shop-card .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .shop-card .card-body {
+        flex: 1;
+        min-width: 0;
+        padding: 8px 10px 9px 12px;
       }
       .shop-card .row1 {
         display: flex;
@@ -152,27 +175,41 @@
       }
       .shop-card h3 {
         margin: 0;
-        font-size: 1rem;
+        font-size: 0.98rem;
+        font-weight: 800;
       }
       .shop-card .km {
         color: var(--purple);
         font-weight: 800;
-        font-size: 0.88rem;
+        font-size: 0.82rem;
         white-space: nowrap;
       }
       .shop-card p {
-        margin: 4px 0 0;
-        font-size: 0.82rem;
+        margin: 3px 0 0;
+        font-size: 0.8rem;
         color: var(--muted);
         line-height: 1.35;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
-      .shop-card .phone {
-        color: #2563eb;
+      .shop-card .detail-addr {
+        color: #374151;
+        font-weight: 600;
+      }
+      .shop-card .price {
+        color: #111;
+        font-weight: 800;
+        font-size: 0.9rem;
+      }
+      .shop-card .price-label {
+        font-size: 0.72rem;
+        color: #888;
         font-weight: 700;
-        text-decoration: none;
+        margin-right: 4px;
       }
       .map-label img,
-      .iw img {
+      .pick-row img {
         width: 22px;
         height: 14px;
         object-fit: cover;
@@ -185,16 +222,24 @@
         color: var(--muted);
         font-size: 0.9rem;
       }
+      .map-pin {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 6px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+        pointer-events: auto;
+      }
       .map-label {
         display: inline-flex;
         align-items: center;
         gap: 5px;
         max-width: 210px;
-        padding: 4px 8px;
+        padding: 6px 10px;
         background: #fff;
         border: 1px solid #e5e7eb;
-        border-radius: 999px;
-        box-shadow: 0 2px 8px rgba(0,0,0,.18);
+        border-radius: 14px;
         font-size: 12px;
         line-height: 1.2;
         white-space: nowrap;
@@ -214,24 +259,104 @@
         font-weight: 800;
         color: #e11d48;
       }
+      .map-cluster {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #667eea;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+      .map-cluster.is-selected {
+        box-shadow: 0 0 0 2px rgba(102,126,234,.45);
+      }
+      .map-pin::after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 10px solid #fff;
+        margin-top: -1px;
+      }
+      .map-pin--cluster::after {
+        border-top-color: #667eea;
+      }
+      .map-pin::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 10px;
+        height: 10px;
+        margin-left: -5px;
+        background: #667eea;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0,0,0,.3);
+        z-index: 2;
+      }
       .map-label-icon {
         background: none !important;
         border: none !important;
+        overflow: visible !important;
       }
-      .iw {
-        min-width: 160px;
-        max-width: 240px;
-        font-size: 13px;
-        line-height: 1.35;
+      .overlap-picker {
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        max-height: 42%;
+        overflow: auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.2);
+        z-index: 500;
       }
-      .iw-top {
+      .overlap-picker[hidden] { display: none !important; }
+      .picker-title {
+        padding: 10px 12px 6px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #444;
+        border-bottom: 1px solid #eee;
+      }
+      .pick-row {
         display: flex;
         align-items: center;
-        gap: 5px;
-        margin-bottom: 3px;
+        gap: 6px;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid #f3f4f6;
+        background: #fff;
+        padding: 9px 12px;
+        text-align: left;
+        cursor: pointer;
       }
-      .iw b { font-size: 13px; }
-      .iw .iw-price { color: #e11d48; font-weight: 800; }
+      .pick-row:last-child { border-bottom: 0; }
+      .pick-row:hover { background: #f8f9ff; }
+      .pick-name {
+        flex: 1;
+        min-width: 0;
+        font-weight: 800;
+        font-size: 0.88rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .pick-price {
+        color: #e11d48;
+        font-weight: 800;
+        font-size: 0.82rem;
+        white-space: nowrap;
+      }
       .help {
         margin: 0 0 10px;
         padding: 10px 12px;
@@ -276,10 +401,17 @@
         <button type="button" data-km="5">5km</button>
         <button type="button" data-km="10">10km</button>
       </div>
-      <div id="map"></div>
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div id="overlapPicker" class="overlap-picker" hidden>
+          <div class="picker-title" id="pickerTitle">이 위치의 업체</div>
+          <div id="pickerList"></div>
+        </div>
+      </div>
       <section class="shop-list" id="shopList"></section>
     </div>
 
+    <script src="js/shop-card-data.js"></script>
     <script>
       /* 카카오 JavaScript 키. 발급 후 아래 값을 교체하세요.
          1) https://developers.kakao.com 앱 생성
@@ -356,18 +488,82 @@
       }
 
       function labelInnerHtml(shop, selected) {
-        return `<div class="map-label${selected ? " is-selected" : ""}">
-          <span class="map-flags">${flagImgs(shop)}</span>
-          <span class="map-name">${esc(shop.name)}</span>
-          <span class="map-price">${esc(shop.price || "")}</span>
+        return `<div class="map-pin">
+          <div class="map-label${selected ? " is-selected" : ""}">
+            <span class="map-flags">${flagImgs(shop)}</span>
+            <span class="map-name">${esc(shop.name)}</span>
+            <span class="map-price">${esc(shop.price || "")}</span>
+          </div>
         </div>`;
       }
-      function infoHtml(shop) {
-        return `<div class="iw">
-          <div class="iw-top">${flagImgs(shop)}<b>${esc(shop.name)}</b></div>
-          <div class="iw-price">${esc(shop.price || "가격 문의")}</div>
-          <div>${esc(fmtKm(shop.distance))} · ${esc(shop.address || "")}</div>
+      function clusterInnerHtml(group, selectedId) {
+        const selected = group.some((s) => String(s.id) === String(selectedId));
+        if (group.length === 1) return labelInnerHtml(group[0], selected);
+        return `<div class="map-pin map-pin--cluster">
+          <div class="map-cluster${selected ? " is-selected" : ""}">+${group.length}</div>
         </div>`;
+      }
+      const OVERLAP_M = 45;
+      function groupOverlapping(shops) {
+        const used = new Set();
+        const groups = [];
+        for (let i = 0; i < shops.length; i++) {
+          if (used.has(i)) continue;
+          const g = [shops[i]];
+          used.add(i);
+          for (let j = i + 1; j < shops.length; j++) {
+            if (used.has(j)) continue;
+            const m =
+              haversineKm(
+                Number(shops[i].lat),
+                Number(shops[i].lng),
+                Number(shops[j].lat),
+                Number(shops[j].lng)
+              ) * 1000;
+            if (m <= OVERLAP_M) {
+              g.push(shops[j]);
+              used.add(j);
+            }
+          }
+          groups.push(g);
+        }
+        return groups;
+      }
+      function closeOverlapPicker() {
+        const box = document.getElementById("overlapPicker");
+        if (box) box.hidden = true;
+      }
+      function openOverlapPicker(group) {
+        const box = document.getElementById("overlapPicker");
+        const title = document.getElementById("pickerTitle");
+        const list = document.getElementById("pickerList");
+        if (!box || !list) return;
+        title.textContent = `이 위치 ${group.length}곳 · 선택할 업체를 누르세요`;
+        list.innerHTML = group
+          .map(
+            (s) => `<button type="button" class="pick-row" data-id="${esc(s.id)}">
+              ${flagImgs(s)}
+              <span class="pick-name">${esc(s.name)}</span>
+              <span class="pick-price">${esc(s.price || "")}</span>
+            </button>`
+          )
+          .join("");
+        box.hidden = false;
+        list.querySelectorAll(".pick-row").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeOverlapPicker();
+            selectShop(btn.getAttribute("data-id"), false);
+          });
+        });
+      }
+      function handleGroupClick(group) {
+        if (group.length === 1) {
+          closeOverlapPicker();
+          selectShop(group[0].id, false);
+          return;
+        }
+        openOverlapPicker(group);
       }
 
       function LeafletEngine() {
@@ -383,6 +579,7 @@
           attribution: "&copy; OpenStreetMap",
           maxZoom: 19,
         }).addTo(this.map);
+        this.map.on("click", closeOverlapPicker);
       };
       LeafletEngine.prototype.setMyLocation = function (lat, lng, radiusKm) {
         const icon = L.divIcon({ className: "", html: '<div class="my-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] });
@@ -406,35 +603,44 @@
       LeafletEngine.prototype.setShops = function (shops, onSelect) {
         this.markers.forEach((m) => this.map.removeLayer(m));
         this.markers.clear();
-        shops.forEach((shop) => {
-          const selected = String(shop.id) === String(state.selectedId);
+        closeOverlapPicker();
+        groupOverlapping(shops).forEach((group) => {
+          const shop = group[0];
+          const ids = group.map((s) => String(s.id));
           const m = L.marker([shop.lat, shop.lng], {
             icon: L.divIcon({
               className: "map-label-icon",
-              html: labelInnerHtml(shop, selected),
-              iconSize: [210, 32],
-              iconAnchor: [105, 32],
+              html: clusterInnerHtml(group, state.selectedId),
+              iconSize: group.length > 1 ? [48, 52] : [210, 52],
+              iconAnchor: group.length > 1 ? [24, 52] : [105, 52],
             }),
           });
-          m.bindPopup(infoHtml(shop));
-          m.on("click", () => onSelect(shop.id, false));
+          m.on("click", (e) => {
+            if (e && e.originalEvent) L.DomEvent.stopPropagation(e.originalEvent);
+            handleGroupClick(group);
+          });
           m.addTo(this.map);
-          this.markers.set(String(shop.id), m);
+          ids.forEach((id) => this.markers.set(id, m));
         });
       };
       LeafletEngine.prototype.focusShop = function (shop) {
         const m = this.markers.get(String(shop.id));
         if (!m) return;
+        closeOverlapPicker();
         this.map.setView([shop.lat, shop.lng], 16);
-        m.openPopup();
       };
       LeafletEngine.prototype.highlight = function (id) {
-        this.markers.forEach((m, key) => {
+        this.markers.forEach((m) => {
           const el = m.getElement();
           if (!el) return;
-          const lab = el.querySelector(".map-label");
-          if (lab) lab.classList.toggle("is-selected", key === String(id));
+          const lab = el.querySelector(".map-label, .map-cluster");
+          if (lab) lab.classList.remove("is-selected");
         });
+        const m = this.markers.get(String(id));
+        if (!m) return;
+        const el = m.getElement();
+        const lab = el && el.querySelector(".map-label, .map-cluster");
+        if (lab) lab.classList.add("is-selected");
       };
 
       function KakaoEngine() {
@@ -450,7 +656,7 @@
       KakaoEngine.prototype.init = function (lat, lng) {
         const center = new kakao.maps.LatLng(lat, lng);
         this.map = new kakao.maps.Map(document.getElementById("map"), { center, level: 5 });
-        this.info = new kakao.maps.InfoWindow({ zIndex: 4 });
+        kakao.maps.event.addListener(this.map, "click", closeOverlapPicker);
       };
       KakaoEngine.prototype.setMyLocation = function (lat, lng, radiusKm) {
         const pos = new kakao.maps.LatLng(lat, lng);
@@ -493,30 +699,29 @@
         }
         this.map.setCenter(pos);
       };
-      KakaoEngine.prototype.setShops = function (shops, onSelect) {
+      KakaoEngine.prototype.setShops = function (shops) {
         this.markers.clear();
         this.overlays.forEach((o) => o.setMap(null));
         this.overlays = [];
-        shops.forEach((shop) => {
+        closeOverlapPicker();
+        groupOverlapping(shops).forEach((group) => {
+          const shop = group[0];
           const pos = new kakao.maps.LatLng(shop.lat, shop.lng);
-          this.markers.set(String(shop.id), pos);
+          group.forEach((s) => this.markers.set(String(s.id), pos));
 
           const node = document.createElement("div");
-          node.innerHTML = labelInnerHtml(shop, String(shop.id) === String(state.selectedId));
+          node.innerHTML = clusterInnerHtml(group, state.selectedId);
           const label = node.firstElementChild;
-          label.dataset.id = String(shop.id);
+          label.dataset.ids = group.map((s) => s.id).join(",");
           label.addEventListener("click", (e) => {
             e.stopPropagation();
-            this.info.setContent(infoHtml(shop));
-            this.info.setPosition(pos);
-            this.info.open(this.map);
-            onSelect(shop.id, false);
+            handleGroupClick(group);
           });
           const overlay = new kakao.maps.CustomOverlay({
             map: this.map,
             position: pos,
             content: label,
-            yAnchor: 1.25,
+            yAnchor: 1,
             zIndex: 3,
             clickable: true,
           });
@@ -526,18 +731,19 @@
       KakaoEngine.prototype.focusShop = function (shop) {
         const pos = this.markers.get(String(shop.id));
         if (!pos) return;
+        closeOverlapPicker();
         this.map.setLevel(4);
         this.map.panTo(pos);
-        this.info.setContent(infoHtml(shop));
-        this.info.setPosition(pos);
-        this.info.open(this.map);
       };
       KakaoEngine.prototype.highlight = function (id) {
         this.overlays.forEach((o) => {
           const el = o.getContent();
-          if (el && el.classList) {
-            el.classList.toggle("is-selected", String(el.dataset.id) === String(id));
-          }
+          if (!el) return;
+          const ids = String(el.dataset.ids || el.dataset.id || "").split(",");
+          const on = ids.includes(String(id));
+          el.classList.toggle("is-selected", on);
+          const inner = el.querySelector(".map-label, .map-cluster");
+          if (inner) inner.classList.toggle("is-selected", on);
         });
       };
       function matchCat(shop, cat) {
@@ -581,6 +787,52 @@
         });
       }
 
+      function getDetailLine(shop) {
+        const address = String(shop.address || "").trim();
+        const compact = (s) => String(s || "").replace(/\s+/g, "");
+        const sameAddr = (line) => {
+          const a = compact(address);
+          const b = compact(line);
+          if (!a || !b) return false;
+          return a === b || a.includes(b) || b.includes(a);
+        };
+        const boiler = (line) =>
+          /^[★☆*]/.test(line) ||
+          /부재시|예약제|입실\s*후\s*선불|예약자동취소|100%\s*예약제/.test(line);
+        const field = String(shop.detailAddress || "").trim();
+        if (field && !sameAddr(field)) return field;
+        const lines = String(shop.directions || "")
+          .split(/\n+/)
+          .map((l) => l.trim())
+          .filter(Boolean);
+        for (const line of lines) {
+          if (boiler(line) || sameAddr(line)) continue;
+          if (/상세\s*주소\s*문의|주소\s*문의/.test(line)) continue;
+          return line;
+        }
+        return "";
+      }
+      function enrichShop(shop) {
+        const raw = (window.shopCardData || []).find(
+          (x) => String(x.id) === String(shop.id)
+        );
+        if (!raw) return shop;
+        const images = Array.isArray(raw.images) && raw.images.length
+          ? raw.images
+          : raw.image
+            ? [raw.image]
+            : shop.image
+              ? [shop.image]
+              : [];
+        return {
+          ...shop,
+          image: images[0] || shop.image || "",
+          images,
+          detailAddress: shop.detailAddress || raw.detailAddress || "",
+          directions: shop.directions || raw.directions || "",
+        };
+      }
+
       function renderList(list) {
         const box = document.getElementById("shopList");
         const noCoords = state.shops.filter((s) => !hasCoords(s)).length;
@@ -601,13 +853,18 @@
             .map((s) => {
               const cat = [s.type, ...countryLabels(s)].filter(Boolean).join(" · ");
               const selected = String(s.id) === String(state.selectedId) ? " is-selected" : "";
+              const img = s.image || (s.images && s.images[0]) || "";
+              const detail = getDetailLine(s);
               return `<article class="shop-card${selected}" data-id="${esc(s.id)}" id="card-${esc(s.id)}">
-                <div class="row1"><h3>${esc(s.name)}</h3><span class="km">${esc(fmtKm(s.distance))}</span></div>
-                <p>${esc(s.address || "주소 없음")}</p>
-                <p>${esc(s.operatingHours || "영업시간 정보 없음")}</p>
-                <p>${esc(cat)}</p>
-                <p>${esc(s.price || "가격 문의")}</p>
-                <p>${s.phone ? `<a class="phone" href="tel:${esc(s.phone)}">${esc(s.phone)}</a>` : "전화 없음"}</p>
+                <div class="card-image">${img ? `<img src="${esc(img)}" alt="${esc(s.name)}" width="92" height="118">` : ""}</div>
+                <div class="card-body">
+                  <div class="row1"><h3>${esc(s.name)}</h3><span class="km">${esc(fmtKm(s.distance))}</span></div>
+                  <p>${esc(s.address || "주소 없음")}</p>
+                  ${detail ? `<p class="detail-addr">${esc(detail)}</p>` : ""}
+                  <p>${esc(s.operatingHours || "영업시간 정보 없음")}</p>
+                  <p>${esc(cat)}</p>
+                  <p class="price"><span class="price-label">최저가</span>${esc(s.price || "가격 문의")}</p>
+                </div>
               </article>`;
             })
             .join("");
@@ -623,6 +880,7 @@
         const shop = state.shops.find((s) => String(s.id) === String(id));
         if (!shop || !hasCoords(shop)) return;
         state.selectedId = shop.id;
+        if (fromList) closeOverlapPicker();
         if (state.engine && typeof state.engine.highlight === "function") {
           state.engine.highlight(id);
         }
@@ -726,7 +984,7 @@
         } catch {
           /* 공개 목록만 사용 */
         }
-        return shops;
+        return shops.map(enrichShop);
       }
 
       function loadScript(src) {
