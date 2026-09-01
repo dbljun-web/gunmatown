@@ -245,6 +245,7 @@ function displayShopInfo(shop) {
         ? isOutcallType(shop)
         : shop.type === '출장마사지' || shop.type === 'outcall';
     outcallBadge.hidden = !isOutcall;
+    outcallBadge.style.display = isOutcall ? '' : 'none';
   }
 
   // 평점 (요소 있을 때만)

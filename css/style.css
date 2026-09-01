@@ -1307,6 +1307,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -3729,6 +3730,10 @@ body.detail-page .detail-gallery-main .shop-type {
   padding: 5px 8px;
   border-radius: 9px;
   line-height: 1.2;
+}
+
+body.detail-page .detail-gallery-main .shop-type[hidden] {
+  display: none !important;
 }
 
 body.detail-page .detail-gallery-main .shop-type-outcall {
