@@ -135,6 +135,27 @@ async function loadShopDetail() {
   displayShopCourses(shop);
   displayShopDirections(shop);
   displayNearbyShops(shop);
+  const nearbyBtn = document.getElementById('detailNearbyBtn');
+  if (nearbyBtn) {
+    const p = new URLSearchParams();
+    if (shop.region) p.set('region', shop.region);
+    if (shop.district) p.set('district', shop.district);
+    if (shop.dong) p.set('dong', shop.dong);
+    const q = p.toString();
+    nearbyBtn.href = q ? 'nearby.html?' + q : 'nearby.html';
+    try {
+      sessionStorage.setItem(
+        'gunmatown-nearby-origin',
+        JSON.stringify({
+          region: shop.region || '',
+          district: shop.district || '',
+          dong: shop.dong || '',
+        })
+      );
+    } catch (e) {
+      /* ignore */
+    }
+  }
   displayShopReviews(shop);
   updateSEOMetaTags(shop);
   setupDetailTabs();
@@ -462,7 +483,7 @@ function setupShopImages(shop, mainImg) {
   if (mainWrap && !mainWrap.dataset.lightboxBound) {
     mainWrap.dataset.lightboxBound = '1';
     mainWrap.addEventListener('click', (e) => {
-      if (e.target.closest('.detail-gallery-nav')) return;
+      if (e.target.closest('.detail-gallery-nav, .detail-share-btn')) return;
       if (e.target === mainImg || e.target.closest('#shopImage')) {
         openLightbox();
       }
@@ -1065,11 +1086,11 @@ function openMapSelectModal(address) {
   modal.innerHTML = `
     <div class="modal-content" style="max-width: 400px;">
       <div class="modal-header">
-        <h2>지도 선택</h2>
+        <h2>길찾기</h2>
         <button class="modal-close" onclick="closeMapSelectModal()">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="margin-bottom: 20px; color: #666; font-size: 0.9rem;">원하는 지도 앱을 선택하세요</p>
+        <p style="margin-bottom: 20px; color: #666; font-size: 0.9rem;">원하는 지도 앱으로 길을 찾으세요</p>
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <button class="map-select-btn" onclick="openNaverMap('${address.replace(
             /'/g,

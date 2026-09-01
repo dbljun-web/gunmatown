@@ -8802,15 +8802,50 @@ function initFilterDragScroll() {
 }
 
 // ✅ 간단한 중앙화된 초기화 함수
+function getNearbyUrl() {
+  const regionSelect = document.getElementById('regionSelect');
+  const districtSelect = document.getElementById('districtSelect');
+  const dongSelect = document.getElementById('dongStationSelect');
+  let region =
+    (typeof currentRegion !== 'undefined' ? currentRegion : '') ||
+    (typeof window !== 'undefined' ? window.currentRegion : '') ||
+    '';
+  let district =
+    (typeof currentDistrict !== 'undefined' ? currentDistrict : '') ||
+    (typeof window !== 'undefined' ? window.currentDistrict : '') ||
+    '';
+  if (regionSelect && regionSelect.value) region = regionSelect.value;
+  if (districtSelect && districtSelect.value) district = districtSelect.value;
+  let dong = '';
+  if (dongSelect && dongSelect.value) {
+    const opt = dongSelect.options[dongSelect.selectedIndex];
+    dong = ((opt && opt.textContent) || dongSelect.value).trim();
+    if (dong === '동, 역 선택') dong = '';
+  }
+  const origin = {
+    region: region && region !== '전체' ? String(region).trim() : '',
+    district: district && district !== '전체' ? String(district).trim() : '',
+    dong,
+  };
+  try {
+    sessionStorage.setItem('gunmatown-nearby-origin', JSON.stringify(origin));
+  } catch (e) {
+    /* ignore */
+  }
+  const p = new URLSearchParams();
+  if (origin.region) p.set('region', origin.region);
+  if (origin.district) p.set('district', origin.district);
+  if (origin.dong) p.set('dong', origin.dong);
+  const q = p.toString();
+  return q ? 'nearby.html?' + q : 'nearby.html';
+}
+window.getNearbyUrl = getNearbyUrl;
+
 function injectNearbyViewButton() {
   const box = document.querySelector('.filter-container');
-  if (!box || box.querySelector('#nearbyViewBtn')) return;
-  const a = document.createElement('a');
-  a.className = 'filter-btn';
-  a.id = 'nearbyViewBtn';
-  a.href = 'nearby.html';
-  a.textContent = '주변보기';
-  box.appendChild(a);
+  if (!box) return;
+  const a = box.querySelector('#nearbyViewBtn');
+  if (a) a.remove();
 }
 
 async function initializeApp() {
@@ -8892,6 +8927,7 @@ async function initializeApp() {
 
   if (regionSelect) {
     regionSelect.addEventListener('change', function () {
+      injectNearbyViewButton();
       const selectedRegion = regionSelect.value;
 
       // 현재 페이지 파일명 가져오기
@@ -8966,6 +9002,9 @@ async function initializeApp() {
       // currentRegion과 currentDistrict 업데이트
       currentRegion = selectedRegion;
       currentDistrict = selectedDistrict;
+      window.currentRegion = currentRegion;
+      window.currentDistrict = currentDistrict;
+      injectNearbyViewButton();
 
       // 현재 페이지 파일명 가져오기
       const currentPath = window.location.pathname;
@@ -9039,6 +9078,7 @@ async function initializeApp() {
   const dongStationSelect = document.getElementById('dongStationSelect');
   if (dongStationSelect) {
     dongStationSelect.addEventListener('change', function () {
+      injectNearbyViewButton();
       const selectedRegion = regionSelect ? regionSelect.value : '';
       const selectedDistrict = districtSelect ? districtSelect.value : '';
       const selectedDongStation = dongStationSelect.value;
@@ -9694,6 +9734,8 @@ async function initializeApp() {
       }
     }, 100);
   }
+
+  injectNearbyViewButton();
 
   // 결과 제목 업데이트
   updateResultsTitle();

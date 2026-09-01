@@ -112,6 +112,36 @@
         border-color: var(--purple);
         color: #fff;
       }
+      .theme-filter-section {
+        flex: 0 0 auto;
+        padding: 8px 12px 10px;
+        background: #f8f9fa;
+        border-bottom: 1px solid var(--line);
+      }
+      .theme-filter-section[hidden] { display: none !important; }
+      .theme-boxes {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+      .theme-box {
+        background: #fff;
+        border: 1.5px solid #e9ecef;
+        border-radius: 10px;
+        padding: 8px 4px;
+        text-align: center;
+        cursor: pointer;
+      }
+      .theme-box.active {
+        border-color: #e91e63;
+        background: #fdf2f8;
+      }
+      .theme-name {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #333;
+        line-height: 1.2;
+      }
       .map-wrap {
         position: relative;
         flex: 0 0 45vh;
@@ -171,12 +201,35 @@
         display: flex;
         justify-content: space-between;
         gap: 8px;
-        align-items: baseline;
+        align-items: center;
       }
       .shop-card h3 {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        min-width: 0;
+        flex: 1;
         margin: 0;
         font-size: 0.98rem;
         font-weight: 800;
+      }
+      .shop-card .card-flags {
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+      .shop-card .card-flags img {
+        height: 1em;
+        width: 1.5em;
+        object-fit: cover;
+        border-radius: 1px;
+        display: block;
+      }
+      .shop-card .card-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .shop-card .km {
         color: var(--purple);
@@ -400,6 +453,35 @@
         <button type="button" data-km="3">3km</button>
         <button type="button" data-km="5">5km</button>
         <button type="button" data-km="10">10km</button>
+        <button type="button" id="themeToggle">테마보기</button>
+      </div>
+      <div class="theme-filter-section" id="themeFilterSection" hidden>
+        <div class="theme-boxes">
+          <div class="theme-box active" data-theme="all">
+            <span class="theme-name">전체</span>
+          </div>
+          <div class="theme-box" data-theme="swedish">
+            <span class="theme-name">스웨디시</span>
+          </div>
+          <div class="theme-box" data-theme="thai">
+            <span class="theme-name">타이마사지</span>
+          </div>
+          <div class="theme-box" data-theme="aroma">
+            <span class="theme-name">아로마마사지</span>
+          </div>
+          <div class="theme-box" data-theme="waxing">
+            <span class="theme-name">왁싱</span>
+          </div>
+          <div class="theme-box" data-theme="chinese">
+            <span class="theme-name">중국마사지</span>
+          </div>
+          <div class="theme-box" data-theme="foot">
+            <span class="theme-name">발마사지</span>
+          </div>
+          <div class="theme-box" data-theme="spa">
+            <span class="theme-name">스파</span>
+          </div>
+        </div>
       </div>
       <div class="map-wrap">
         <div id="map"></div>
@@ -431,10 +513,22 @@
       const state = {
         engine: null,
         my: { ...SEOUL_STATION, source: "default" },
+        place: null,
         shops: [],
         cat: "all",
         km: "all",
+        theme: "all",
+        themeOpen: false,
         selectedId: null,
+      };
+      const THEME_KEYWORDS = {
+        swedish: ["스웨디시", "스웨덴"],
+        thai: ["타이마사지", "타이", "thai"],
+        aroma: ["아로마", "아로마마사지", "에센셜"],
+        waxing: ["왁싱", "waxing", "브라질리언", "제모"],
+        chinese: ["중국마사지", "중국", "지압"],
+        foot: ["발마사지", "족욕", "풋케어", "풋마사지"],
+        spa: ["스파", "SPA", "스크럽"],
       };
 
       function toRad(v) { return (v * Math.PI) / 180; }
@@ -479,9 +573,6 @@
         return countryFlags(shop)
           .map((f) => `<img src="${f.src}" alt="${esc(f.alt)}">`)
           .join("");
-      }
-      function countryLabels(shop) {
-        return countryFlags(shop).map((f) => f.alt);
       }
       function locationText(shop) {
         return [shop.district, shop.dong].filter(Boolean).join(" ") || shop.region || "";
@@ -764,6 +855,34 @@
         }
         return true;
       }
+      function shopMatchesTheme(shop, keywords) {
+        if (!shop || !keywords || !keywords.length) return false;
+        if (Array.isArray(shop.themes)) {
+          if (!shop.themes.length) return false;
+          const text = shop.themes.map(String).join(" ");
+          const lower = text.toLowerCase();
+          return keywords.some((k) => {
+            const key = String(k);
+            return text.includes(key) || lower.includes(key.toLowerCase());
+          });
+        }
+        const parts = [];
+        if (shop.type) parts.push(String(shop.type));
+        if (Array.isArray(shop.types)) parts.push(shop.types.map(String).join(" "));
+        if (Array.isArray(shop.services)) parts.push(shop.services.map(String).join(" "));
+        const text = parts.join(" ");
+        const lower = text.toLowerCase();
+        return keywords.some((k) => {
+          const key = String(k);
+          return text.includes(key) || lower.includes(key.toLowerCase());
+        });
+      }
+      function matchTheme(shop, theme) {
+        if (theme === "all") return true;
+        const keywords = THEME_KEYWORDS[theme];
+        if (!keywords) return true;
+        return shopMatchesTheme(shop, keywords);
+      }
       function fmtKm(km) {
         if (!Number.isFinite(km) || km === Infinity) return "";
         if (km < 1) return (km * 1000).toFixed(0) + "m";
@@ -773,7 +892,13 @@
       function visibleShops() {
         const km = state.km === "all" ? Infinity : Number(state.km);
         return state.shops
-          .filter((s) => hasCoords(s) && matchCat(s, state.cat) && s.distance <= km)
+          .filter(
+            (s) =>
+              hasCoords(s) &&
+              matchCat(s, state.cat) &&
+              matchTheme(s, state.theme) &&
+              s.distance <= km
+          )
           .sort((a, b) => a.distance - b.distance);
       }
 
@@ -785,6 +910,76 @@
             s.distance = Infinity;
           }
         });
+      }
+      function normArea(s) {
+        return String(s || "")
+          .replace(/\s+/g, "")
+          .replace(/[구시군]$/, "")
+          .toLowerCase();
+      }
+      function areaMatch(value, selected) {
+        const a = normArea(value);
+        const b = normArea(selected);
+        if (!a || !b) return false;
+        return a === b || a.includes(b) || b.includes(a);
+      }
+      function centroidOf(shops) {
+        const pts = shops.filter(hasCoords);
+        if (!pts.length) return null;
+        return {
+          lat: pts.reduce((n, s) => n + Number(s.lat), 0) / pts.length,
+          lng: pts.reduce((n, s) => n + Number(s.lng), 0) / pts.length,
+        };
+      }
+      function readPlaceQuery() {
+        const q = new URLSearchParams(location.search);
+        let region = (q.get("region") || "").trim();
+        let district = (q.get("district") || "").trim();
+        let dong = (q.get("dong") || "").trim();
+        if (!region && !district && !dong) {
+          try {
+            const saved = JSON.parse(
+              sessionStorage.getItem("gunmatown-nearby-origin") || "null"
+            );
+            if (saved && typeof saved === "object") {
+              region = String(saved.region || "").trim();
+              district = String(saved.district || "").trim();
+              dong = String(saved.dong || "").trim();
+            }
+          } catch {
+            /* ignore */
+          }
+        }
+        return { region, district, dong };
+      }
+      function computePlaceOrigin(shops, sel) {
+        if (!sel || (!sel.region && !sel.district && !sel.dong)) return null;
+        if (sel.dong) {
+          const hit = shops.filter(
+            (s) => areaMatch(s.dong, sel.dong) || areaMatch(s.address, sel.dong)
+          );
+          const c = centroidOf(hit);
+          if (c) return { ...c, source: "place", label: sel.dong };
+        }
+        if (sel.district) {
+          const hit = shops.filter((s) => areaMatch(s.district, sel.district));
+          const c = centroidOf(hit);
+          if (c) return { ...c, source: "place", label: sel.district };
+        }
+        if (sel.region) {
+          const hit = shops.filter(
+            (s) =>
+              areaMatch(s.region, sel.region) ||
+              String(s.region || "").includes(sel.region)
+          );
+          const c = centroidOf(hit);
+          if (c) return { ...c, source: "place", label: sel.region };
+        }
+        return null;
+      }
+      function fallbackOrigin() {
+        if (state.place) return { ...state.place };
+        return { ...SEOUL_STATION, source: "default" };
       }
 
       function getDetailLine(shop) {
@@ -830,6 +1025,9 @@
           images,
           detailAddress: shop.detailAddress || raw.detailAddress || "",
           directions: shop.directions || raw.directions || "",
+          services: shop.services || raw.services || [],
+          themes: shop.themes || raw.themes,
+          type: shop.type || raw.type || "",
         };
       }
 
@@ -848,21 +1046,19 @@
         }
         box.innerHTML =
           help +
-          `<h2>가까운 순 ${list.length}곳</h2>` +
+          `<h2>${esc(state.my.label || "내 위치")} 기준 가까운 순 ${list.length}곳</h2>` +
           list
             .map((s) => {
-              const cat = [s.type, ...countryLabels(s)].filter(Boolean).join(" · ");
               const selected = String(s.id) === String(state.selectedId) ? " is-selected" : "";
               const img = s.image || (s.images && s.images[0]) || "";
               const detail = getDetailLine(s);
               return `<article class="shop-card${selected}" data-id="${esc(s.id)}" id="card-${esc(s.id)}">
                 <div class="card-image">${img ? `<img src="${esc(img)}" alt="${esc(s.name)}" width="92" height="118">` : ""}</div>
                 <div class="card-body">
-                  <div class="row1"><h3>${esc(s.name)}</h3><span class="km">${esc(fmtKm(s.distance))}</span></div>
+                  <div class="row1"><h3><span class="card-flags">${flagImgs(s)}</span><span class="card-name">${esc(s.name)}</span></h3><span class="km">${esc(fmtKm(s.distance))}</span></div>
                   <p>${esc(s.address || "주소 없음")}</p>
                   ${detail ? `<p class="detail-addr">${esc(detail)}</p>` : ""}
                   <p>${esc(s.operatingHours || "영업시간 정보 없음")}</p>
-                  <p>${esc(cat)}</p>
                   <p class="price"><span class="price-label">최저가</span>${esc(s.price || "가격 문의")}</p>
                 </div>
               </article>`;
@@ -908,9 +1104,13 @@
         }
         renderList(list);
         const src =
-          state.my.source === "gps" ? "GPS" : "서울역(기본)";
+          state.my.source === "gps"
+            ? "GPS"
+            : state.my.source === "place"
+              ? state.my.label || "선택지역"
+              : "서울역(기본)";
         document.getElementById("status").textContent =
-          `내 위치 ${src} · 표시 ${list.length}곳 / 좌표 ${state.shops.filter(hasCoords).length}곳`;
+          `기준 ${src} · 가까운 순 ${list.length}곳 / 좌표 ${state.shops.filter(hasCoords).length}곳`;
       }
 
       function bindUi() {
@@ -925,7 +1125,29 @@
           const btn = e.target.closest("button[data-km]");
           if (!btn) return;
           state.km = btn.getAttribute("data-km");
-          document.querySelectorAll("#distFilters button").forEach((b) => b.classList.toggle("active", b === btn));
+          document.querySelectorAll("#distFilters button[data-km]").forEach((b) =>
+            b.classList.toggle("active", b === btn)
+          );
+          refresh();
+        });
+        const themeToggle = document.getElementById("themeToggle");
+        const themeSection = document.getElementById("themeFilterSection");
+        function syncThemeToggle() {
+          themeToggle.classList.toggle("active", state.themeOpen || state.theme !== "all");
+        }
+        themeToggle.addEventListener("click", () => {
+          state.themeOpen = !state.themeOpen;
+          themeSection.hidden = !state.themeOpen;
+          syncThemeToggle();
+        });
+        themeSection.addEventListener("click", (e) => {
+          const box = e.target.closest(".theme-box[data-theme]");
+          if (!box) return;
+          state.theme = box.getAttribute("data-theme");
+          themeSection.querySelectorAll(".theme-box").forEach((b) =>
+            b.classList.toggle("active", b === box)
+          );
+          syncThemeToggle();
           refresh();
         });
         document.getElementById("gpsBtn").addEventListener("click", () => locateMe(true));
@@ -933,7 +1155,7 @@
 
       function locateMe(forceView) {
         if (!navigator.geolocation) {
-          state.my = { ...SEOUL_STATION, source: "default" };
+          state.my = fallbackOrigin();
           applyDistances();
           refresh();
           return;
@@ -944,15 +1166,22 @@
               lat: pos.coords.latitude,
               lng: pos.coords.longitude,
               source: "gps",
+              label: "내 위치",
             };
             applyDistances();
             refresh();
             if (forceView && state.engine) {
               state.engine.setMyLocation(state.my.lat, state.my.lng, state.km);
+              if (typeof state.engine.map.setView === "function") {
+                state.engine.map.setView([state.my.lat, state.my.lng], 14);
+              } else if (state.engine.map && typeof kakao !== "undefined") {
+                state.engine.map.setLevel(5);
+                state.engine.map.panTo(new kakao.maps.LatLng(state.my.lat, state.my.lng));
+              }
             }
           },
           () => {
-            state.my = { ...SEOUL_STATION, source: "default" };
+            state.my = fallbackOrigin();
             applyDistances();
             refresh();
           },
@@ -1038,10 +1267,12 @@
           document.getElementById("shopList").innerHTML =
             `<div class="help">${esc(err.message)} — geocode.py 로 shops.json 을 만들어 주세요.</div>`;
         }
+        state.place = computePlaceOrigin(state.shops, readPlaceQuery());
+        if (state.place) state.my = { ...state.place };
         await bootMap();
-        locateMe(false);
         applyDistances();
         refresh();
+        if (!state.place) locateMe(false);
       }
       main();
     </script>

@@ -337,12 +337,14 @@ function loadHeader() {
         color: #ffd700;
       }
 
-      .header-search-btn:hover {
+      .header-search-btn:hover,
+      .header-map-btn:hover {
         background: rgba(255, 255, 255, 0.3);
         transform: scale(1.05);
       }
 
-      .header-search-btn:active {
+      .header-search-btn:active,
+      .header-map-btn:active {
         transform: scale(0.95);
       }
 
@@ -396,6 +398,7 @@ function loadHeader() {
               </button>
             </div>
             <!-- 검색 아이콘 버튼 -->
+            <div class="header-icon-group" style="display:flex;align-items:center;gap:8px">
             <button
               class="header-search-btn"
               id="header-search-btn"
@@ -417,6 +420,30 @@ function loadHeader() {
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" fill="currentColor" style="display:inline-block;vertical-align:middle;"><path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
             </button>
+            <a
+              class="header-map-btn"
+              id="header-map-btn"
+              href="nearby.html"
+              aria-label="주변보기"
+              onclick="if(typeof getNearbyUrl==='function') this.href=getNearbyUrl();"
+              style="
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: 1px solid white;
+                padding: 8px 12px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+                text-decoration: none;
+              "
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="currentColor" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg>
+            </a>
+            </div>
             <!-- 햄버거 메뉴 버튼 -->
             <button
               class="hamburger-btn"
@@ -806,7 +833,7 @@ function loadHamburgerMenu() {
               <span style="color:#888;margin-left:6px;font-size:12px">님</span>
             </div>
           </div>
-          <div class="side-menu-item" onclick="location.href='nearby.html'">
+          <div class="side-menu-item" onclick="location.href=(typeof getNearbyUrl==='function'?getNearbyUrl():'nearby.html')">
             <div class="side-menu-item-left">
               <span>주변보기</span>
             </div>
@@ -927,12 +954,34 @@ function showFavorites() {
 document.addEventListener('DOMContentLoaded', function () {
   loadHeader();
   loadHamburgerMenu();
+  injectHeaderMapButton();
   if (typeof initAuthUi === 'function') initAuthUi();
 });
 
 // 컴포넌트 업데이트 함수들 (필요시 수동 호출)
+function injectHeaderMapButton() {
+  if (document.getElementById('header-map-btn')) return;
+  const searchBtn = document.getElementById('header-search-btn');
+  if (!searchBtn) return;
+  const a = document.createElement('a');
+  a.className = 'header-map-btn';
+  a.id = 'header-map-btn';
+  a.href = typeof getNearbyUrl === 'function' ? getNearbyUrl() : 'nearby.html';
+  a.setAttribute('aria-label', '주변보기');
+  a.style.cssText =
+    'background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none;';
+  a.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="currentColor" style="display:inline-block;vertical-align:middle;" aria-hidden="true"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg>';
+  a.addEventListener('click', function () {
+    if (typeof getNearbyUrl === 'function') this.href = getNearbyUrl();
+  });
+  searchBtn.insertAdjacentElement('afterend', a);
+}
+window.injectHeaderMapButton = injectHeaderMapButton;
+
 function updateHeader() {
   loadHeader();
+  injectHeaderMapButton();
 }
 
 function updateHamburgerMenu() {

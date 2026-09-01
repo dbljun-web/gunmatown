@@ -2549,6 +2549,17 @@ body {
   gap: 10px;
 }
 
+.header-search-btn:hover,
+.header-map-btn:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.05);
+}
+
+.header-search-btn:active,
+.header-map-btn:active {
+  transform: scale(0.95);
+}
+
 /* 업체 이미지 섹션 */
 .shop-image-section {
   position: relative;
@@ -3806,6 +3817,29 @@ body.detail-page .detail-gallery-counter[hidden] {
   display: none !important;
 }
 
+body.detail-page .detail-share-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+body.detail-page .detail-share-btn:hover {
+  background: rgba(0, 0, 0, 0.68);
+}
+
 body.detail-page #shopImage {
   cursor: zoom-in;
 }
@@ -3977,6 +4011,7 @@ body.detail-page .booking-actions {
 body.detail-page .call-btn,
 body.detail-page .map-btn,
 body.detail-page .detail-map-btn,
+body.detail-page .nearby-action-btn,
 body.detail-page .share-action-btn {
   padding: 12px 8px;
   font-size: 0.86rem;
@@ -4109,6 +4144,7 @@ body.detail-page .staff-card {
 .call-btn,
 .map-btn,
 .detail-map-btn,
+.nearby-action-btn,
 .share-action-btn {
   padding: 13px 12px;
   border: none;
@@ -4124,6 +4160,7 @@ body.detail-page .staff-card {
   flex: 1;
   min-width: 0;
   letter-spacing: -0.02em;
+  text-decoration: none;
 }
 
 .call-btn {
@@ -4164,6 +4201,18 @@ body.detail-page .staff-card {
   box-shadow: 0 4px 12px rgba(26, 37, 47, 0.08);
 }
 
+.nearby-action-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.28);
+}
+
+.nearby-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.38);
+  color: #fff;
+}
+
 /* 반응형 디자인 - 상세 페이지 */
 @media (max-width: 480px) {
   .shop-image-section {
@@ -4200,6 +4249,7 @@ body.detail-page .staff-card {
   .call-btn,
   .map-btn,
   .detail-map-btn,
+  .nearby-action-btn,
   .share-action-btn {
     padding: 12px 8px;
     font-size: 0.82rem;
