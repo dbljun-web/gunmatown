@@ -2560,6 +2560,46 @@ body {
   transform: scale(0.95);
 }
 
+.nearby-fab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 88;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  box-shadow: 0 8px 22px rgba(102, 126, 234, 0.45);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  border: 2px solid #fff;
+}
+
+.nearby-fab svg {
+  display: block;
+}
+
+.nearby-fab:hover {
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 10px 26px rgba(102, 126, 234, 0.55);
+}
+
+@media (min-width: 520px) {
+  .nearby-fab {
+    right: max(16px, calc(50% - 245px + 16px));
+  }
+}
+
 /* 업체 이미지 섹션 */
 .shop-image-section {
   position: relative;

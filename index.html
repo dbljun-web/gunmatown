@@ -405,9 +405,9 @@
 }
     </script>
 
-    <link rel="preload" href="css/style.css?v=20260831f" as="style" />
+    <link rel="preload" href="css/style.css?v=20260901b" as="style" />
 
-    <link rel="stylesheet" href="css/style.css?v=20260831f" />
+    <link rel="stylesheet" href="css/style.css?v=20260901b" />
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -480,7 +480,7 @@
             class="header-map-btn"
             id="header-map-btn"
             href="nearby.html"
-            aria-label="주변보기"
+            aria-label="내주변"
             onclick="if(typeof getNearbyUrl==='function') this.href=getNearbyUrl();"
             style="
               background: rgba(255, 255, 255, 0.2);
@@ -2249,6 +2249,16 @@
 
 
     <div id="hamburger-menu-container"></div>
+    <a
+      class="nearby-fab"
+      id="nearbyFab"
+      href="nearby.html"
+      aria-label="내주변"
+      onclick="if(typeof getNearbyUrl==='function') this.href=getNearbyUrl();"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg>
+      <span>내주변</span>
+    </a>
       <!-- 관련정보 모달 -->
     <div id="relatedInfoModal" class="modal" role="dialog" aria-labelledby="relatedInfoModalTitle" aria-hidden="true">
       <div class="modal-content">

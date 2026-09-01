@@ -424,7 +424,7 @@ function loadHeader() {
               class="header-map-btn"
               id="header-map-btn"
               href="nearby.html"
-              aria-label="주변보기"
+              aria-label="내주변"
               onclick="if(typeof getNearbyUrl==='function') this.href=getNearbyUrl();"
               style="
                 background: rgba(255, 255, 255, 0.2);
@@ -835,7 +835,7 @@ function loadHamburgerMenu() {
           </div>
           <div class="side-menu-item" onclick="location.href=(typeof getNearbyUrl==='function'?getNearbyUrl():'nearby.html')">
             <div class="side-menu-item-left">
-              <span>주변보기</span>
+              <span>내주변</span>
             </div>
             <span>›</span>
           </div>
@@ -951,14 +951,6 @@ function showFavorites() {
 // 페이지 로드 시 초기화
 // ===========================================
 
-document.addEventListener('DOMContentLoaded', function () {
-  loadHeader();
-  loadHamburgerMenu();
-  injectHeaderMapButton();
-  if (typeof initAuthUi === 'function') initAuthUi();
-});
-
-// 컴포넌트 업데이트 함수들 (필요시 수동 호출)
 function injectHeaderMapButton() {
   if (document.getElementById('header-map-btn')) return;
   const searchBtn = document.getElementById('header-search-btn');
@@ -967,7 +959,7 @@ function injectHeaderMapButton() {
   a.className = 'header-map-btn';
   a.id = 'header-map-btn';
   a.href = typeof getNearbyUrl === 'function' ? getNearbyUrl() : 'nearby.html';
-  a.setAttribute('aria-label', '주변보기');
+  a.setAttribute('aria-label', '내주변');
   a.style.cssText =
     'background:rgba(255,255,255,.2);color:#fff;border:1px solid #fff;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none;';
   a.innerHTML =
@@ -978,6 +970,33 @@ function injectHeaderMapButton() {
   searchBtn.insertAdjacentElement('afterend', a);
 }
 window.injectHeaderMapButton = injectHeaderMapButton;
+
+function injectNearbyFab() {
+  if (document.getElementById('nearbyFab')) return;
+  if (document.body.classList.contains('detail-page')) return;
+  const page = (location.pathname.split('/').pop() || '').toLowerCase();
+  if (page === 'nearby.html' || page === 'detail.html') return;
+  if (!document.querySelector('.filter-container')) return;
+  const a = document.createElement('a');
+  a.className = 'nearby-fab';
+  a.id = 'nearbyFab';
+  a.href = typeof getNearbyUrl === 'function' ? getNearbyUrl() : 'nearby.html';
+  a.setAttribute('aria-label', '내주변');
+  a.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg><span>내주변</span>';
+  a.addEventListener('click', function () {
+    if (typeof getNearbyUrl === 'function') this.href = getNearbyUrl();
+  });
+  document.body.appendChild(a);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  loadHeader();
+  loadHamburgerMenu();
+  injectHeaderMapButton();
+  injectNearbyFab();
+  if (typeof initAuthUi === 'function') initAuthUi();
+});
 
 function updateHeader() {
   loadHeader();

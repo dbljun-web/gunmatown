@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>주변보기 | 건마타운</title>
+    <title>내주변 | 건마타운</title>
     <style>
       :root {
         --purple: #667eea;
@@ -106,6 +106,20 @@
         font-weight: 700;
         cursor: pointer;
         white-space: nowrap;
+      }
+      #themeToggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      #themeToggle .theme-caret {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        transition: transform 0.2s ease;
+      }
+      #themeToggle.is-open .theme-caret {
+        transform: rotate(180deg);
       }
       .filters button.active {
         background: var(--purple);
@@ -435,7 +449,7 @@
   <body>
     <div class="app">
       <header class="top">
-        <a href="index.html">건마타운 · 주변보기</a>
+        <a href="index.html">건마타운 · 내주변</a>
         <button type="button" class="gps-btn" id="gpsBtn">내 위치</button>
       </header>
       <div class="status" id="status">위치 확인 중…</div>
@@ -453,7 +467,7 @@
         <button type="button" data-km="3">3km</button>
         <button type="button" data-km="5">5km</button>
         <button type="button" data-km="10">10km</button>
-        <button type="button" id="themeToggle">테마보기</button>
+        <button type="button" id="themeToggle">테마보기 <svg class="theme-caret" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg></button>
       </div>
       <div class="theme-filter-section" id="themeFilterSection" hidden>
         <div class="theme-boxes">
@@ -1134,6 +1148,7 @@
         const themeSection = document.getElementById("themeFilterSection");
         function syncThemeToggle() {
           themeToggle.classList.toggle("active", state.themeOpen || state.theme !== "all");
+          themeToggle.classList.toggle("is-open", state.themeOpen);
         }
         themeToggle.addEventListener("click", () => {
           state.themeOpen = !state.themeOpen;
