@@ -112,6 +112,20 @@
       }
       .vis-btn.is-active { background: #111; color: #fff; border-color: #111; }
       .course-tools { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+      .addr-row { display: flex; gap: 6px; margin-top: 6px; }
+      .addr-row input { flex: 1; margin-top: 0; }
+      .addr-search-btn {
+        flex: 0 0 auto; border: 0; border-radius: 10px; padding: 10px 12px;
+        background: #111; color: #fff; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+        white-space: nowrap;
+      }
+      .coord-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; margin-top: 6px; }
+      .coord-row input { margin-top: 0; }
+      #adminMapPreview {
+        height: 180px; margin-top: 8px; border-radius: 10px; overflow: hidden;
+        border: 1px solid #eee; background: #eef2f7;
+      }
+      #adminMapPreview[hidden] { display: none !important; }
       @media (max-width: 400px) {
         .course-item { grid-template-columns: 1fr 1fr; }
         .course-item button { grid-column: 1 / -1; }
@@ -156,7 +170,22 @@
           <label>지역(region) <input name="region" /></label>
           <label>구/시(district) <input name="district" /></label>
           <label>동(dong) <input name="dong" /></label>
-          <label>주소 <input name="address" /></label>
+          <div style="margin-bottom:10px;">
+            <div class="field-label-row">
+              <span style="font-size:0.88rem;font-weight:700;color:#333;">주소</span>
+            </div>
+            <p class="hint">주소 검색으로 도로명/지번을 고르면 지역·구·동이 채워지고, 좌표가 있으면 지도에도 반영됩니다.</p>
+            <div class="addr-row">
+              <input name="address" placeholder="주소 검색 또는 직접 입력" />
+              <button type="button" class="addr-search-btn" id="addrSearchBtn">주소 검색</button>
+            </div>
+            <div class="coord-row">
+              <input name="lat" inputmode="decimal" placeholder="위도" />
+              <input name="lng" inputmode="decimal" placeholder="경도" />
+              <button type="button" class="mini-btn" id="pickMapBtn">지도클릭</button>
+            </div>
+            <div id="adminMapPreview" hidden></div>
+          </div>
           <label>전화 <input name="phone" /></label>
           <label>운영시간 <input name="operatingHours" /></label>
 
@@ -223,6 +252,9 @@
       </div>
     </main>
 
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/shop-card-data.js"></script>
     <script src="js/auth-api.js"></script>
     <script src="js/admin-mode.js"></script>
@@ -631,7 +663,7 @@
         const form = document.getElementById('shop-edit-form');
         const fields = [
           'name','region','district','dong','address','phone','price','type',
-          'description','detailContent','directions','operatingHours','staffInfo','greeting'
+          'description','detailContent','directions','operatingHours','staffInfo','greeting','lat','lng'
         ];
         fields.forEach((key) => {
           if (form[key] != null) form[key].value = shop[key] != null ? shop[key] : '';
@@ -659,6 +691,109 @@
         syncPriceFromLowest();
 
         updatePreview(readFormShop(shop));
+        renderAdminMap();
+      }
+
+      const SIDO_TO_REGION = {
+        서울특별시: '서울', 서울: '서울',
+        부산광역시: '부산', 부산: '부산',
+        대구광역시: '대구', 대구: '대구',
+        인천광역시: '인천', 인천: '인천',
+        광주광역시: '광주', 광주: '광주',
+        대전광역시: '대전', 대전: '대전',
+        울산광역시: '울산', 울산: '울산',
+        세종특별자치시: '세종', 세종: '세종',
+        경기도: '경기', 경기: '경기',
+        강원특별자치도: '강원', 강원도: '강원', 강원: '강원',
+        충청북도: '충북', 충북: '충북',
+        충청남도: '충남', 충남: '충남',
+        전북특별자치도: '전북', 전라북도: '전북', 전북: '전북',
+        전라남도: '전남', 전남: '전남',
+        경상북도: '경북', 경북: '경북',
+        경상남도: '경남', 경남: '경남',
+        제주특별자치도: '제주', 제주: '제주',
+      };
+
+      let adminMap = null;
+      let adminMarker = null;
+
+      function setCoordInputs(lat, lng) {
+        const form = document.getElementById('shop-edit-form');
+        if (!form) return;
+        form.lat.value = Number(lat).toFixed(6);
+        form.lng.value = Number(lng).toFixed(6);
+      }
+
+      function readCoordInputs() {
+        const form = document.getElementById('shop-edit-form');
+        const lat = Number(form.lat.value);
+        const lng = Number(form.lng.value);
+        if (Number.isFinite(lat) && Number.isFinite(lng)) return { lat, lng };
+        return null;
+      }
+
+      function renderAdminMap() {
+        const el = document.getElementById('adminMapPreview');
+        if (!el || typeof L === 'undefined') return;
+        const pos = readCoordInputs() || { lat: 37.5546, lng: 126.9706 };
+        el.hidden = false;
+        if (!adminMap) {
+          adminMap = L.map(el, { zoomControl: true }).setView([pos.lat, pos.lng], 16);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap',
+            maxZoom: 19,
+          }).addTo(adminMap);
+          adminMap.on('click', (e) => {
+            setCoordInputs(e.latlng.lat, e.latlng.lng);
+            renderAdminMap();
+          });
+        }
+        adminMap.setView([pos.lat, pos.lng], Math.max(adminMap.getZoom(), 16));
+        if (adminMarker) adminMarker.setLatLng([pos.lat, pos.lng]);
+        else adminMarker = L.marker([pos.lat, pos.lng]).addTo(adminMap);
+        setTimeout(() => adminMap.invalidateSize(), 80);
+      }
+
+      async function geocodeQuery(query) {
+        if (!query) return null;
+        const url =
+          'https://nominatim.openstreetmap.org/search?' +
+          new URLSearchParams({
+            q: query,
+            format: 'json',
+            limit: '1',
+            countrycodes: 'kr',
+          });
+        const res = await fetch(url, { headers: { 'Accept-Language': 'ko' } });
+        if (!res.ok) return null;
+        const rows = await res.json();
+        if (!rows || !rows[0]) return null;
+        return { lat: Number(rows[0].lat), lng: Number(rows[0].lon) };
+      }
+
+      function openAddressSearch() {
+        if (typeof daum === 'undefined' || !daum.Postcode) {
+          alert('주소 검색을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+          return;
+        }
+        new daum.Postcode({
+          oncomplete: async function (data) {
+            const form = document.getElementById('shop-edit-form');
+            const addr = data.roadAddress || data.jibunAddress || data.autoJibunAddress || '';
+            form.address.value = addr;
+            form.region.value = SIDO_TO_REGION[data.sido] || data.sido || form.region.value;
+            form.district.value = data.sigungu || form.district.value;
+            form.dong.value = data.bname || form.dong.value;
+            try {
+              const hit = await geocodeQuery(addr);
+              if (hit) setCoordInputs(hit.lat, hit.lng);
+            } catch {
+              /* 지도에서 직접 찍으면 됨 */
+            }
+            renderAdminMap();
+            updatePreview(readFormShop(currentShop));
+          },
+        }).open();
       }
 
       function updatePreview(shop) {
@@ -704,7 +839,7 @@
         const next = { ...base };
         [
           'name','region','district','dong','address','phone','price','type',
-          'description','detailContent','directions','operatingHours','staffInfo','greeting'
+          'description','detailContent','directions','operatingHours','staffInfo','greeting','lat','lng'
         ].forEach((key) => {
           next[key] = form[key].value;
         });
@@ -716,6 +851,15 @@
         }
         next.showHealingShop = form.showHealingShop.value === 'true';
         next.showOneLiner = form.showOneLiner.value === 'true';
+        const latN = Number(form.lat && form.lat.value);
+        const lngN = Number(form.lng && form.lng.value);
+        if (Number.isFinite(latN) && Number.isFinite(lngN)) {
+          next.lat = latN;
+          next.lng = lngN;
+        } else {
+          next.lat = null;
+          next.lng = null;
+        }
         next.typeLabel = next.showHealingShop ? '힐링샵' : '';
         next.country = selectedCountries.join(',') || 'korea';
         next.images = editImages.filter(Boolean);
@@ -783,6 +927,14 @@
         const form = document.getElementById('shop-edit-form');
         form.addEventListener('input', () => {
           updatePreview(readFormShop(currentShop));
+          if (form.lat === document.activeElement || form.lng === document.activeElement) {
+            renderAdminMap();
+          }
+        });
+        document.getElementById('addrSearchBtn').addEventListener('click', openAddressSearch);
+        document.getElementById('pickMapBtn').addEventListener('click', () => {
+          renderAdminMap();
+          alert('미리보기 지도를 탭하면 그 위치가 좌표로 저장됩니다.');
         });
 
         document.getElementById('addImageUrlBtn').addEventListener('click', () => {

@@ -8802,8 +8802,20 @@ function initFilterDragScroll() {
 }
 
 // ✅ 간단한 중앙화된 초기화 함수
+function injectNearbyViewButton() {
+  const box = document.querySelector('.filter-container');
+  if (!box || box.querySelector('#nearbyViewBtn')) return;
+  const a = document.createElement('a');
+  a.className = 'filter-btn';
+  a.id = 'nearbyViewBtn';
+  a.href = 'nearby.html';
+  a.textContent = '주변보기';
+  box.appendChild(a);
+}
+
 async function initializeApp() {
   console.log('initializeApp 시작');
+  injectNearbyViewButton();
 
   // 업체 데이터 초기화 (shop-card-data.js 로드)
   await initializeShopData();
@@ -10607,7 +10619,10 @@ window.initializeNearbyShopsTitle = function () {
 document.addEventListener('DOMContentLoaded', initFilterDragScroll);
 
 // ✅ 새로운 중앙화된 초기화 함수 실행
-document.addEventListener('DOMContentLoaded', initializeApp);
+document.addEventListener('DOMContentLoaded', function () {
+  injectNearbyViewButton();
+  initializeApp();
+});
 
 // 정적 HTML 카드 정렬 (페이지 로드 시) - 한 번만 실행
 function initStaticCardSorting() {

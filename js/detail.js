@@ -888,25 +888,56 @@ function cleanDisplayAddress(address, shop) {
 }
 window.cleanDisplayAddress = cleanDisplayAddress;
 
+function getShopDetailAddressLine(shop) {
+  const address = cleanDisplayAddress(shop.address, shop);
+  const fromField = String(shop.detailAddress || '').trim();
+  const compact = (s) => String(s || '').replace(/\s+/g, '');
+  const isBoiler = (line) =>
+    /^[★☆*]/.test(line) ||
+    /부재시|예약제|입실\s*후\s*선불|예약자동취소|100%\s*예약제/.test(line);
+  const isSameAddress = (line) => {
+    const a = compact(address);
+    const b = compact(cleanDisplayAddress(line, shop) || line);
+    if (!a || !b) return false;
+    return a === b || a.includes(b) || b.includes(a);
+  };
+
+  const text = typeof getShopDirectionsText === 'function' ? getShopDirectionsText(shop) : '';
+  const lines = String(text || '')
+    .split(/\n+/)
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  for (const line of lines) {
+    if (isBoiler(line) || isSameAddress(line)) continue;
+    if (/상세\s*주소\s*문의|주소\s*문의/.test(line)) continue;
+    return line;
+  }
+
+  if (fromField && !isSameAddress(fromField)) return fromField;
+  return '';
+}
+
 // 주소 섹션 설정 (다른 info-item들과 동일한 형태)
 function setupAddressSection(addressElement, shop) {
   if (!addressElement) return;
 
   const address = cleanDisplayAddress(shop.address, shop);
-  const detailRaw = String(shop.detailAddress || '').trim();
-  const detail = cleanDisplayAddress(detailRaw, shop);
-  const showDetail = detail && detail !== address;
+  const detail = getShopDetailAddressLine(shop);
+  const esc = (s) =>
+    String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
 
   let html = `<img class="info-icon" src="images/icons/map.svg" alt="지도" width="20" height="20" />
     <div class="info-item-text">
-      <div class="address-container"><span>${address || '주소 정보 없음'}</span></div>`;
-
-  if (showDetail) {
-    html += `<div class="address-container"><span>${detail}</span></div>`;
+      <div class="address-container"><span>${esc(address || '주소 정보 없음')}</span></div>`;
+  if (detail) {
+    html += `<div class="address-container"><span>${esc(detail)}</span></div>`;
   }
-
   html += `</div>`;
-
   addressElement.innerHTML = html;
 }
 

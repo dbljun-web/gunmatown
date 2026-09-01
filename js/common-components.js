@@ -806,6 +806,12 @@ function loadHamburgerMenu() {
               <span style="color:#888;margin-left:6px;font-size:12px">님</span>
             </div>
           </div>
+          <div class="side-menu-item" onclick="location.href='nearby.html'">
+            <div class="side-menu-item-left">
+              <span>주변보기</span>
+            </div>
+            <span>›</span>
+          </div>
           <div class="side-menu-item" data-admin-only hidden onclick="location.href='shop-edit.html'">
             <div class="side-menu-item-left">
               <span>업체 수정(관리자)</span>
