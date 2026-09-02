@@ -134,6 +134,9 @@
       .app.is-homecare .map-wrap {
         display: none !important;
       }
+      .app.is-homecare .healing-bar {
+        margin-top: 8px;
+      }
       .theme-filter-section {
         flex: 0 0 auto;
         padding: 8px 12px 10px;
@@ -177,39 +180,113 @@
       .shop-list {
         flex: 1 1 auto;
         overflow-y: auto;
-        padding: 10px 12px 24px;
+        padding: 6px 12px 24px;
         background: #f5f6f8;
       }
       .shop-list h2 {
-        margin: 0;
+        margin: 0 0 10px;
         font-size: 0.92rem;
-        flex: 1;
-        min-width: 0;
       }
-      .list-head {
+      .healing-bar {
+        flex: 0 0 auto;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        margin: 4px 0 10px;
+        justify-content: flex-end;
+        padding: 0 12px;
+        margin: -44px 0 8px;
+        position: relative;
+        z-index: 6;
+        pointer-events: none;
       }
       .healing-chip {
-        flex: 0 0 auto;
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-        border: 1px solid #ffc4c4;
-        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-        color: #fff;
-        font-size: 0.68rem;
+        --heart-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+        pointer-events: auto;
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+        width: 92px;
+        height: 84px;
+        padding: 18px 8px 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #be123c;
+        font-size: 0.78rem;
         font-weight: 800;
-        line-height: 1.15;
+        line-height: 1.2;
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.28);
+        box-shadow: none;
+        filter: drop-shadow(0 5px 10px rgba(190, 18, 60, 0.28));
+      }
+      .healing-chip::before,
+      .healing-chip::after {
+        content: "";
+        position: absolute;
+        -webkit-mask-image: var(--heart-mask);
+        mask-image: var(--heart-mask);
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        pointer-events: none;
+      }
+      .healing-chip::before {
+        inset: 0;
+        z-index: 0;
+        background: #f43f5e;
+      }
+      .healing-chip::after {
+        inset: 3px;
+        z-index: 0;
+        background: #fff;
+      }
+      .healing-chip-label,
+      .healing-switch {
+        position: relative;
+        z-index: 1;
+      }
+      .healing-chip-label {
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+      .healing-switch {
+        position: relative;
+        flex: 0 0 auto;
+        width: 32px;
+        height: 18px;
+        border-radius: 999px;
+        background: #e5e7eb;
+      }
+      .healing-knob {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+        transition: transform 0.15s ease;
       }
       .healing-chip.is-on {
-        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.35);
-        border-color: #fff;
+        color: #fff;
+        filter: drop-shadow(0 6px 12px rgba(255, 107, 107, 0.45));
+      }
+      .healing-chip.is-on::before {
+        background: #fff;
+      }
+      .healing-chip.is-on::after {
+        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+      }
+      .healing-chip.is-on .healing-switch {
+        background: rgba(255, 255, 255, 0.38);
+      }
+      .healing-chip.is-on .healing-knob {
+        transform: translateX(14px);
       }
       .shop-card .card-image {
         position: relative;
@@ -568,6 +645,12 @@
           <div class="picker-title" id="pickerTitle">이 위치의 업체</div>
           <div id="pickerList"></div>
         </div>
+      </div>
+      <div class="healing-bar">
+        <button type="button" class="healing-chip" id="healingFilter" aria-pressed="false" aria-label="힐링샵만 보기. 지금은 전체 매장이 표시됩니다.">
+          <span class="healing-chip-label">힐링샵</span>
+          <span class="healing-switch" aria-hidden="true"><span class="healing-knob"></span></span>
+        </button>
       </div>
       <section class="shop-list" id="shopList"></section>
     </div>
@@ -1147,17 +1230,14 @@
               : noCoords
                 ? `<div class="help">주소 변환 안 된 업체 ${noCoords}곳은 지도에서 제외됩니다.</div>`
                 : "";
+        const title = `${esc(state.my.label || "내 위치")} 기준 가까운 순 ${list.length}곳`;
         if (!list.length) {
           box.innerHTML = `${help}<h2>업체 0곳</h2><p class="empty">조건에 맞는 업체가 없습니다.</p>`;
           return;
         }
-        const title = `${esc(state.my.label || "내 위치")} 기준 가까운 순 ${list.length}곳`;
         box.innerHTML =
           help +
-          `<div class="list-head">
-            <h2>${title}</h2>
-            <button type="button" class="healing-chip${state.healing ? " is-on" : ""}" id="healingFilter" aria-pressed="${state.healing ? "true" : "false"}">힐링샵</button>
-          </div>` +
+          `<h2>${title}</h2>` +
           list
             .map((s) => {
               const selected = String(s.id) === String(state.selectedId) ? " is-selected" : "";
@@ -1178,15 +1258,6 @@
               </a>`;
             })
             .join("");
-        const healBtn = document.getElementById("healingFilter");
-        if (healBtn) {
-          healBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            state.healing = !state.healing;
-            refresh();
-          });
-        }
       }
 
       function selectShop(id, fromList) {
@@ -1226,8 +1297,23 @@
         });
       }
 
+      function syncHealingUi() {
+        const btn = document.getElementById("healingFilter");
+        if (!btn) return;
+        const on = !!state.healing;
+        btn.classList.toggle("is-on", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        btn.setAttribute(
+          "aria-label",
+          on
+            ? "힐링샵만 보는 중. 다시 누르면 전체 매장이 표시됩니다."
+            : "힐링샵만 보기. 지금은 전체 매장이 표시됩니다."
+        );
+      }
+
       function refresh() {
         syncHomecareUi();
+        syncHealingUi();
         const list = visibleShops();
         const homecare = state.cat === "homecare";
         if (state.engine) {
@@ -1294,6 +1380,13 @@
           refresh();
         });
         document.getElementById("gpsBtn").addEventListener("click", () => locateMe(true));
+        const healBtn = document.getElementById("healingFilter");
+        if (healBtn) {
+          healBtn.addEventListener("click", () => {
+            state.healing = !state.healing;
+            refresh();
+          });
+        }
       }
 
       function locateMe(forceView) {
