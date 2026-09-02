@@ -135,7 +135,12 @@
         display: none !important;
       }
       .app.is-homecare .healing-bar {
-        margin-top: 8px;
+        height: auto;
+        flex-basis: auto;
+        margin: 8px 0 4px;
+      }
+      .app.is-homecare .healing-chip {
+        transform: none;
       }
       .theme-filter-section {
         flex: 0 0 auto;
@@ -180,7 +185,7 @@
       .shop-list {
         flex: 1 1 auto;
         overflow-y: auto;
-        padding: 6px 12px 24px;
+        padding: 4px 12px 24px;
         background: #f5f6f8;
       }
       .shop-list h2 {
@@ -188,11 +193,13 @@
         font-size: 0.92rem;
       }
       .healing-bar {
-        flex: 0 0 auto;
+        flex: 0 0 0;
+        height: 0;
+        overflow: visible;
         display: flex;
         justify-content: flex-end;
         padding: 0 12px;
-        margin: -44px 0 8px;
+        margin: 0;
         position: relative;
         z-index: 6;
         pointer-events: none;
@@ -209,6 +216,7 @@
         width: 92px;
         height: 84px;
         padding: 18px 8px 0;
+        transform: translateY(calc(-100% - 6px));
         border: 0;
         border-radius: 0;
         background: transparent;
