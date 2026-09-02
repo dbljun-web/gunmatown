@@ -135,12 +135,7 @@
         display: none !important;
       }
       .app.is-homecare .healing-bar {
-        height: auto;
-        flex-basis: auto;
-        margin: 8px 0 4px;
-      }
-      .app.is-homecare .healing-chip {
-        transform: none;
+        display: none;
       }
       .theme-filter-section {
         flex: 0 0 auto;
@@ -1071,7 +1066,7 @@
         return state.shops
           .filter((s) => {
             if (!matchCat(s, state.cat) || !matchTheme(s, state.theme)) return false;
-            if (state.healing && !isHealingShop(s)) return false;
+            if (!homecare && state.healing && !isHealingShop(s)) return false;
             if (!homecare && !hasCoords(s)) return false;
             return (s.distance || Infinity) <= km;
           })
