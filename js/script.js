@@ -8851,6 +8851,7 @@ function injectNearbyViewButton() {
 async function initializeApp() {
   console.log('initializeApp 시작');
   injectNearbyViewButton();
+  if (typeof injectNearbyFab === 'function') injectNearbyFab();
 
   // 업체 데이터 초기화 (shop-card-data.js 로드)
   await initializeShopData();

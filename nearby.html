@@ -126,6 +126,14 @@
         border-color: var(--purple);
         color: #fff;
       }
+      .filters button[data-km]:disabled {
+        opacity: 0.38;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .app.is-homecare .map-wrap {
+        display: none !important;
+      }
       .theme-filter-section {
         flex: 0 0 auto;
         padding: 8px 12px 10px;
@@ -173,8 +181,70 @@
         background: #f5f6f8;
       }
       .shop-list h2 {
-        margin: 4px 0 10px;
+        margin: 0;
         font-size: 0.92rem;
+        flex: 1;
+        min-width: 0;
+      }
+      .list-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 4px 0 10px;
+      }
+      .healing-chip {
+        flex: 0 0 auto;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 1px solid #ffc4c4;
+        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+        color: #fff;
+        font-size: 0.68rem;
+        font-weight: 800;
+        line-height: 1.15;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(255, 107, 107, 0.28);
+      }
+      .healing-chip.is-on {
+        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.35);
+        border-color: #fff;
+      }
+      .shop-card .card-image {
+        position: relative;
+        width: 92px;
+        height: 118px;
+        flex-shrink: 0;
+        background: #eee;
+        overflow: hidden;
+      }
+      .shop-card .image-overlay {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        pointer-events: none;
+        width: max-content;
+        max-width: calc(100% - 6px);
+      }
+      .shop-card .shop-type {
+        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+        color: #fff;
+        padding: 3px 6px;
+        border-radius: 7px;
+        font-size: 0.62rem;
+        font-weight: 800;
+        white-space: nowrap;
+        line-height: 1.2;
+      }
+      .shop-card .shop-type-outcall {
+        background: linear-gradient(135deg, #64b5f6, #90caf9);
       }
       .shop-card {
         display: flex;
@@ -188,17 +258,12 @@
         margin: 0 0 10px;
         cursor: pointer;
         box-shadow: 0 2px 12px rgba(0,0,0,.08);
+        text-decoration: none;
+        color: inherit;
       }
       .shop-card.is-selected {
         border-color: var(--purple);
         box-shadow: 0 0 0 2px rgba(102,126,234,.25);
-      }
-      .shop-card .card-image {
-        width: 92px;
-        height: 118px;
-        flex-shrink: 0;
-        background: #eee;
-        overflow: hidden;
       }
       .shop-card .card-image img {
         width: 100%;
@@ -533,6 +598,7 @@
         km: "all",
         theme: "all",
         themeOpen: false,
+        healing: false,
         selectedId: null,
       };
       const THEME_KEYWORDS = {
@@ -851,22 +917,27 @@
           if (inner) inner.classList.toggle("is-selected", on);
         });
       };
+      function isOutcall(shop) {
+        const t = String(shop.type || "").trim();
+        if (t === "출장마사지" || t.toLowerCase() === "outcall" || t.includes("출장")) return true;
+        if (Array.isArray(shop.types) && shop.types.some((x) => String(x).includes("출장"))) return true;
+        return false;
+      }
+      function isHealingShop(shop) {
+        if (!shop || shop.showHealingShop === false || shop.hideHealingShop === true) return false;
+        return shop.showHealingShop === true;
+      }
       function matchCat(shop, cat) {
+        const outcall = isOutcall(shop);
+        if (cat === "homecare") return outcall;
+        if (outcall) return false;
         if (cat === "all") return true;
         const blob = countryBlob(shop);
         const name = String(shop.name || "");
-        const type = String(shop.type || "");
         if (cat === "korea") return /korea|한국/.test(blob);
         if (cat === "china") return /china|중국/.test(blob);
         if (cat === "thailand") return /thailand|thai|태국/.test(blob);
         if (cat === "oneshop") return /1인샵/.test(name);
-        if (cat === "homecare") {
-          return (
-            type === "출장마사지" ||
-            /홈케어|홈타이|출장/.test(name) ||
-            /홈케어|홈타이/.test(String(shop.address || ""))
-          );
-        }
         return true;
       }
       function shopMatchesTheme(shop, keywords) {
@@ -904,15 +975,15 @@
       }
 
       function visibleShops() {
-        const km = state.km === "all" ? Infinity : Number(state.km);
+        const homecare = state.cat === "homecare";
+        const km = homecare || state.km === "all" ? Infinity : Number(state.km);
         return state.shops
-          .filter(
-            (s) =>
-              hasCoords(s) &&
-              matchCat(s, state.cat) &&
-              matchTheme(s, state.theme) &&
-              s.distance <= km
-          )
+          .filter((s) => {
+            if (!matchCat(s, state.cat) || !matchTheme(s, state.theme)) return false;
+            if (state.healing && !isHealingShop(s)) return false;
+            if (!homecare && !hasCoords(s)) return false;
+            return (s.distance || Infinity) <= km;
+          })
           .sort((a, b) => a.distance - b.distance);
       }
 
@@ -1042,32 +1113,61 @@
           services: shop.services || raw.services || [],
           themes: shop.themes || raw.themes,
           type: shop.type || raw.type || "",
+          types: shop.types || raw.types,
+          showHealingShop:
+            shop.showHealingShop !== undefined
+              ? shop.showHealingShop
+              : raw.showHealingShop,
+          hideHealingShop: shop.hideHealingShop || raw.hideHealingShop,
+          typeLabel: shop.typeLabel || raw.typeLabel,
         };
+      }
+
+      function shopBadgeHtml(shop) {
+        const bits = [];
+        if (isHealingShop(shop)) {
+          bits.push(
+            `<div class="shop-type shop-type-healing">${esc(shop.typeLabel || "힐링샵")}</div>`
+          );
+        }
+        if (isOutcall(shop)) {
+          bits.push(`<div class="shop-type shop-type-outcall">출장샵</div>`);
+        }
+        return bits.length ? `<div class="image-overlay">${bits.join("")}</div>` : "";
       }
 
       function renderList(list) {
         const box = document.getElementById("shopList");
         const noCoords = state.shops.filter((s) => !hasCoords(s)).length;
         const help =
-          noCoords && !list.length
-            ? `<div class="help">좌표가 있는 업체가 없습니다. <code>geocode.py</code>에 카카오 REST 키를 넣고 변환하세요.</div>`
-            : noCoords
-              ? `<div class="help">주소 변환 안 된 업체 ${noCoords}곳은 지도에서 제외됩니다.</div>`
-              : "";
+          state.cat === "homecare"
+            ? ""
+            : noCoords && !list.length
+              ? `<div class="help">좌표가 있는 업체가 없습니다. <code>geocode.py</code>에 카카오 REST 키를 넣고 변환하세요.</div>`
+              : noCoords
+                ? `<div class="help">주소 변환 안 된 업체 ${noCoords}곳은 지도에서 제외됩니다.</div>`
+                : "";
         if (!list.length) {
           box.innerHTML = `${help}<h2>업체 0곳</h2><p class="empty">조건에 맞는 업체가 없습니다.</p>`;
           return;
         }
+        const title = `${esc(state.my.label || "내 위치")} 기준 가까운 순 ${list.length}곳`;
         box.innerHTML =
           help +
-          `<h2>${esc(state.my.label || "내 위치")} 기준 가까운 순 ${list.length}곳</h2>` +
+          `<div class="list-head">
+            <h2>${title}</h2>
+            <button type="button" class="healing-chip${state.healing ? " is-on" : ""}" id="healingFilter" aria-pressed="${state.healing ? "true" : "false"}">힐링샵</button>
+          </div>` +
           list
             .map((s) => {
               const selected = String(s.id) === String(state.selectedId) ? " is-selected" : "";
               const img = s.image || (s.images && s.images[0]) || "";
               const detail = getDetailLine(s);
-              return `<article class="shop-card${selected}" data-id="${esc(s.id)}" id="card-${esc(s.id)}">
-                <div class="card-image">${img ? `<img src="${esc(img)}" alt="${esc(s.name)}" width="92" height="118">` : ""}</div>
+              return `<a class="shop-card${selected}" data-id="${esc(s.id)}" id="card-${esc(s.id)}" href="detail.html?id=${esc(s.id)}">
+                <div class="card-image">
+                  ${img ? `<img src="${esc(img)}" alt="${esc(s.name)}" width="92" height="118">` : ""}
+                  ${shopBadgeHtml(s)}
+                </div>
                 <div class="card-body">
                   <div class="row1"><h3><span class="card-flags">${flagImgs(s)}</span><span class="card-name">${esc(s.name)}</span></h3><span class="km">${esc(fmtKm(s.distance))}</span></div>
                   <p>${esc(s.address || "주소 없음")}</p>
@@ -1075,15 +1175,18 @@
                   <p>${esc(s.operatingHours || "영업시간 정보 없음")}</p>
                   <p class="price"><span class="price-label">최저가</span>${esc(s.price || "가격 문의")}</p>
                 </div>
-              </article>`;
+              </a>`;
             })
             .join("");
-        box.querySelectorAll(".shop-card").forEach((el) => {
-          el.addEventListener("click", (e) => {
-            if (e.target.closest("a")) return;
-            selectShop(el.getAttribute("data-id"), true);
+        const healBtn = document.getElementById("healingFilter");
+        if (healBtn) {
+          healBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            state.healing = !state.healing;
+            refresh();
           });
-        });
+        }
       }
 
       function selectShop(id, fromList) {
@@ -1104,16 +1207,41 @@
         }
       }
 
+      function syncHomecareUi() {
+        const homecare = state.cat === "homecare";
+        const app = document.querySelector(".app");
+        if (app) app.classList.toggle("is-homecare", homecare);
+        if (homecare) {
+          state.km = "all";
+          closeOverlapPicker();
+        }
+        document.querySelectorAll("#distFilters button[data-km]").forEach((btn) => {
+          const km = btn.getAttribute("data-km");
+          if (homecare) {
+            btn.disabled = km !== "all";
+            btn.classList.toggle("active", km === "all");
+          } else {
+            btn.disabled = false;
+          }
+        });
+      }
+
       function refresh() {
+        syncHomecareUi();
         const list = visibleShops();
+        const homecare = state.cat === "homecare";
         if (state.engine) {
-          state.engine.setMyLocation(state.my.lat, state.my.lng, state.km);
-          state.engine.setShops(list, selectShop);
+          if (homecare) {
+            state.engine.setShops([]);
+          } else {
+            state.engine.setMyLocation(state.my.lat, state.my.lng, state.km);
+            state.engine.setShops(list, selectShop);
+            if (state.engine.map && typeof state.engine.map.invalidateSize === "function") {
+              setTimeout(() => state.engine.map.invalidateSize(), 150);
+            }
+          }
           if (state.selectedId && !list.some((s) => String(s.id) === String(state.selectedId))) {
             state.selectedId = null;
-          }
-          if (state.engine.map && typeof state.engine.map.invalidateSize === "function") {
-            setTimeout(() => state.engine.map.invalidateSize(), 150);
           }
         }
         renderList(list);
@@ -1137,7 +1265,7 @@
         });
         document.getElementById("distFilters").addEventListener("click", (e) => {
           const btn = e.target.closest("button[data-km]");
-          if (!btn) return;
+          if (!btn || btn.disabled || state.cat === "homecare") return;
           state.km = btn.getAttribute("data-km");
           document.querySelectorAll("#distFilters button[data-km]").forEach((b) =>
             b.classList.toggle("active", b === btn)

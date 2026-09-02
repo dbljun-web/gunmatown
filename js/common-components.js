@@ -971,12 +971,61 @@ function injectHeaderMapButton() {
 }
 window.injectHeaderMapButton = injectHeaderMapButton;
 
+function ensureNearbyFabStyles() {
+  if (document.getElementById('nearby-fab-style')) return;
+  const style = document.createElement('style');
+  style.id = 'nearby-fab-style';
+  style.textContent = `
+    .nearby-fab {
+      position: fixed;
+      right: 16px;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      z-index: 88;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      box-shadow: 0 8px 22px rgba(102, 126, 234, 0.45);
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      border: 2px solid #fff;
+    }
+    .nearby-fab svg { display: block; }
+    .nearby-fab:hover {
+      color: #fff;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 10px 26px rgba(102, 126, 234, 0.55);
+    }
+    @media (min-width: 520px) {
+      .nearby-fab { right: max(16px, calc(50% - 245px + 16px)); }
+    }
+    body.detail-page .nearby-fab {
+      display: none !important;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 function injectNearbyFab() {
-  if (document.getElementById('nearbyFab')) return;
-  if (document.body.classList.contains('detail-page')) return;
+  ensureNearbyFabStyles();
   const page = (location.pathname.split('/').pop() || '').toLowerCase();
-  if (page === 'nearby.html' || page === 'detail.html') return;
-  if (!document.querySelector('.filter-container')) return;
+  const isDetail =
+    document.body.classList.contains('detail-page') || page === 'detail.html';
+  if (page === 'nearby.html' || isDetail) {
+    const existing = document.getElementById('nearbyFab');
+    if (existing) existing.remove();
+    return;
+  }
+  if (document.getElementById('nearbyFab')) return;
   const a = document.createElement('a');
   a.className = 'nearby-fab';
   a.id = 'nearbyFab';
@@ -989,6 +1038,7 @@ function injectNearbyFab() {
   });
   document.body.appendChild(a);
 }
+window.injectNearbyFab = injectNearbyFab;
 
 document.addEventListener('DOMContentLoaded', function () {
   loadHeader();
@@ -997,6 +1047,10 @@ document.addEventListener('DOMContentLoaded', function () {
   injectNearbyFab();
   if (typeof initAuthUi === 'function') initAuthUi();
 });
+if (document.readyState !== 'loading') {
+  injectHeaderMapButton();
+  injectNearbyFab();
+}
 
 function updateHeader() {
   loadHeader();

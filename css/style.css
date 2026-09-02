@@ -2600,6 +2600,10 @@ body {
   }
 }
 
+body.detail-page .nearby-fab {
+  display: none !important;
+}
+
 /* 업체 이미지 섹션 */
 .shop-image-section {
   position: relative;
