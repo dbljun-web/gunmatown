@@ -1156,17 +1156,19 @@
       function getDetailLine(shop) {
         const address = String(shop.address || "").trim();
         const compact = (s) => String(s || "").replace(/\s+/g, "");
+        const landmark = (line) =>
+          /출구|도보|역|인근|부근|앞|근처|빌딩|프라자|호텔|층|사거리|골목/.test(line);
         const sameAddr = (line) => {
           const a = compact(address);
           const b = compact(line);
           if (!a || !b) return false;
-          return a === b || a.includes(b) || b.includes(a);
+          if (a === b) return true;
+          if (landmark(line)) return false;
+          return a.includes(b) || b.includes(a);
         };
         const boiler = (line) =>
           /^[★☆*]/.test(line) ||
           /부재시|예약제|입실\s*후\s*선불|예약자동취소|100%\s*예약제/.test(line);
-        const field = String(shop.detailAddress || "").trim();
-        if (field && !sameAddr(field)) return field;
         const lines = String(shop.directions || "")
           .split(/\n+/)
           .map((l) => l.trim())
@@ -1176,6 +1178,8 @@
           if (/상세\s*주소\s*문의|주소\s*문의/.test(line)) continue;
           return line;
         }
+        const field = String(shop.detailAddress || "").trim();
+        if (field && !sameAddr(field)) return field;
         return "";
       }
       function enrichShop(shop) {

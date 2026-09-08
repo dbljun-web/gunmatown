@@ -916,11 +916,15 @@ function getShopDetailAddressLine(shop) {
   const isBoiler = (line) =>
     /^[★☆*]/.test(line) ||
     /부재시|예약제|입실\s*후\s*선불|예약자동취소|100%\s*예약제/.test(line);
-  const isSameAddress = (line) => {
+  const isLandmark = (line) =>
+    /출구|도보|역|인근|부근|앞|근처|빌딩|프라자|호텔|층|사거리|골목/.test(line);
+  const isDupAddress = (line) => {
     const a = compact(address);
     const b = compact(cleanDisplayAddress(line, shop) || line);
     if (!a || !b) return false;
-    return a === b || a.includes(b) || b.includes(a);
+    if (a === b) return true;
+    if (isLandmark(line)) return false;
+    return a.includes(b) || b.includes(a);
   };
 
   const text = typeof getShopDirectionsText === 'function' ? getShopDirectionsText(shop) : '';
@@ -930,12 +934,12 @@ function getShopDetailAddressLine(shop) {
     .filter(Boolean);
 
   for (const line of lines) {
-    if (isBoiler(line) || isSameAddress(line)) continue;
+    if (isBoiler(line) || isDupAddress(line)) continue;
     if (/상세\s*주소\s*문의|주소\s*문의/.test(line)) continue;
     return line;
   }
 
-  if (fromField && !isSameAddress(fromField)) return fromField;
+  if (fromField && !isDupAddress(fromField)) return fromField;
   return '';
 }
 
