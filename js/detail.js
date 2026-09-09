@@ -70,7 +70,6 @@ function renderDetailCountryFlagsHtml(country) {
       });
   }
   if (keys.length === 0) add('korea');
-  if (!keys.includes('korea')) keys.unshift('korea');
   return keys
     .map((key) => {
       const flag = map[key];
