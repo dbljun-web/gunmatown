@@ -7118,6 +7118,54 @@ function cleanDisplayAddress(address, shop) {
 }
 window.cleanDisplayAddress = cleanDisplayAddress;
 
+function getShopDirectionsText(shop) {
+  if (!shop) return '';
+  if (shop.directions && String(shop.directions).trim()) {
+    return String(shop.directions).trim();
+  }
+  const raw = shop.detailContent || '';
+  if (!raw) return '';
+  const wayMatch = raw.match(
+    /【\s*오시는\s*길\s*】\s*([\s\S]*?)(?=【\s*영업시간\s*】|$)/
+  );
+  return wayMatch && wayMatch[1] ? wayMatch[1].trim() : '';
+}
+window.getShopDirectionsText = getShopDirectionsText;
+
+function getShopDetailAddressLine(shop) {
+  const address = cleanDisplayAddress(shop.address, shop);
+  const fromField = String(shop.detailAddress || '').trim();
+  const compact = (s) => String(s || '').replace(/\s+/g, '');
+  const isBoiler = (line) =>
+    /^[★☆*]/.test(line) ||
+    /부재시|예약제|입실\s*후\s*선불|예약자동취소|100%\s*예약제/.test(line);
+  const isLandmark = (line) =>
+    /출구|도보|역|인근|부근|앞|근처|빌딩|프라자|호텔|층|사거리|골목/.test(line);
+  const isDupAddress = (line) => {
+    const a = compact(address);
+    const b = compact(cleanDisplayAddress(line, shop) || line);
+    if (!a || !b) return false;
+    if (a === b) return true;
+    if (isLandmark(line)) return false;
+    return a.includes(b) || b.includes(a);
+  };
+
+  const lines = String(getShopDirectionsText(shop) || '')
+    .split(/\n+/)
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  for (const line of lines) {
+    if (isBoiler(line) || isDupAddress(line)) continue;
+    if (/상세\s*주소\s*문의|주소\s*문의/.test(line)) continue;
+    return line;
+  }
+
+  if (fromField && !isDupAddress(fromField)) return fromField;
+  return '';
+}
+window.getShopDetailAddressLine = getShopDetailAddressLine;
+
 // 업체 카드 생성
 function createShopCard(shop) {
   const displayName = createShopDisplayName(shop);
@@ -7140,13 +7188,23 @@ function createShopCard(shop) {
   }
   const distance = generateRandomDistance();
 
-  // 주소, 상세주소, 전화번호를 한 줄로 합치기
+  // 오시는 길 첫 줄 | 주소 | 전화번호 (출장은 기존처럼 주소|상세|전화)
   const addressParts = [];
   const cleanedAddress = cleanDisplayAddress(shop.address, shop);
   const cleanedDetail = cleanDisplayAddress(shop.detailAddress, shop);
-  if (cleanedAddress) addressParts.push(cleanedAddress);
-  if (cleanedDetail && cleanedDetail !== cleanedAddress) {
-    addressParts.push(cleanedDetail);
+  const isOutcall =
+    shop.type === '출장마사지' ||
+    shop.type === 'outcall' ||
+    (typeof isOutcallType === 'function' && isOutcallType(shop));
+  if (isOutcall) {
+    if (cleanedAddress) addressParts.push(cleanedAddress);
+    if (cleanedDetail && cleanedDetail !== cleanedAddress) {
+      addressParts.push(cleanedDetail);
+    }
+  } else {
+    const wayLine = getShopDetailAddressLine(shop);
+    if (wayLine && wayLine !== cleanedAddress) addressParts.push(wayLine);
+    if (cleanedAddress) addressParts.push(cleanedAddress);
   }
   if (shop.phone) addressParts.push(shop.phone);
   const addressLine = addressParts.join(' | ');

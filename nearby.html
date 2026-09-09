@@ -1102,6 +1102,11 @@
           lng: pts.reduce((n, s) => n + Number(s.lng), 0) / pts.length,
         };
       }
+      function readCatQuery() {
+        const cat = (new URLSearchParams(location.search).get("cat") || "").trim();
+        const allowed = ["all", "korea", "china", "thailand", "oneshop", "homecare"];
+        return allowed.includes(cat) ? cat : "all";
+      }
       function readPlaceQuery() {
         const q = new URLSearchParams(location.search);
         let region = (q.get("region") || "").trim();
@@ -1504,6 +1509,10 @@
 
       async function main() {
         bindUi();
+        state.cat = readCatQuery();
+        document.querySelectorAll("#cats button[data-cat]").forEach((b) => {
+          b.classList.toggle("active", b.getAttribute("data-cat") === state.cat);
+        });
         try {
           state.shops = await loadShops();
         } catch (err) {

@@ -141,6 +141,7 @@ async function loadShopDetail() {
     if (shop.region) p.set('region', shop.region);
     if (shop.district) p.set('district', shop.district);
     if (shop.dong) p.set('dong', shop.dong);
+    if (isOutcallShop(shop)) p.set('cat', 'homecare');
     const q = p.toString();
     nearbyBtn.href = q ? 'nearby.html?' + q : 'nearby.html';
     try {
@@ -155,6 +156,13 @@ async function loadShopDetail() {
     } catch (e) {
       /* ignore */
     }
+  }
+  const mapBtn = document.querySelector('.detail-map-btn');
+  if (mapBtn && isOutcallShop(shop)) {
+    mapBtn.disabled = true;
+    mapBtn.setAttribute('aria-disabled', 'true');
+    mapBtn.removeAttribute('onclick');
+    mapBtn.classList.add('is-disabled');
   }
   displayShopReviews(shop);
   updateSEOMetaTags(shop);
@@ -1046,8 +1054,23 @@ function extractLocationInfo(address) {
   return location;
 }
 
+function isOutcallShop(shop) {
+  const t = String((shop && shop.type) || '').trim();
+  if (t === '출장마사지' || t.toLowerCase() === 'outcall' || t.includes('출장')) {
+    return true;
+  }
+  if (Array.isArray(shop && shop.types) && shop.types.some((x) => String(x).includes('출장'))) {
+    return true;
+  }
+  return false;
+}
+
 // 지도보기 함수 - 지도 선택 모달 열기
 function openMap() {
+  const shopId = getShopIdFromUrl();
+  const shop = massageShops.find((s) => s.id == shopId);
+  if (shop && isOutcallShop(shop)) return;
+
   // 주소 가져오기
   const addressContainer = document.querySelector('.address-container span');
   let destinationAddress = '';

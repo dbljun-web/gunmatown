@@ -4233,6 +4233,22 @@ body.detail-page .staff-card {
   box-shadow: 0 6px 18px rgba(47, 128, 237, 0.35);
 }
 
+.detail-map-btn:disabled,
+.detail-map-btn.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.detail-map-btn:disabled:hover,
+.detail-map-btn.is-disabled:hover {
+  background: linear-gradient(135deg, #2f80ed 0%, #56a0ff 100%);
+  transform: none;
+  box-shadow: none;
+}
+
 .share-action-btn {
   background: #f4f6f8;
   color: #2c3e50;
