@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /shop-edit.html
+Disallow: /login.html
+Disallow: /AUTH_README.md
+Disallow: /AUTH_D1.md
+
+Sitemap: https://gunmatown.com/sitemap.xml

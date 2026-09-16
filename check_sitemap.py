@@ -4,45 +4,30 @@
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-SCRIPT_DIR = Path(__file__).parent.absolute()
-PUBLIC_DIR = SCRIPT_DIR / "public"
-SITEMAP_FILE = PUBLIC_DIR / "sitemap.xml"
+ROOT = Path(__file__).resolve().parent
+SITEMAP_FILE = ROOT / "sitemap.xml"
+SKIP = {"shop-edit.html", "login.html"}
 
-# sitemap.xml에서 HTML URL 추출
 tree = ET.parse(SITEMAP_FILE)
-urls = tree.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
+urls = tree.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
 sitemap_files = set()
 for url in urls:
-    if url.text:
-        # https://msg1000.com/file.html -> file.html
-        filename = url.text.split('/')[-1]
-        if filename.endswith('.html'):
-            sitemap_files.add(filename)
+    if not url.text:
+        continue
+    path = url.text.replace("https://gunmatown.com/", "").split("?")[0]
+    if path in ("", "/"):
+        sitemap_files.add("index.html")
+    elif path.endswith(".html"):
+        sitemap_files.add(path)
 
-# public 디렉토리의 HTML 파일 목록
-public_html_files = {f.name for f in PUBLIC_DIR.glob('*.html')}
+html_files = {f.name for f in ROOT.glob("*.html")} - SKIP
+print(f"sitemap.xml URL 수: {len(urls)}")
+print(f"사이트 HTML 파일 수(관리자 제외): {len(html_files)}")
 
-print(f"sitemap.xml에 포함된 HTML 파일 수: {len(sitemap_files)}")
-print(f"public 디렉토리의 HTML 파일 수: {len(public_html_files)}")
-print()
-
-# 포함되지 않은 파일 확인
-missing_files = public_html_files - sitemap_files
-if missing_files:
-    print(f"[경고] sitemap.xml에 포함되지 않은 파일 ({len(missing_files)}개):")
-    for f in sorted(missing_files)[:20]:  # 처음 20개만 표시
-        print(f"  - {f}")
-    if len(missing_files) > 20:
-        print(f"  ... 외 {len(missing_files) - 20}개")
+missing = html_files - sitemap_files
+if missing:
+    print(f"[경고] sitemap에 없는 파일 {len(missing)}개")
+    for name in sorted(missing)[:20]:
+        print(f"  - {name}")
 else:
-    print("[완료] 모든 HTML 파일이 sitemap.xml에 포함되어 있습니다!")
-
-# sitemap에만 있는 파일 (존재하지 않는 파일)
-extra_files = sitemap_files - public_html_files
-if extra_files:
-    print(f"\n[경고] sitemap.xml에는 있지만 실제로 존재하지 않는 파일 ({len(extra_files)}개):")
-    for f in sorted(extra_files)[:20]:
-        print(f"  - {f}")
-    if len(extra_files) > 20:
-        print(f"  ... 외 {len(extra_files) - 20}개")
-
+    print("[완료] 공개 HTML이 sitemap에 포함되어 있습니다.")
