@@ -83,9 +83,18 @@ function renderDetailCountryFlagsHtml(country) {
 let isPageLoaded = false;
 
 // URL에서 업체 ID 가져오기
+function shopPageUrl(shopId) {
+  return `shop/${shopId}.html`;
+}
+
 function getShopIdFromUrl() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('id');
+  const q = new URLSearchParams(window.location.search).get('id');
+  if (q) return q;
+  const path = window.location.pathname || '';
+  const fromDir = path.match(/\/shop\/(\d+)(?:\.html)?\/?$/i);
+  if (fromDir) return fromDir[1];
+  const file = (path.split('/').pop() || '').match(/^(\d+)\.html$/i);
+  return file ? file[1] : null;
 }
 
 // 업체 데이터 가져오기
@@ -1697,8 +1706,7 @@ function getDefaultServices(type) {
 function displayShopReviews(shop) {
   const reviewsList = document.getElementById('reviewsList');
 
-  // shop.reviews가 있으면 사용, 없으면 샘플 리뷰 생성
-  const sampleReviews = shop.reviews || generateSampleReviews(shop);
+  const sampleReviews = getShopReviews(shop);
 
   // innerHTML 사용으로 빠른 렌더링 (성능 최적화)
   let html = '';
@@ -1717,6 +1725,20 @@ function displayShopReviews(shop) {
   if (reviewsList) {
     reviewsList.innerHTML = html;
   }
+}
+
+function getShopReviews(shop) {
+  if (Array.isArray(shop.reviews) && shop.reviews.length) {
+    return shop.reviews;
+  }
+  const packed = window.shopReviews;
+  if (packed) {
+    const found = packed[shop.id] || packed[String(shop.id)];
+    if (Array.isArray(found) && found.length) {
+      return found;
+    }
+  }
+  return generateSampleReviews(shop);
 }
 
 // 샘플 리뷰 생성
@@ -1909,18 +1931,18 @@ function updateSEOMetaTags(shop) {
   const districtKeyword = shop.district ? `${shop.district}마사지` : '';
 
   // 제목 업데이트
-  const title = `${shop.name} - ${regionKeyword} 상세정보 | 마사지천국`;
+  const title = `${shop.name} - ${regionKeyword} 상세정보 | 건마타운`;
   document.getElementById('pageTitle').textContent = title;
   document.title = title;
 
   // 메타 설명 업데이트
-  const description = `${shop.name} ${regionKeyword} 상세정보. ${shop.price}부터, ${shop.operatingHours}. ${shop.address}. 전화예약 ${shop.phone}. 마사지천국에서 확인하세요.`;
+  const description = `${shop.name} ${regionKeyword} 상세정보. ${shop.price}부터, ${shop.operatingHours}. ${shop.address}. 전화예약 ${shop.phone}. 건마타운에서 확인하세요.`;
   document
     .getElementById('pageDescription')
     .setAttribute('content', description);
 
   // 키워드 업데이트
-  const keywords = `${regionKeyword}, ${districtKeyword}, ${shop.name}, 마사지상세, 마사지예약, 마사지가격, 마사지코스, 마사지리뷰, 마사지천국`;
+  const keywords = `${regionKeyword}, ${districtKeyword}, ${shop.name}, 마사지상세, 마사지예약, 마사지가격, 마사지코스, 마사지리뷰, 건마타운`;
   document.getElementById('pageKeywords').setAttribute('content', keywords);
 
   // Open Graph 메타태그 업데이트
@@ -1966,7 +1988,7 @@ function generateShopNameWithRegion(originalName, region) {
 
 // Open Graph 메타태그 업데이트
 function updateOpenGraphTags(shop, regionKeyword) {
-  const title = `${shop.name} - ${regionKeyword} 상세정보 | 마사지천국`;
+  const title = `${shop.name} - ${regionKeyword} 상세정보 | 건마타운`;
   const description = `${shop.name} ${regionKeyword} 상세정보. ${shop.price}부터, ${shop.operatingHours}. ${shop.address}. 전화예약 ${shop.phone}.`;
   const images = getShopImageList(shop);
   const imageAbs = toAbsoluteAssetUrl(images[0] || shop.image || '');
@@ -2081,7 +2103,7 @@ function buildNearbyShopCardHtml(shop) {
     : '';
   const typeKind = isOutcallShop(shop) ? '출장마사지' : '마사지';
 
-  return `<a class="nearby-mini-card" href="detail.html?id=${shop.id}" data-type="${typeKind}">
+  return `<a class="nearby-mini-card" href="${shopPageUrl(shop.id)}" data-type="${typeKind}">
     <div class="nearby-mini-thumb">
       <img src="${img}" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.src='images/강남_강남역_강남클라스.jpg'">
       ${typeBadge}
@@ -2151,7 +2173,7 @@ function displayNearbyShops(currentShop) {
 
 // 주변 업체 클릭 시 상세 페이지로 이동
 function goToNearbyShop(shopId) {
-  window.location.href = `detail.html?id=${shopId}`;
+  window.location.href = shopPageUrl(shopId);
 }
 
 // 해당 지역+구로 이동

@@ -18,6 +18,12 @@
     <meta name="twitter:image" id="twitterImage" content="" />
     <link rel="stylesheet" href="css/style.css?v=20260909a" />
     <script type="application/ld+json" id="shopJsonLd"></script>
+    <script id="legacyDetailRedirect">
+      (function () {
+        var id = new URLSearchParams(location.search).get("id");
+        if (id) location.replace("shop/" + encodeURIComponent(id) + ".html");
+      })();
+    </script>
   </head>
   <body class="detail-page">
     <div class="detail-phone-shell">
@@ -184,10 +190,11 @@
     <div id="hamburger-menu-container"></div>
 
     <script src="js/shop-card-data.js"></script>
+    <script src="js/shop-reviews.js?v=20261007a"></script>
     <script src="js/auth-api.js"></script>
     <script src="js/admin-mode.js"></script>
     <script src="js/shop-overrides.js"></script>
     <script src="js/common-components.js"></script>
-    <script src="js/detail.js?v=20260909b"></script>
+    <script src="js/detail.js?v=20261007a"></script>
   </body>
 </html>

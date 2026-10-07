@@ -18,6 +18,7 @@ CARD_DATA = ROOT / "js" / "shop-card-data.js"
 SKIP_NAMES = {
     "shop-edit.html",
     "login.html",
+    "detail.html",
 }
 
 SKIP_PREFIXES = (
@@ -136,16 +137,22 @@ def generate_sitemap() -> tuple[ET.ElementTree, int]:
         changefreq = "daily" if name == "index.html" else "weekly"
         build_url(urlset, canonical_url(name), lastmod, compute_priority(name), changefreq)
         count += 1
-        if name == "detail.html":
-            for sid in shop_ids():
-                build_url(
-                    urlset,
-                    f"{BASE_URL}/detail.html?id={sid}",
-                    lastmod,
-                    0.5,
-                    "weekly",
-                )
-                count += 1
+    shop_dir = ROOT / "shop"
+    if shop_dir.exists():
+        shop_files = sorted(
+            shop_dir.glob("*.html"),
+            key=lambda p: int(p.stem) if p.stem.isdigit() else 0,
+        )
+        for html_file in shop_files:
+            lastmod = datetime.fromtimestamp(html_file.stat().st_mtime, tz=timezone.utc)
+            build_url(
+                urlset,
+                f"{BASE_URL}/shop/{html_file.name}",
+                lastmod,
+                0.6,
+                "weekly",
+            )
+            count += 1
     return ET.ElementTree(urlset), count
 
 

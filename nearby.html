@@ -1255,7 +1255,7 @@
               const selected = String(s.id) === String(state.selectedId) ? " is-selected" : "";
               const img = s.image || (s.images && s.images[0]) || "";
               const detail = getDetailLine(s);
-              return `<a class="shop-card${selected}" data-id="${esc(s.id)}" id="card-${esc(s.id)}" href="detail.html?id=${esc(s.id)}">
+              return `<a class="shop-card${selected}" data-id="${esc(s.id)}" id="card-${esc(s.id)}" href="shop/${esc(s.id)}.html">
                 <div class="card-image">
                   ${img ? `<img src="${esc(img)}" alt="${esc(s.name)}" width="92" height="118">` : ""}
                   ${shopBadgeHtml(s)}

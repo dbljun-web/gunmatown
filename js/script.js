@@ -7502,7 +7502,7 @@ function callShop(phoneNumber) {
 
 // 상세 페이지로 이동 (동적 detail.html)
 function goToDetail(shopId) {
-  window.location.href = `detail.html?id=${shopId}`;
+  window.location.href = `shop/${shopId}.html`;
 }
 
 // 스크롤 애니메이션

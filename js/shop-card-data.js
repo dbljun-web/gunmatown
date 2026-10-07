@@ -58,7 +58,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=1",
+    "file": "shop/1.html",
     "reviews": [],
     "imageAlts": [
       "서울 서초구 서초동 강남 클라스 마사지 업체 사진"
@@ -123,7 +123,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=2",
+    "file": "shop/2.html",
     "reviews": [],
     "imageAlts": [
       "서울 서초구 강남 더라임 마사지 업체 사진"
@@ -170,7 +170,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=3",
+    "file": "shop/3.html",
     "reviews": [],
     "imageAlts": [
       "경기 용인시 상현동 광교 퀸테라피 마사지 업체 사진"
@@ -258,7 +258,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=4",
+    "file": "shop/4.html",
     "reviews": [],
     "imageAlts": [
       "전북 완주군 이서면 이서면 보라아로마 마사지 업체 사진"
@@ -402,7 +402,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=5",
+    "file": "shop/5.html",
     "reviews": [],
     "imageAlts": [
       "강원 허니 출장마사지 업체 사진"
@@ -489,7 +489,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=6",
+    "file": "shop/6.html",
     "reviews": [],
     "imageAlts": [
       "대전 유성구 죽동 더마치 마사지 업체 사진"
@@ -571,7 +571,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=7",
+    "file": "shop/7.html",
     "reviews": [],
     "imageAlts": [
       "제주 제주시 연동 1인샵 TOP 마사지 업체 사진"
@@ -636,7 +636,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=8",
+    "file": "shop/8.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 역삼동 엔젤 마사지 업체 사진"
@@ -768,7 +768,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=9",
+    "file": "shop/9.html",
     "reviews": [],
     "imageAlts": [
       "서울 성북구 쿤타이 마사지 업체 사진",
@@ -834,7 +834,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=10",
+    "file": "shop/10.html",
     "reviews": [],
     "imageAlts": [
       "서울 서초구 서초동 샤넬 마사지 업체 사진"
@@ -899,7 +899,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=11",
+    "file": "shop/11.html",
     "reviews": [],
     "imageAlts": [
       "인천 중구 1인샵루나 마사지 업체 사진"
@@ -982,7 +982,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=12",
+    "file": "shop/12.html",
     "reviews": [],
     "imageAlts": [
       "서울 강서구 마곡동 로니아에스테틱 마사지 업체 사진"
@@ -1186,7 +1186,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=13",
+    "file": "shop/13.html",
     "reviews": [],
     "imageAlts": [
       "서울 우크라이나출장 출장마사지 업체 사진"
@@ -1390,7 +1390,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=14",
+    "file": "shop/14.html",
     "reviews": [],
     "imageAlts": [
       "서울 러시아출장 출장마사지 업체 사진"
@@ -1461,7 +1461,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=15",
+    "file": "shop/15.html",
     "reviews": [],
     "imageAlts": [
       "대전 유성구 봉명동 1인샵샤론 마사지 업체 사진"
@@ -1598,7 +1598,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=16",
+    "file": "shop/16.html",
     "reviews": [],
     "imageAlts": [
       "서울 서울특별시 신사동 아리아스파 마사지 업체 사진"
@@ -1756,7 +1756,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=17",
+    "file": "shop/17.html",
     "reviews": [],
     "imageAlts": [
       "서울 훗카이도 출장마사지 업체 사진"
@@ -1855,7 +1855,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=18",
+    "file": "shop/18.html",
     "reviews": [],
     "imageAlts": [
       "광주 광산구 쌍암동 첨단달밤마사지 마사지 업체 사진"
@@ -2017,7 +2017,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=19",
+    "file": "shop/19.html",
     "reviews": [],
     "imageAlts": [
       "부산 촉촉홈타이 출장마사지 업체 사진"
@@ -2240,7 +2240,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=20",
+    "file": "shop/20.html",
     "reviews": [],
     "imageAlts": [
       "서울 도쿄핫 출장마사지 업체 사진"
@@ -2463,7 +2463,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=21",
+    "file": "shop/21.html",
     "reviews": [],
     "imageAlts": [
       "서울 원정출장 출장마사지 업체 사진"
@@ -2609,7 +2609,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=22",
+    "file": "shop/22.html",
     "reviews": [],
     "imageAlts": [
       "광주 자라홈타이 출장마사지 업체 사진"
@@ -2669,7 +2669,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=23",
+    "file": "shop/23.html",
     "reviews": [],
     "imageAlts": [
       "충북 충주시 대소원면 핫 스웨디시 마사지 업체 사진"
@@ -2821,7 +2821,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=24",
+    "file": "shop/24.html",
     "reviews": [],
     "imageAlts": [
       "전북 스마일홈타이 출장마사지 업체 사진"
@@ -3007,7 +3007,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=25",
+    "file": "shop/25.html",
     "reviews": [],
     "imageAlts": [
       "서울 오!예스 출장마사지 출장마사지 업체 사진"
@@ -3067,7 +3067,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=26",
+    "file": "shop/26.html",
     "reviews": [],
     "imageAlts": [
       "서울 광명시 더킹스웨디시 마사지 업체 사진",
@@ -3162,7 +3162,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=27",
+    "file": "shop/27.html",
     "reviews": [],
     "imageAlts": [
       "광주 지구 요정아로마 마사지 업체 사진"
@@ -3228,7 +3228,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=28",
+    "file": "shop/28.html",
     "reviews": [],
     "imageAlts": [
       "제주 물결힐링출장 출장마사지 업체 사진"
@@ -3419,7 +3419,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=29",
+    "file": "shop/29.html",
     "reviews": [],
     "imageAlts": [
       "서울 재팬출장 출장마사지 업체 사진"
@@ -3484,7 +3484,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=30",
+    "file": "shop/30.html",
     "reviews": [],
     "imageAlts": [
       "제주 제주시 연동 공항스웨디시 마사지 업체 사진"
@@ -3580,7 +3580,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=31",
+    "file": "shop/31.html",
     "reviews": [],
     "imageAlts": [
       "부산 금정구 서동 킹타이 마사지 업체 사진",
@@ -3747,7 +3747,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=32",
+    "file": "shop/32.html",
     "reviews": [],
     "imageAlts": [
       "서울 S출장 출장마사지 업체 사진"
@@ -3813,7 +3813,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=33",
+    "file": "shop/33.html",
     "reviews": [],
     "imageAlts": [
       "서울 VVIP 한국인출장 출장마사지 업체 사진"
@@ -3942,7 +3942,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=34",
+    "file": "shop/34.html",
     "reviews": [],
     "imageAlts": [
       "충북 루미홈타이 출장마사지 업체 사진"
@@ -4128,7 +4128,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=35",
+    "file": "shop/35.html",
     "reviews": [],
     "imageAlts": [
       "대전 청주출장 출장마사지 업체 사진",
@@ -4333,7 +4333,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=36",
+    "file": "shop/36.html",
     "reviews": [],
     "imageAlts": [
       "서울 VVIP 도파민출장 출장마사지 업체 사진"
@@ -4473,7 +4473,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=37",
+    "file": "shop/37.html",
     "reviews": [],
     "imageAlts": [
       "충북 해피홈타이 출장마사지 업체 사진"
@@ -4544,7 +4544,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=38",
+    "file": "shop/38.html",
     "reviews": [],
     "imageAlts": [
       "경기 광명시 꽃 스웨디시 마사지 업체 사진"
@@ -4685,7 +4685,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=39",
+    "file": "shop/39.html",
     "reviews": [],
     "imageAlts": [
       "서울 중독출장 출장마사지 업체 사진"
@@ -4859,7 +4859,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=40",
+    "file": "shop/40.html",
     "reviews": [],
     "imageAlts": [
       "부산 부산 일본인 홈케어 출장마사지 업체 사진"
@@ -5024,7 +5024,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=41",
+    "file": "shop/41.html",
     "reviews": [],
     "imageAlts": [
       "서울 일본홈타이 출장마사지 업체 사진"
@@ -5209,7 +5209,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=42",
+    "file": "shop/42.html",
     "reviews": [],
     "imageAlts": [
       "대전 베리굿홈타이 출장마사지 업체 사진"
@@ -5350,7 +5350,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=43",
+    "file": "shop/43.html",
     "reviews": [],
     "imageAlts": [
       "서울 지려따출장 출장마사지 업체 사진"
@@ -5410,7 +5410,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=44",
+    "file": "shop/44.html",
     "reviews": [],
     "imageAlts": [
       "광주 센슈얼마사지홈케어 출장마사지 업체 사진"
@@ -5551,7 +5551,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=45",
+    "file": "shop/45.html",
     "reviews": [],
     "imageAlts": [
       "서울 오늘밤 24시 출장 출장마사지 업체 사진"
@@ -5633,7 +5633,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=46",
+    "file": "shop/46.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 논현동 5월스파 마사지 업체 사진"
@@ -5807,7 +5807,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=47",
+    "file": "shop/47.html",
     "reviews": [],
     "imageAlts": [
       "충북 엔젤 출장마사지 업체 사진"
@@ -6037,7 +6037,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=48",
+    "file": "shop/48.html",
     "reviews": [],
     "imageAlts": [
       "광주 정성홈케어 출장마사지 업체 사진"
@@ -6198,7 +6198,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=49",
+    "file": "shop/49.html",
     "reviews": [],
     "imageAlts": [
       "대구 VIP 요정한국출장 출장마사지 업체 사진"
@@ -6402,7 +6402,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=50",
+    "file": "shop/50.html",
     "reviews": [],
     "imageAlts": [
       "서울 24시 한국일본출장 출장마사지 업체 사진"
@@ -6552,7 +6552,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=51",
+    "file": "shop/51.html",
     "reviews": [],
     "imageAlts": [
       "부산 동래구 사직동 치유 마사지 업체 사진"
@@ -6611,7 +6611,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=52",
+    "file": "shop/52.html",
     "reviews": [],
     "imageAlts": [
       "서울 송파구 문정동 바디바디 마사지 업체 사진"
@@ -6658,7 +6658,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=53",
+    "file": "shop/53.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 매탄동 오늘여기테라피 마사지 업체 사진"
@@ -6717,7 +6717,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=54",
+    "file": "shop/54.html",
     "reviews": [],
     "imageAlts": [
       "경기 김포시 구래동 크레파스 스웨디시테라피 마사지 업체 사진"
@@ -6799,7 +6799,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=55",
+    "file": "shop/55.html",
     "reviews": [],
     "imageAlts": [
       "경기 부천시 다온약손마사지 마사지 업체 사진"
@@ -6899,7 +6899,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=56",
+    "file": "shop/56.html",
     "reviews": [],
     "imageAlts": [
       "경북 영광홈타이 출장마사지 업체 사진"
@@ -7074,7 +7074,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=57",
+    "file": "shop/57.html",
     "reviews": [],
     "imageAlts": [
       "대전 우유빛홈타이 출장마사지 업체 사진",
@@ -7260,7 +7260,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=58",
+    "file": "shop/58.html",
     "reviews": [],
     "imageAlts": [
       "대전 지금바로홈타이 출장마사지 업체 사진"
@@ -7434,7 +7434,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=59",
+    "file": "shop/59.html",
     "reviews": [],
     "imageAlts": [
       "대전 미인돌홈타이 출장마사지 업체 사진"
@@ -7506,7 +7506,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=60",
+    "file": "shop/60.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 일산동 탱글 스웨디시 마사지 업체 사진"
@@ -7610,7 +7610,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=61",
+    "file": "shop/61.html",
     "reviews": [],
     "imageAlts": [
       "경북 두손 홈타이 출장마사지 업체 사진"
@@ -7678,7 +7678,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=62",
+    "file": "shop/62.html",
     "reviews": [],
     "imageAlts": [
       "서울 관악구 신림동 라인 마사지 업체 사진"
@@ -7853,7 +7853,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=63",
+    "file": "shop/63.html",
     "reviews": [],
     "imageAlts": [
       "대구 TOP홈타이 출장마사지 업체 사진"
@@ -8057,7 +8057,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=64",
+    "file": "shop/64.html",
     "reviews": [],
     "imageAlts": [
       "서울 한국 힐링손 출장마사지 업체 사진"
@@ -8261,7 +8261,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=65",
+    "file": "shop/65.html",
     "reviews": [],
     "imageAlts": [
       "서울 내상치유전문출장 출장마사지 업체 사진"
@@ -8409,7 +8409,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=66",
+    "file": "shop/66.html",
     "reviews": [],
     "imageAlts": [
       "서울 송파구 포인트스파 마사지 업체 사진"
@@ -8474,7 +8474,7 @@ window.shopCardData = [
     "typeLabel": "힐링샵",
     "showHealingShop": true,
     "greeting": "",
-    "file": "detail.html?id=67",
+    "file": "shop/67.html",
     "reviews": [],
     "imageAlts": [
       "서울 서초구 서초동 비너스 마사지 업체 사진"
@@ -8589,7 +8589,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=68",
+    "file": "shop/68.html",
     "reviews": [],
     "imageAlts": [
       "부산 중구 창선동 청담테라피 마사지 업체 사진"
@@ -8661,7 +8661,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=69",
+    "file": "shop/69.html",
     "reviews": [],
     "imageAlts": [
       "서울 금천구 가산동 1인샵지윤 마사지 업체 사진"
@@ -8754,7 +8754,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=70",
+    "file": "shop/70.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 논현동 우유스파 마사지 업체 사진"
@@ -8835,7 +8835,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=71",
+    "file": "shop/71.html",
     "reviews": [],
     "imageAlts": [
       "충북 청주시 강서동 네임드 마사지 업체 사진"
@@ -9033,7 +9033,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=72",
+    "file": "shop/72.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 1인샵포시즌 마사지 업체 사진"
@@ -9144,7 +9144,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=73",
+    "file": "shop/73.html",
     "reviews": [],
     "imageAlts": [
       "광주 남구 봉선동 707타이 마사지 업체 사진"
@@ -9262,7 +9262,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=74",
+    "file": "shop/74.html",
     "reviews": [],
     "imageAlts": [
       "전남 목포시 상동 타이타이 마사지 업체 사진"
@@ -9388,7 +9388,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=75",
+    "file": "shop/75.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 휴스톤아로마 마사지 업체 사진"
@@ -9613,7 +9613,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=76",
+    "file": "shop/76.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 주물테라피앤스파 마사지 업체 사진"
@@ -9678,7 +9678,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=77",
+    "file": "shop/77.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 인계동 유테라피 마사지 업체 사진"
@@ -9755,7 +9755,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=78",
+    "file": "shop/78.html",
     "reviews": [],
     "imageAlts": [
       "서울 금천구 가산동 오월스웨디시 마사지 업체 사진"
@@ -9899,7 +9899,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=79",
+    "file": "shop/79.html",
     "reviews": [],
     "imageAlts": [
       "서울 서울특별시 신림동 휴테라피&스웨디시 마사지 업체 사진"
@@ -9981,7 +9981,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=80",
+    "file": "shop/80.html",
     "reviews": [],
     "imageAlts": [
       "서울 관악구 봉천동 블루문스웨디시 마사지 업체 사진"
@@ -10041,7 +10041,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=81",
+    "file": "shop/81.html",
     "reviews": [],
     "imageAlts": [
       "서울 관악구 봉천동 더썸테라피 마사지 업체 사진"
@@ -10136,7 +10136,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=82",
+    "file": "shop/82.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 초월읍 다온중국마사지 마사지 업체 사진"
@@ -10219,7 +10219,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=83",
+    "file": "shop/83.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 더바디 마사지 업체 사진",
@@ -10343,7 +10343,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=84",
+    "file": "shop/84.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 일산동 블루밍 마사지 업체 사진"
@@ -10438,7 +10438,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=85",
+    "file": "shop/85.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 곤지암읍 훼미리마사지 마사지 업체 사진"
@@ -10559,7 +10559,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=86",
+    "file": "shop/86.html",
     "reviews": [],
     "imageAlts": [
       "경기 용인시 중동 1인샵 포에마에스테시아 마사지 업체 사진"
@@ -10606,7 +10606,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=87",
+    "file": "shop/87.html",
     "reviews": [],
     "imageAlts": [
       "경기 부천시 상동 블랑스웨디시 마사지 업체 사진"
@@ -10689,7 +10689,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=88",
+    "file": "shop/88.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 탄현동 킹타이 마사지 업체 사진"
@@ -10794,7 +10794,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=89",
+    "file": "shop/89.html",
     "reviews": [],
     "imageAlts": [
       "경기 성남시 서현동 1인샵연 마사지 업체 사진"
@@ -10923,7 +10923,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=90",
+    "file": "shop/90.html",
     "reviews": [],
     "imageAlts": [
       "경기 성남시 야탑동 리프레쉬 마사지 업체 사진"
@@ -11000,7 +11000,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=91",
+    "file": "shop/91.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 인계동 상상테라피 마사지 업체 사진"
@@ -11082,7 +11082,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=92",
+    "file": "shop/92.html",
     "reviews": [],
     "imageAlts": [
       "서울 성동구 성동 애플스웨디시 마사지 업체 사진"
@@ -11171,7 +11171,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=93",
+    "file": "shop/93.html",
     "reviews": [],
     "imageAlts": [
       "인천 계양구 도두리 골드 마사지 업체 사진"
@@ -11254,7 +11254,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=94",
+    "file": "shop/94.html",
     "reviews": [],
     "imageAlts": [
       "광주 남구 노대동 씨유타이 마사지 업체 사진"
@@ -11348,7 +11348,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=95",
+    "file": "shop/95.html",
     "reviews": [],
     "imageAlts": [
       "인천 연수구 송도동 더마치 스웨디시 마사지 업체 사진"
@@ -11471,7 +11471,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=96",
+    "file": "shop/96.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 호평동 본타이 마사지 업체 사진"
@@ -11542,7 +11542,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=97",
+    "file": "shop/97.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 평내동 YOU스웨디시 마사지 업체 사진"
@@ -11635,7 +11635,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=98",
+    "file": "shop/98.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 진접읍 조이 마사지 업체 사진"
@@ -11716,7 +11716,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=99",
+    "file": "shop/99.html",
     "reviews": [],
     "imageAlts": [
       "경기 파주시 탑 마사지 업체 사진"
@@ -11811,7 +11811,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=100",
+    "file": "shop/100.html",
     "reviews": [],
     "imageAlts": [
       "인천 연수구 송도동 VIP테라피 마사지 업체 사진",
@@ -11906,7 +11906,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=101",
+    "file": "shop/101.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 일산동 벨라플랜 마사지 업체 사진"
@@ -12000,7 +12000,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=102",
+    "file": "shop/102.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 일산동 1인샵채아 마사지 업체 사진"
@@ -12060,7 +12060,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=103",
+    "file": "shop/103.html",
     "reviews": [],
     "imageAlts": [
       "서울 강서구 마곡동 수테라피 마사지 업체 사진"
@@ -12125,7 +12125,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=104",
+    "file": "shop/104.html",
     "reviews": [],
     "imageAlts": [
       "충남 천안시 성정동 하트테라피 마사지 업체 사진"
@@ -12173,7 +12173,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=105",
+    "file": "shop/105.html",
     "reviews": [],
     "imageAlts": [
       "세종 세종특별자치시 누리 힐링타이마사지 마사지 업체 사진",
@@ -12261,7 +12261,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=106",
+    "file": "shop/106.html",
     "reviews": [],
     "imageAlts": [
       "세종 세종특별자치시 금남면 형주황제 마사지 업체 사진"
@@ -12411,7 +12411,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=107",
+    "file": "shop/107.html",
     "reviews": [],
     "imageAlts": [
       "서울 지산동 1인샵 금비 마사지 업체 사진"
@@ -12482,7 +12482,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=108",
+    "file": "shop/108.html",
     "reviews": [],
     "imageAlts": [
       "경북 구미시 송정동 몽스파 마사지 업체 사진"
@@ -12587,7 +12587,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=109",
+    "file": "shop/109.html",
     "reviews": [],
     "imageAlts": [
       "부산 해운대구 좌동 1인샵주가인 마사지 업체 사진"
@@ -12668,7 +12668,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=110",
+    "file": "shop/110.html",
     "reviews": [],
     "imageAlts": [
       "부산 동래구 온천동 포카리스웨디시 마사지 업체 사진"
@@ -12727,7 +12727,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=111",
+    "file": "shop/111.html",
     "reviews": [],
     "imageAlts": [
       "부산 부산진구 1인샵 송이지 마사지 업체 사진"
@@ -12792,7 +12792,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=112",
+    "file": "shop/112.html",
     "reviews": [],
     "imageAlts": [
       "서울 서초구 서초동 더라임 마사지 업체 사진"
@@ -12863,7 +12863,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=113",
+    "file": "shop/113.html",
     "reviews": [],
     "imageAlts": [
       "부산 동래구 1인샵 온 마사지 업체 사진"
@@ -12936,7 +12936,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=114",
+    "file": "shop/114.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 탄방동 봄테라피 마사지 업체 사진",
@@ -13090,7 +13090,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=115",
+    "file": "shop/115.html",
     "reviews": [],
     "imageAlts": [
       "경기 의정부시 의정부동 나나 스웨디시 마사지 업체 사진"
@@ -13160,7 +13160,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=116",
+    "file": "shop/116.html",
     "reviews": [],
     "imageAlts": [
       "서울 영등포구 엠에스테틱 마사지 업체 사진"
@@ -13319,7 +13319,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=117",
+    "file": "shop/117.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 굿모닝약손 마사지 업체 사진"
@@ -13459,7 +13459,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=118",
+    "file": "shop/118.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 대봉동 리치엔뷰티 마사지 업체 사진"
@@ -13535,7 +13535,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=119",
+    "file": "shop/119.html",
     "reviews": [],
     "imageAlts": [
       "경북 경주시 블리스 마사지 업체 사진"
@@ -13600,7 +13600,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=120",
+    "file": "shop/120.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 역삼동 강남 엔젤 마사지 업체 사진"
@@ -13676,7 +13676,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=121",
+    "file": "shop/121.html",
     "reviews": [],
     "imageAlts": [
       "충남 천안시 성정동 꽃테라피 마사지 업체 사진"
@@ -13747,7 +13747,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=122",
+    "file": "shop/122.html",
     "reviews": [],
     "imageAlts": [
       "충북 청주시 오창읍 더샵테라피 마사지 업체 사진"
@@ -13817,7 +13817,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=123",
+    "file": "shop/123.html",
     "reviews": [],
     "imageAlts": [
       "서울 동작구 사당동 골드문 마사지 업체 사진"
@@ -13928,7 +13928,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=124",
+    "file": "shop/124.html",
     "reviews": [],
     "imageAlts": [
       "서울 송파구 문정동 라보떼 마사지 업체 사진"
@@ -14000,7 +14000,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=125",
+    "file": "shop/125.html",
     "reviews": [],
     "imageAlts": [
       "전북 전주시 효자동 시크릿 마사지 업체 사진",
@@ -14046,7 +14046,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=126",
+    "file": "shop/126.html",
     "reviews": [],
     "imageAlts": [
       "제주 연동 쁨스웨디시 마사지 업체 사진"
@@ -14111,7 +14111,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=127",
+    "file": "shop/127.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 인계동 아벨스웨디시 마사지 업체 사진"
@@ -14192,7 +14192,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=128",
+    "file": "shop/128.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 삼산동 디아나스웨디시 마사지 업체 사진"
@@ -14273,7 +14273,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=129",
+    "file": "shop/129.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 레드스웨디시 마사지 업체 사진"
@@ -14361,7 +14361,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=130",
+    "file": "shop/130.html",
     "reviews": [],
     "imageAlts": [
       "서울 마포구 도화동 체리테라피 마사지 업체 사진"
@@ -14408,7 +14408,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=131",
+    "file": "shop/131.html",
     "reviews": [],
     "imageAlts": [
       "서울 노원구 중계동 자이언트 마사지 업체 사진"
@@ -14593,7 +14593,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=132",
+    "file": "shop/132.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 명동 코리아에스테틱 마사지 업체 사진"
@@ -14688,7 +14688,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=133",
+    "file": "shop/133.html",
     "reviews": [],
     "imageAlts": [
       "서울 양천구 신정동 골드약손 마사지 업체 사진"
@@ -14778,7 +14778,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=134",
+    "file": "shop/134.html",
     "reviews": [],
     "imageAlts": [
       "서울 종로구 내수동 미스터스파(대호사우나) 마사지 업체 사진"
@@ -14867,7 +14867,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=135",
+    "file": "shop/135.html",
     "reviews": [],
     "imageAlts": [
       "인천 계양구 도두리 궁테라피 마사지 업체 사진",
@@ -14928,7 +14928,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=136",
+    "file": "shop/136.html",
     "reviews": [],
     "imageAlts": [
       "경기 하남시 에코테라피 마사지 업체 사진"
@@ -15004,7 +15004,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=137",
+    "file": "shop/137.html",
     "reviews": [],
     "imageAlts": [
       "충북 청주시 율량동 벤츠스웨디시 마사지 업체 사진"
@@ -15130,7 +15130,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=138",
+    "file": "shop/138.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 명동 스킨스파 마사지 업체 사진"
@@ -15196,7 +15196,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=139",
+    "file": "shop/139.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 종로스웨디시 마사지 업체 사진"
@@ -15267,7 +15267,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=140",
+    "file": "shop/140.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 삼산동 미스띠꼬 마사지 업체 사진"
@@ -15333,7 +15333,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=141",
+    "file": "shop/141.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 1인샵세희 마사지 업체 사진"
@@ -15415,7 +15415,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=142",
+    "file": "shop/142.html",
     "reviews": [],
     "imageAlts": [
       "충남 천안시 사와디전통타이 마사지 업체 사진"
@@ -15481,7 +15481,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=143",
+    "file": "shop/143.html",
     "reviews": [],
     "imageAlts": [
       "인천 부평구 부평동 1인샵고운 마사지 업체 사진"
@@ -15581,7 +15581,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=144",
+    "file": "shop/144.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 덕산동 블랙비 마사지 업체 사진"
@@ -15686,7 +15686,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=145",
+    "file": "shop/145.html",
     "reviews": [],
     "imageAlts": [
       "광주 남구 봉선동 마이타이 마사지 업체 사진"
@@ -15734,7 +15734,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=146",
+    "file": "shop/146.html",
     "reviews": [],
     "imageAlts": [
       "서울 동작구 상도동 혜미약손 마사지 업체 사진"
@@ -15833,7 +15833,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=147",
+    "file": "shop/147.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 하이뷰티 마사지 업체 사진"
@@ -15932,7 +15932,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=148",
+    "file": "shop/148.html",
     "reviews": [],
     "imageAlts": [
       "전북 전주시 타이월드 마사지 업체 사진"
@@ -16014,7 +16014,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=149",
+    "file": "shop/149.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 125더테라피 마사지 업체 사진"
@@ -16128,7 +16128,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=150",
+    "file": "shop/150.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 콘타이 마사지 업체 사진"
@@ -16215,7 +16215,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=151",
+    "file": "shop/151.html",
     "reviews": [],
     "imageAlts": [
       "울산 울주군 온산읍 청담타이마사지 마사지 업체 사진"
@@ -16262,7 +16262,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=152",
+    "file": "shop/152.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 라온타이 마사지 업체 사진"
@@ -16368,7 +16368,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=153",
+    "file": "shop/153.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 퍼스트타이 마사지 업체 사진"
@@ -16485,7 +16485,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=154",
+    "file": "shop/154.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 삼산동 창타이 마사지 업체 사진"
@@ -16614,7 +16614,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=155",
+    "file": "shop/155.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 더마루타이 마사지 업체 사진"
@@ -16729,7 +16729,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=156",
+    "file": "shop/156.html",
     "reviews": [],
     "imageAlts": [
       "울산 동구 일산동 예진테라피 마사지 업체 사진"
@@ -16854,7 +16854,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=157",
+    "file": "shop/157.html",
     "reviews": [],
     "imageAlts": [
       "울산 동구 폰타이테라피 마사지 업체 사진"
@@ -16948,7 +16948,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=158",
+    "file": "shop/158.html",
     "reviews": [],
     "imageAlts": [
       "울산 동구 방어동 그린타이마사지 마사지 업체 사진"
@@ -17058,7 +17058,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=159",
+    "file": "shop/159.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 팜팜마사지 마사지 업체 사진"
@@ -17213,7 +17213,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=160",
+    "file": "shop/160.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 마이타이 마사지 업체 사진"
@@ -17337,7 +17337,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=161",
+    "file": "shop/161.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 둔산동 밍스파 마사지 업체 사진"
@@ -17431,7 +17431,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=162",
+    "file": "shop/162.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 라온스파 마사지 업체 사진"
@@ -17623,7 +17623,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=163",
+    "file": "shop/163.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 골드타이아로마 마사지 업체 사진"
@@ -17738,7 +17738,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=164",
+    "file": "shop/164.html",
     "reviews": [],
     "imageAlts": [
       "대전 중구 대흥동 힐링케어테라피 마사지 업체 사진"
@@ -17785,7 +17785,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=165",
+    "file": "shop/165.html",
     "reviews": [],
     "imageAlts": [
       "경기 광명시 일직동 제인바디샵 마사지 업체 사진"
@@ -17832,7 +17832,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=166",
+    "file": "shop/166.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 휴스톤아로마 마사지 업체 사진"
@@ -17914,7 +17914,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=167",
+    "file": "shop/167.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 오감타이 마사지 업체 사진"
@@ -18043,7 +18043,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=168",
+    "file": "shop/168.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 홍 중국전통샾 마사지 업체 사진"
@@ -18102,7 +18102,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=169",
+    "file": "shop/169.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 산북동 1인샵비너스 마사지 업체 사진"
@@ -18194,7 +18194,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=170",
+    "file": "shop/170.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 중국더샵 마사지 업체 사진"
@@ -18289,7 +18289,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=171",
+    "file": "shop/171.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 수송동 썬타이스파 마사지 업체 사진"
@@ -18382,7 +18382,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=172",
+    "file": "shop/172.html",
     "reviews": [],
     "imageAlts": [
       "경기 의정부시 호원동 수코타이 마사지 업체 사진"
@@ -18476,7 +18476,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=173",
+    "file": "shop/173.html",
     "reviews": [],
     "imageAlts": [
       "경기 의정부시 LAB아로마 마사지 업체 사진"
@@ -18570,7 +18570,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=174",
+    "file": "shop/174.html",
     "reviews": [],
     "imageAlts": [
       "서울 의정부시 힐링왓포타이 마사지 업체 사진"
@@ -18761,7 +18761,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=175",
+    "file": "shop/175.html",
     "reviews": [],
     "imageAlts": [
       "경기 의정부시 스마일타이 마사지 업체 사진"
@@ -18871,7 +18871,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=176",
+    "file": "shop/176.html",
     "reviews": [],
     "imageAlts": [
       "경기 포천시 소흘읍 마사지이야기 마사지 업체 사진"
@@ -18970,7 +18970,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=177",
+    "file": "shop/177.html",
     "reviews": [],
     "imageAlts": [
       "서울 송파구 삼전동 베스트아로마 마사지 업체 사진"
@@ -19035,7 +19035,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=178",
+    "file": "shop/178.html",
     "reviews": [],
     "imageAlts": [
       "경남 진주시 시크릿 마사지 업체 사진"
@@ -19198,7 +19198,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=179",
+    "file": "shop/179.html",
     "reviews": [],
     "imageAlts": [
       "경기 포천시 소흘읍 차이나풋샵 마사지 업체 사진"
@@ -19287,7 +19287,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=180",
+    "file": "shop/180.html",
     "reviews": [],
     "imageAlts": [
       "경남 거제시 장평동 골드테라피 마사지 업체 사진"
@@ -19335,7 +19335,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=181",
+    "file": "shop/181.html",
     "reviews": [],
     "imageAlts": [
       "경기 양주시 광적면 왓포마사지 마사지 업체 사진",
@@ -19451,7 +19451,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=182",
+    "file": "shop/182.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 초월읍 수전통마사지 마사지 업체 사진"
@@ -19499,7 +19499,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=183",
+    "file": "shop/183.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 뷰가론 마사지 업체 사진"
@@ -19594,7 +19594,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=184",
+    "file": "shop/184.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 곤지암읍 아리수마사지 마사지 업체 사진"
@@ -19677,7 +19677,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=185",
+    "file": "shop/185.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 오포읍 쿤타이 마사지 업체 사진"
@@ -19794,7 +19794,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=186",
+    "file": "shop/186.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 오포읍 창타이테라피 마사지 업체 사진"
@@ -19877,7 +19877,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=187",
+    "file": "shop/187.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 경안동 태국힐링마사지 마사지 업체 사진"
@@ -19924,7 +19924,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=188",
+    "file": "shop/188.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 골드문타이 마사지 업체 사진"
@@ -19971,7 +19971,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=189",
+    "file": "shop/189.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 수코타이 마사지 업체 사진"
@@ -20037,7 +20037,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=190",
+    "file": "shop/190.html",
     "reviews": [],
     "imageAlts": [
       "경북 구미시 인동 오션아로마 마사지 업체 사진"
@@ -20085,7 +20085,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=191",
+    "file": "shop/191.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 휴타이마사지 마사지 업체 사진"
@@ -20178,7 +20178,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=192",
+    "file": "shop/192.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 해오름마사지 마사지 업체 사진"
@@ -20272,7 +20272,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=193",
+    "file": "shop/193.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 VIP타이 마사지 업체 사진"
@@ -20319,7 +20319,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=194",
+    "file": "shop/194.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 웰빙수타이 마사지 업체 사진"
@@ -20425,7 +20425,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=195",
+    "file": "shop/195.html",
     "reviews": [],
     "imageAlts": [
       "경기 군포시 타이피아나나 마사지 업체 사진"
@@ -20574,7 +20574,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=196",
+    "file": "shop/196.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 퀵피부&바디힐링 마사지 업체 사진"
@@ -20656,7 +20656,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=197",
+    "file": "shop/197.html",
     "reviews": [],
     "imageAlts": [
       "경기 군포시 리안마사지 마사지 업체 사진"
@@ -20738,7 +20738,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=198",
+    "file": "shop/198.html",
     "reviews": [],
     "imageAlts": [
       "경기 군포시 전통힐링샵 마사지 업체 사진"
@@ -20879,7 +20879,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=199",
+    "file": "shop/199.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 다산동 킹덤마사지 마사지 업체 사진"
@@ -20925,7 +20925,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=200",
+    "file": "shop/200.html",
     "reviews": [],
     "imageAlts": [
       "서울 종로구 퍼펙트 마사지 업체 사진",
@@ -21019,7 +21019,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=201",
+    "file": "shop/201.html",
     "reviews": [],
     "imageAlts": [
       "부산 동래구 1인샵온 마사지 업체 사진"
@@ -21102,7 +21102,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=202",
+    "file": "shop/202.html",
     "reviews": [],
     "imageAlts": [
       "광주 남구 월산동 정아로마 마사지 업체 사진"
@@ -21150,7 +21150,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=203",
+    "file": "shop/203.html",
     "reviews": [],
     "imageAlts": [
       "경기 동두천시 생연동 왁싱퀸즈 마사지 업체 사진"
@@ -21195,7 +21195,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=204",
+    "file": "shop/204.html",
     "reviews": [],
     "imageAlts": [
       "서울 노원구 상계동 뉴욕스웨디시 마사지 업체 사진"
@@ -21266,7 +21266,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=205",
+    "file": "shop/205.html",
     "reviews": [],
     "imageAlts": [
       "강원 강릉시 교동 더바디 마사지 업체 사진"
@@ -21423,7 +21423,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=206",
+    "file": "shop/206.html",
     "reviews": [],
     "imageAlts": [
       "경기 안성시 석정동 타이킹 마사지 업체 사진"
@@ -21570,7 +21570,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=207",
+    "file": "shop/207.html",
     "reviews": [],
     "imageAlts": [
       "경기 안성시 공도읍 힐링하우스 마사지 업체 사진"
@@ -21652,7 +21652,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=208",
+    "file": "shop/208.html",
     "reviews": [],
     "imageAlts": [
       "서울 안성시 석정동 중국정통 마사지 업체 사진"
@@ -21757,7 +21757,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=209",
+    "file": "shop/209.html",
     "reviews": [],
     "imageAlts": [
       "경기 오산시 더테라피 마사지 업체 사진"
@@ -21827,7 +21827,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=210",
+    "file": "shop/210.html",
     "reviews": [],
     "imageAlts": [
       "서울 서초구 서초동 로얄스웨디시 마사지 업체 사진"
@@ -21964,7 +21964,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=211",
+    "file": "shop/211.html",
     "reviews": [],
     "imageAlts": [
       "경기 오산시 더피플 마사지 업체 사진"
@@ -22012,7 +22012,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=212",
+    "file": "shop/212.html",
     "reviews": [],
     "imageAlts": [
       "경기 오산시 고현동 그레이슈가링 마사지 업체 사진"
@@ -22078,7 +22078,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=213",
+    "file": "shop/213.html",
     "reviews": [],
     "imageAlts": [
       "경기 의왕시 블루테라피 마사지 업체 사진"
@@ -22137,7 +22137,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=214",
+    "file": "shop/214.html",
     "reviews": [],
     "imageAlts": [
       "전북 전주시 썸아로마 마사지 업체 사진"
@@ -22208,7 +22208,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=215",
+    "file": "shop/215.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 대치동 아만스웨디시 마사지 업체 사진"
@@ -22301,7 +22301,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=216",
+    "file": "shop/216.html",
     "reviews": [],
     "imageAlts": [
       "부산 금정구 남산동 므앙타이 마사지 업체 사진"
@@ -22367,7 +22367,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=217",
+    "file": "shop/217.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 일산동 션샤인 마사지 업체 사진"
@@ -22495,7 +22495,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=218",
+    "file": "shop/218.html",
     "reviews": [],
     "imageAlts": [
       "서울 동작구 사당동 휴힐링 마사지 업체 사진"
@@ -22638,7 +22638,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=219",
+    "file": "shop/219.html",
     "reviews": [],
     "imageAlts": [
       "경기 부천시 중동 부천COZY 마사지 업체 사진"
@@ -22704,7 +22704,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=220",
+    "file": "shop/220.html",
     "reviews": [],
     "imageAlts": [
       "경북 구미시 진평동 솜테라피 마사지 업체 사진"
@@ -22770,7 +22770,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=221",
+    "file": "shop/221.html",
     "reviews": [],
     "imageAlts": [
       "서울 송파구 잠실동 보타닉스웨디시 마사지 업체 사진"
@@ -22853,7 +22853,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=222",
+    "file": "shop/222.html",
     "reviews": [],
     "imageAlts": [
       "경기 안산시 본오동 더가뿐체형관리 마사지 업체 사진"
@@ -22953,7 +22953,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=223",
+    "file": "shop/223.html",
     "reviews": [],
     "imageAlts": [
       "경북 포항시 죽도동 로이타이 마사지 업체 사진"
@@ -23052,7 +23052,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=224",
+    "file": "shop/224.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 신당동 우리테라피 마사지 업체 사진"
@@ -23192,7 +23192,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=225",
+    "file": "shop/225.html",
     "reviews": [],
     "imageAlts": [
       "제주 제주시 노형동 두손아로마 마사지 업체 사진"
@@ -23285,7 +23285,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=226",
+    "file": "shop/226.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 유촌동 굿데이마사지 마사지 업체 사진"
@@ -23409,7 +23409,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=227",
+    "file": "shop/227.html",
     "reviews": [],
     "imageAlts": [
       "광주 광산구 흑석동 궁전타이아로마 마사지 업체 사진"
@@ -23479,7 +23479,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=228",
+    "file": "shop/228.html",
     "reviews": [],
     "imageAlts": [
       "경남 김해시 김해1인샵 해은 마사지 업체 사진"
@@ -23590,7 +23590,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=229",
+    "file": "shop/229.html",
     "reviews": [],
     "imageAlts": [
       "광주 북구 문흥동 넥타이 마사지 업체 사진"
@@ -23662,7 +23662,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=230",
+    "file": "shop/230.html",
     "reviews": [],
     "imageAlts": [
       "경기 고양시 일산동 힐링테라피 마사지 업체 사진"
@@ -23732,7 +23732,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=231",
+    "file": "shop/231.html",
     "reviews": [],
     "imageAlts": [
       "부산 동래구 온천동 칸스포츠아로마 마사지 업체 사진"
@@ -23955,7 +23955,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=232",
+    "file": "shop/232.html",
     "reviews": [],
     "imageAlts": [
       "서울 원정출장 출장마사지 업체 사진"
@@ -24032,7 +24032,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=233",
+    "file": "shop/233.html",
     "reviews": [],
     "imageAlts": [
       "부산 부산진구 인자이 마사지 업체 사진"
@@ -24103,7 +24103,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=234",
+    "file": "shop/234.html",
     "reviews": [],
     "imageAlts": [
       "서울 관악구 신림동 릴렉스 마사지 업체 사진"
@@ -24197,7 +24197,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=235",
+    "file": "shop/235.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 동인동 벨테라피 마사지 업체 사진"
@@ -24411,7 +24411,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=236",
+    "file": "shop/236.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 치평동 VIP테라피 마사지 업체 사진"
@@ -24476,7 +24476,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=237",
+    "file": "shop/237.html",
     "reviews": [],
     "imageAlts": [
       "세종 세종특별자치시 스웨덴정통 마사지 업체 사진"
@@ -24558,7 +24558,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=238",
+    "file": "shop/238.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 초월읍 황실테라피 마사지 업체 사진"
@@ -24640,7 +24640,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=239",
+    "file": "shop/239.html",
     "reviews": [],
     "imageAlts": [
       "경남 양산시 물금읍 1인샵 더수 마사지 업체 사진"
@@ -24705,7 +24705,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=240",
+    "file": "shop/240.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 영화동 7테라피 마사지 업체 사진"
@@ -24783,7 +24783,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=241",
+    "file": "shop/241.html",
     "reviews": [],
     "imageAlts": [
       "서울 마포구 동교동 더퀸 마사지 업체 사진"
@@ -24900,7 +24900,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=242",
+    "file": "shop/242.html",
     "reviews": [],
     "imageAlts": [
       "서울 강동구 강동 라인테라피 마사지 업체 사진"
@@ -25037,7 +25037,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=243",
+    "file": "shop/243.html",
     "reviews": [],
     "imageAlts": [
       "서울 강동구 강동 예향전통마사지 마사지 업체 사진"
@@ -25140,7 +25140,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=244",
+    "file": "shop/244.html",
     "reviews": [],
     "imageAlts": [
       "인천 남동구 남동 더킹스웨디시 마사지 업체 사진"
@@ -25223,7 +25223,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=245",
+    "file": "shop/245.html",
     "reviews": [],
     "imageAlts": [
       "서울 강동구 강동 청담수타이 마사지 업체 사진"
@@ -25342,7 +25342,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=246",
+    "file": "shop/246.html",
     "reviews": [],
     "imageAlts": [
       "전남 여수시 여서동 왓포테라피 마사지 업체 사진"
@@ -25440,7 +25440,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=247",
+    "file": "shop/247.html",
     "reviews": [],
     "imageAlts": [
       "경남 창원시 중앙동 1인샵소이 마사지 업체 사진"
@@ -25535,7 +25535,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=248",
+    "file": "shop/248.html",
     "reviews": [],
     "imageAlts": [
       "광주 광산구 수완동 궁마사지 마사지 업체 사진",
@@ -25636,7 +25636,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=249",
+    "file": "shop/249.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 홍중국마사지 마사지 업체 사진"
@@ -25730,7 +25730,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=250",
+    "file": "shop/250.html",
     "reviews": [],
     "imageAlts": [
       "광주 북구 신용동 발리마사지 마사지 업체 사진"
@@ -25856,7 +25856,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=251",
+    "file": "shop/251.html",
     "reviews": [],
     "imageAlts": [
       "광주 북구 용봉동 리본더타이 마사지 업체 사진"
@@ -25950,7 +25950,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=252",
+    "file": "shop/252.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 지곡동 휴테라피 마사지 업체 사진"
@@ -25995,7 +25995,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=253",
+    "file": "shop/253.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 금곡동 수원샾테라피 마사지 업체 사진"
@@ -26043,7 +26043,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=254",
+    "file": "shop/254.html",
     "reviews": [],
     "imageAlts": [
       "서울 강서구 마곡2인샵 소진&예슬 마사지 업체 사진"
@@ -26114,7 +26114,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=255",
+    "file": "shop/255.html",
     "reviews": [],
     "imageAlts": [
       "서울 동대문구 1인샵가희 마사지 업체 사진"
@@ -26271,7 +26271,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=256",
+    "file": "shop/256.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 정동 ST타이마사지 마사지 업체 사진"
@@ -26422,7 +26422,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=257",
+    "file": "shop/257.html",
     "reviews": [],
     "imageAlts": [
       "부산 중구 중앙동 샤인타이 마사지 업체 사진"
@@ -26499,7 +26499,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=258",
+    "file": "shop/258.html",
     "reviews": [],
     "imageAlts": [
       "경기 용인시 마북동 리프레쉬 마사지 업체 사진"
@@ -26613,7 +26613,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=259",
+    "file": "shop/259.html",
     "reviews": [],
     "imageAlts": [
       "경기 성남시 수진동 더고은스웨디시 마사지 업체 사진"
@@ -26684,7 +26684,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=260",
+    "file": "shop/260.html",
     "reviews": [],
     "imageAlts": [
       "울산 남구 달동 제이스웨디시 마사지 업체 사진"
@@ -26783,7 +26783,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=261",
+    "file": "shop/261.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 k타이아로마 마사지 업체 사진"
@@ -26830,7 +26830,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=262",
+    "file": "shop/262.html",
     "reviews": [],
     "imageAlts": [
       "전남 순천시 누왓타이아로마 마사지 업체 사진"
@@ -26995,7 +26995,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=263",
+    "file": "shop/263.html",
     "reviews": [],
     "imageAlts": [
       "서울 일본홈타이 출장마사지 업체 사진"
@@ -27112,7 +27112,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=264",
+    "file": "shop/264.html",
     "reviews": [],
     "imageAlts": [
       "부산 사상구 더타이 마사지 업체 사진",
@@ -27264,7 +27264,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=265",
+    "file": "shop/265.html",
     "reviews": [],
     "imageAlts": [
       "경북 포항시 해도동 수림중국마사지 마사지 업체 사진"
@@ -27323,7 +27323,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=266",
+    "file": "shop/266.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 1인샵초이스 마사지 업체 사진"
@@ -27587,7 +27587,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=267",
+    "file": "shop/267.html",
     "reviews": [],
     "imageAlts": [
       "서울 중구 명동 코리아왁싱 마사지 업체 사진"
@@ -27670,7 +27670,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=268",
+    "file": "shop/268.html",
     "reviews": [],
     "imageAlts": [
       "전남 목포시 용해동 휴 타이아로마 마사지 업체 사진"
@@ -27753,7 +27753,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=269",
+    "file": "shop/269.html",
     "reviews": [],
     "imageAlts": [
       "전남 목포시 상동 하이타이 마사지 업체 사진"
@@ -27836,7 +27836,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=270",
+    "file": "shop/270.html",
     "reviews": [],
     "imageAlts": [
       "전남 목포시 산정동 썸 타이아로마 마사지 업체 사진"
@@ -27896,7 +27896,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=271",
+    "file": "shop/271.html",
     "reviews": [],
     "imageAlts": [
       "경기 동두천시 지행동 더청담스웨디시 마사지 업체 사진"
@@ -27979,7 +27979,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=272",
+    "file": "shop/272.html",
     "reviews": [],
     "imageAlts": [
       "전남 여수시 소라면 제이아로마 마사지 업체 사진"
@@ -28062,7 +28062,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=273",
+    "file": "shop/273.html",
     "reviews": [],
     "imageAlts": [
       "전남 여수시 화장동 궁테라피마사지 마사지 업체 사진"
@@ -28128,7 +28128,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=274",
+    "file": "shop/274.html",
     "reviews": [],
     "imageAlts": [
       "서울 구로구 구로동 디지털스웨디시 마사지 업체 사진"
@@ -28176,7 +28176,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=275",
+    "file": "shop/275.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 쌍촌동 몽타이 마사지 업체 사진"
@@ -28280,7 +28280,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=276",
+    "file": "shop/276.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 쌍촌동 라온아로마 마사지 업체 사진"
@@ -28369,7 +28369,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=277",
+    "file": "shop/277.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 진접읍 골드스웨디시 마사지 업체 사진"
@@ -28463,7 +28463,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=278",
+    "file": "shop/278.html",
     "reviews": [],
     "imageAlts": [
       "광주 동구 산수동 두암마사지 마사지 업체 사진"
@@ -28589,7 +28589,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=279",
+    "file": "shop/279.html",
     "reviews": [],
     "imageAlts": [
       "광주 서구 푸켓타이 마사지 업체 사진"
@@ -28672,7 +28672,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=280",
+    "file": "shop/280.html",
     "reviews": [],
     "imageAlts": [
       "광주 광주시 신현동 아룬타이 마사지 업체 사진"
@@ -28720,7 +28720,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=281",
+    "file": "shop/281.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 힐링타이마사지 마사지 업체 사진"
@@ -28786,7 +28786,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=282",
+    "file": "shop/282.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 비비 마사지 업체 사진"
@@ -28845,7 +28845,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=283",
+    "file": "shop/283.html",
     "reviews": [],
     "imageAlts": [
       "광주 북구 중흥동 1인샵 핑크벨리 마사지 업체 사진"
@@ -29051,7 +29051,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=284",
+    "file": "shop/284.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 이의동 본테라피 마사지 업체 사진"
@@ -29140,7 +29140,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=285",
+    "file": "shop/285.html",
     "reviews": [],
     "imageAlts": [
       "경기 파주시 야당동 나움테라피 마사지 업체 사진"
@@ -29234,7 +29234,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=286",
+    "file": "shop/286.html",
     "reviews": [],
     "imageAlts": [
       "울산 중구 성남동 타이앤아로마 마사지 업체 사진"
@@ -29370,7 +29370,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=287",
+    "file": "shop/287.html",
     "reviews": [],
     "imageAlts": [
       "부산 강서구 명지동 헬스타이랜드 마사지 업체 사진"
@@ -29540,7 +29540,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=288",
+    "file": "shop/288.html",
     "reviews": [],
     "imageAlts": [
       "부산 강서구 명지동 창아로마테라피 마사지 업체 사진"
@@ -29647,7 +29647,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=289",
+    "file": "shop/289.html",
     "reviews": [],
     "imageAlts": [
       "부산 강서구 신호동 더타이 마사지 업체 사진"
@@ -29752,7 +29752,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=290",
+    "file": "shop/290.html",
     "reviews": [],
     "imageAlts": [
       "전북 군산시 나운동 돌체아로마테라피 마사지 업체 사진"
@@ -29834,7 +29834,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=291",
+    "file": "shop/291.html",
     "reviews": [],
     "imageAlts": [
       "서울 중랑구 상봉동 1인샵연주 마사지 업체 사진"
@@ -29941,7 +29941,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=292",
+    "file": "shop/292.html",
     "reviews": [],
     "imageAlts": [
       "광주 북구 양산동 킹타이아로마 마사지 업체 사진"
@@ -30024,7 +30024,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=293",
+    "file": "shop/293.html",
     "reviews": [],
     "imageAlts": [
       "광주 북구 일곡동 마이타이 마사지 업체 사진"
@@ -30175,7 +30175,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=294",
+    "file": "shop/294.html",
     "reviews": [],
     "imageAlts": [
       "서울 강동구 강동 파라나타이 마사지 업체 사진"
@@ -30258,7 +30258,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=295",
+    "file": "shop/295.html",
     "reviews": [],
     "imageAlts": [
       "전남 목포시 보광동 힐링건강아로마 마사지 업체 사진"
@@ -30341,7 +30341,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=296",
+    "file": "shop/296.html",
     "reviews": [],
     "imageAlts": [
       "경기 구리시 구리 힐링스웨디시 마사지 업체 사진"
@@ -30407,7 +30407,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=297",
+    "file": "shop/297.html",
     "reviews": [],
     "imageAlts": [
       "충북 충주시 연수동 궁 마사지 마사지 업체 사진"
@@ -30553,7 +30553,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=298",
+    "file": "shop/298.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 다산동 쿤타이 마사지 업체 사진"
@@ -30612,7 +30612,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=299",
+    "file": "shop/299.html",
     "reviews": [],
     "imageAlts": [
       "부산 남구 대연동 1인샵우유 마사지 업체 사진"
@@ -30706,7 +30706,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=300",
+    "file": "shop/300.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 동호동 킹타이 마사지 업체 사진"
@@ -30801,7 +30801,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=301",
+    "file": "shop/301.html",
     "reviews": [],
     "imageAlts": [
       "경기 오산시 오산동 w왁싱 마사지 업체 사진"
@@ -30872,7 +30872,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=302",
+    "file": "shop/302.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 인계동 핑크테라피 마사지 업체 사진"
@@ -30967,7 +30967,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=303",
+    "file": "shop/303.html",
     "reviews": [],
     "imageAlts": [
       "경기 양주시 옥정동 힐링타이마사지 마사지 업체 사진"
@@ -31045,7 +31045,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=304",
+    "file": "shop/304.html",
     "reviews": [],
     "imageAlts": [
       "경기 성남시 정자동 봄테라피 마사지 업체 사진"
@@ -31128,7 +31128,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=305",
+    "file": "shop/305.html",
     "reviews": [],
     "imageAlts": [
       "서울 강동구 강동 더벤타이 마사지 업체 사진"
@@ -31199,7 +31199,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=306",
+    "file": "shop/306.html",
     "reviews": [],
     "imageAlts": [
       "서울 마포구 동교동 골드아로마 마사지 업체 사진"
@@ -31265,7 +31265,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=307",
+    "file": "shop/307.html",
     "reviews": [],
     "imageAlts": [
       "서울 동대문구 용두동 란테라피 마사지 업체 사진"
@@ -31376,7 +31376,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=308",
+    "file": "shop/308.html",
     "reviews": [],
     "imageAlts": [
       "광주 광산구 장덕동 수완마사지 마사지 업체 사진"
@@ -31617,7 +31617,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=309",
+    "file": "shop/309.html",
     "reviews": [],
     "imageAlts": [
       "부산 남구 대연동 킹덤아로마 마사지 업체 사진"
@@ -31732,7 +31732,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=310",
+    "file": "shop/310.html",
     "reviews": [],
     "imageAlts": [
       "경기 남양주시 호평동 월바디케어샵 마사지 업체 사진"
@@ -31798,7 +31798,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=311",
+    "file": "shop/311.html",
     "reviews": [],
     "imageAlts": [
       "경기 수원시 인계동 아이테라피 마사지 업체 사진"
@@ -31846,7 +31846,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=312",
+    "file": "shop/312.html",
     "reviews": [],
     "imageAlts": [
       "부산 동구 범일동 엘스파 마사지 업체 사진"
@@ -31973,7 +31973,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=313",
+    "file": "shop/313.html",
     "reviews": [],
     "imageAlts": [
       "부산 중구 부평동 챔피언아로마 마사지 업체 사진"
@@ -32056,7 +32056,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=314",
+    "file": "shop/314.html",
     "reviews": [],
     "imageAlts": [
       "부산 강서구 명지동 능타이 마사지 업체 사진"
@@ -32104,7 +32104,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=315",
+    "file": "shop/315.html",
     "reviews": [],
     "imageAlts": [
       "부산 동래구 사직동 사직 더타이 마사지 업체 사진"
@@ -32208,7 +32208,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=316",
+    "file": "shop/316.html",
     "reviews": [],
     "imageAlts": [
       "부산 남구 대연동 타이야 마사지 업체 사진"
@@ -32353,7 +32353,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=317",
+    "file": "shop/317.html",
     "reviews": [],
     "imageAlts": [
       "서울 관악구 신림동 휴테라피 마사지 업체 사진"
@@ -32489,7 +32489,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=318",
+    "file": "shop/318.html",
     "reviews": [],
     "imageAlts": [
       "서울 관악구 봉천동 중국정통 청룡 발관리 마사지 업체 사진"
@@ -32560,7 +32560,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=319",
+    "file": "shop/319.html",
     "reviews": [],
     "imageAlts": [
       "서울 강북구 수유동 다원스웨디시 마사지 업체 사진"
@@ -32675,7 +32675,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=320",
+    "file": "shop/320.html",
     "reviews": [],
     "imageAlts": [
       "서울 강북구 블루타이테라피 마사지 업체 사진"
@@ -32779,7 +32779,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=321",
+    "file": "shop/321.html",
     "reviews": [],
     "imageAlts": [
       "서울 강북구 수유동 쿤타이 마사지 업체 사진"
@@ -32872,7 +32872,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=322",
+    "file": "shop/322.html",
     "reviews": [],
     "imageAlts": [
       "경기 양주시 옥정동 베라스웨디시 마사지 업체 사진"
@@ -32932,7 +32932,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=323",
+    "file": "shop/323.html",
     "reviews": [],
     "imageAlts": [
       "경기 양주시 옥정동 엘테라피 마사지 업체 사진"
@@ -33036,7 +33036,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=324",
+    "file": "shop/324.html",
     "reviews": [],
     "imageAlts": [
       "경기 양주시 옥정동 수 중국마사지 마사지 업체 사진"
@@ -33210,7 +33210,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=325",
+    "file": "shop/325.html",
     "reviews": [],
     "imageAlts": [
       "서울 송파구 문정동 1인샵 레이나 마사지 업체 사진"
@@ -33289,7 +33289,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=326",
+    "file": "shop/326.html",
     "reviews": [],
     "imageAlts": [
       "부산 사하구 감천동 1인샵 디테일 마사지 업체 사진"
@@ -33365,7 +33365,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=327",
+    "file": "shop/327.html",
     "reviews": [],
     "imageAlts": [
       "부산 동구 범일동 사바이 마사지 업체 사진"
@@ -33437,7 +33437,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=328",
+    "file": "shop/328.html",
     "reviews": [],
     "imageAlts": [
       "부산 사상구 괘법동 제니 마사지 업체 사진"
@@ -33525,7 +33525,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=329",
+    "file": "shop/329.html",
     "reviews": [],
     "imageAlts": [
       "부산 사하구 하단동 다은왁싱 마사지 업체 사진"
@@ -33585,7 +33585,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=330",
+    "file": "shop/330.html",
     "reviews": [],
     "imageAlts": [
       "서울 강남구 논현동 애플텐 마사지 업체 사진"
@@ -33673,7 +33673,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=331",
+    "file": "shop/331.html",
     "reviews": [],
     "imageAlts": [
       "부산 수영구 1인샵할리 마사지 업체 사진"
@@ -33761,7 +33761,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=332",
+    "file": "shop/332.html",
     "reviews": [],
     "imageAlts": [
       "부산 수영구 1인샵하니 마사지 업체 사진"
@@ -33855,7 +33855,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=333",
+    "file": "shop/333.html",
     "reviews": [],
     "imageAlts": [
       "경남 김해시 장유동 루브테라피 마사지 업체 사진"
@@ -33937,7 +33937,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=334",
+    "file": "shop/334.html",
     "reviews": [],
     "imageAlts": [
       "경남 김해시 내덕동 1인샵 로즈 마사지 업체 사진"
@@ -34210,7 +34210,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=335",
+    "file": "shop/335.html",
     "reviews": [],
     "imageAlts": [
       "대구 대구 상동 피티테라피 마사지 업체 사진"
@@ -34269,7 +34269,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=336",
+    "file": "shop/336.html",
     "reviews": [],
     "imageAlts": [
       "대전 서구 둔산동 애플 마사지 업체 사진"
@@ -34352,7 +34352,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=337",
+    "file": "shop/337.html",
     "reviews": [],
     "imageAlts": [
       "경기 부천시 다온약손마사지 마사지 업체 사진"
@@ -34417,7 +34417,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=338",
+    "file": "shop/338.html",
     "reviews": [],
     "imageAlts": [
       "경기 안양시 관양동 더샵스웨디시 마사지 업체 사진"
@@ -34545,7 +34545,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=339",
+    "file": "shop/339.html",
     "reviews": [],
     "imageAlts": [
       "경기 평택시 서정동 타이앤타이 마사지 업체 사진"
@@ -34626,7 +34626,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=340",
+    "file": "shop/340.html",
     "reviews": [],
     "imageAlts": [
       "경기 화성시 영천동 더케어테라피 마사지 업체 사진"
@@ -34692,7 +34692,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=341",
+    "file": "shop/341.html",
     "reviews": [],
     "imageAlts": [
       "서울 진안동 S테라피 마사지 업체 사진"
@@ -34773,7 +34773,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=342",
+    "file": "shop/342.html",
     "reviews": [],
     "imageAlts": [
       "경기 용인시 보정동 다이돌핀 마사지 업체 사진"
@@ -34850,7 +34850,7 @@ window.shopCardData = [
     "typeLabel": "",
     "showHealingShop": false,
     "greeting": "",
-    "file": "detail.html?id=343",
+    "file": "shop/343.html",
     "reviews": [],
     "imageAlts": [
       "충남 아산시 온천동 명테라피 마사지 업체 사진"
